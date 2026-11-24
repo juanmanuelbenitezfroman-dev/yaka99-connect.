@@ -4,195 +4,492 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<meta name="theme-color" content="#071329">
-<title>YAKA99 CONNECT</title>
+<meta name="theme-color" content="#070817">
+<title>YAKA99 CONNECT — INFINITY</title>
 <style>
+:root{
+ --bg:#070817;--panel:#10152b;--cyan:#00eaff;
+ --purple:#9b5cff;--pink:#ff48bd;--text:#f5f7ff;
+ --muted:#94a1c2;--border:#273052;
+}
 *{box-sizing:border-box}
+html{scroll-behavior:smooth}
 body{
- margin:0;background:#071329;color:#f5f8ff;
- font-family:Arial,sans-serif;
+ margin:0;background:var(--bg);color:var(--text);
+ font-family:Inter,Arial,sans-serif;
+ overflow-x:hidden;
 }
+body:before{
+ content:"";position:fixed;inset:0;pointer-events:none;
+ background:
+ radial-gradient(ellipse at 15% 5%,#183c7544,transparent 40%),
+ radial-gradient(ellipse at 90% 35%,#802b9c22,transparent 40%);
+ z-index:-1;
+}
+button,input,textarea{font:inherit}
+button{cursor:pointer}
 header{
- background:#0c1b39;padding:17px;
- border-bottom:1px solid #243d68;
- position:sticky;top:0;z-index:5;
+ position:sticky;top:0;z-index:50;
+ height:70px;padding:0 5%;
+ display:flex;align-items:center;justify-content:space-between;
+ background:#080b1ceF;backdrop-filter:blur(20px);
+ border-bottom:1px solid #263654;
 }
-.brand{font-size:25px;font-weight:900;color:#20c8ff}
-.brand span{color:white}
-.tag{font-size:12px;color:#a9bddf;margin-top:5px}
-.search{
- width:100%;padding:13px;margin-top:14px;
- border-radius:25px;border:1px solid #304a76;
- background:#17294a;color:white;font-size:15px;
+.logo{display:flex;align-items:center;gap:10px}
+.logo-icon{
+ width:43px;height:43px;border-radius:14px;
+ display:grid;place-items:center;font-size:24px;
+ font-weight:1000;color:#071020;
+ background:linear-gradient(135deg,#00f0ff,#7954ff,#ff48bd);
+ box-shadow:0 0 25px #00dfff66;
 }
-main{max-width:650px;margin:auto;padding:15px}
-.menu{
- display:flex;gap:9px;overflow-x:auto;
- padding:10px 0 16px;
+.logo h1{font-size:19px;letter-spacing:3px;margin:0}
+.logo small{display:block;color:var(--cyan);letter-spacing:4px;font-size:9px}
+.header-right{display:flex;align-items:center;gap:12px}
+.online{font-size:11px;color:#54ffc3}
+.profile{
+ width:37px;height:37px;border-radius:50%;
+ display:grid;place-items:center;
+ background:linear-gradient(135deg,#00dfff,#a34cff);
 }
-.menu a{
- color:#dceaff;text-decoration:none;
- background:#17294a;padding:11px 15px;
- border-radius:20px;white-space:nowrap;
- font-size:13px;
+.wrap{max-width:1300px;margin:auto;padding:20px 3%}
+.grid{
+ display:grid;grid-template-columns:210px minmax(0,1fr) 245px;
+ gap:18px;
 }
-.menu a.active{background:#087cf0;color:white}
-.card{
- background:linear-gradient(145deg,#142849,#101d38);
- border:1px solid #29436c;border-radius:17px;
- padding:17px;margin-bottom:16px;
+.panel{
+ background:linear-gradient(145deg,#131b34ed,#0d1226ed);
+ border:1px solid var(--border);
+ border-radius:19px;
+ box-shadow:0 10px 35px #0003;
 }
-h2{font-size:19px;margin:4px 0 12px}
-.muted{color:#a9bddf;font-size:13px}
+.side{padding:16px;height:max-content;position:sticky;top:85px}
+.nav{
+ display:block;padding:13px;margin:4px 0;
+ text-decoration:none;color:#aebbd9;
+ border-radius:11px;font-size:13px;
+ transition:.25s;
+}
+.nav:hover,.nav.active{
+ color:var(--cyan);background:#193052;
+ box-shadow:inset 3px 0 var(--cyan);
+}
+.nav span{margin-right:11px}
+.side-label{
+ font-size:10px;color:#627394;
+ letter-spacing:2px;margin:20px 12px 8px;
+}
+.hero{
+ min-height:330px;position:relative;overflow:hidden;
+ padding:30px;border-radius:23px;
+ border:1px solid #42538c;
+ background:
+ radial-gradient(circle at 75% 50%,#3952b477,transparent 30%),
+ radial-gradient(circle at 90% 5%,#b43f9d66,transparent 40%),
+ linear-gradient(120deg,#111b3a,#161032,#081d38);
+ box-shadow:0 0 45px #403bff22;
+}
+.hero:before{
+ content:"";position:absolute;width:260px;height:260px;
+ border:1px solid #00eaff44;border-radius:50%;
+ right:-55px;top:30px;
+ box-shadow:0 0 0 25px #00eaff08,0 0 0 55px #00eaff06;
+ animation:rotate 18s linear infinite;
+}
+.hero:after{
+ content:"99";position:absolute;right:30px;top:30px;
+ font-size:190px;font-weight:1000;
+ color:#ffffff0b;pointer-events:none;
+}
+@keyframes rotate{to{transform:rotate(360deg)}}
+.kicker{font-size:10px;letter-spacing:4px;color:var(--cyan)}
+.hero h2{
+ font-size:clamp(34px,6vw,59px);
+ line-height:1.03;margin:23px 0 13px;
+ position:relative;z-index:1;
+}
+.gradient{
+ background:linear-gradient(90deg,#00eaff,#a276ff,#ff65c8);
+ -webkit-background-clip:text;background-clip:text;color:transparent;
+}
+.hero p{color:#b6c4e2;line-height:1.7;max-width:430px}
+.btn{
+ border:0;border-radius:12px;padding:13px 19px;
+ color:#071020;font-weight:900;
+ background:linear-gradient(100deg,#00edff,#9b5cff);
+ box-shadow:0 0 25px #00dfff44;
+ transition:.2s;
+}
+.btn:hover{transform:translateY(-3px);filter:brightness(1.15)}
+.ghost{
+ background:#17233d;border:1px solid #3a5077;
+ color:white;box-shadow:none;
+}
+.stats{
+ display:grid;grid-template-columns:repeat(3,1fr);
+ gap:10px;margin:15px 0;
+}
+.stat{padding:14px;text-align:center}
+.stat strong{display:block;font-size:22px;color:var(--cyan)}
+.stat small{color:var(--muted);font-size:10px}
+.heading{
+ display:flex;justify-content:space-between;
+ align-items:center;margin:23px 2px 13px;
+}
+.heading h3{font-size:15px;margin:0}
+.heading span{font-size:10px;color:var(--cyan);letter-spacing:1px}
+.stories{
+ display:flex;gap:14px;overflow-x:auto;padding:5px 2px 17px;
+ scrollbar-width:none;
+}
+.stories::-webkit-scrollbar{display:none}
+.story{min-width:69px;text-align:center;font-size:11px;color:#b9c5e0}
+.story-ring{
+ width:65px;height:65px;margin:auto auto 8px;
+ padding:3px;border-radius:50%;
+ background:linear-gradient(140deg,#00edff,#a34cff,#ff48bd);
+ transition:.3s;
+}
+.story-ring:hover{transform:scale(1.1)}
+.story-inner{
+ height:100%;border:3px solid #11172d;border-radius:50%;
+ display:grid;place-items:center;font-size:24px;
+ background:#192541;
+}
+.composer{padding:17px}
 textarea{
- width:100%;height:90px;resize:vertical;
- border:1px solid #38547e;border-radius:12px;
- padding:13px;background:#0c1931;
- color:white;font-size:15px;
+ width:100%;min-height:80px;resize:vertical;
+ padding:14px;border-radius:12px;
+ background:#080d1c;border:1px solid #303c60;
+ color:white;outline:none;
 }
-button{
- border:0;border-radius:22px;padding:12px 19px;
- background:#087cf0;color:white;
- font-weight:bold;font-size:14px;
- cursor:pointer;
+textarea:focus{border-color:var(--cyan)}
+.compose-foot{
+ display:flex;justify-content:space-between;
+ align-items:center;margin-top:12px;
+ gap:8px;color:var(--muted);font-size:11px;
 }
-.publish{width:100%;margin-top:12px}
-.post{margin-top:15px}
-.posthead{display:flex;align-items:center;gap:11px}
+.post{padding:17px;margin-bottom:14px}
+.post-head{display:flex;align-items:center;gap:11px}
 .avatar{
  width:43px;height:43px;border-radius:50%;
- background:linear-gradient(135deg,#087cf0,#9a50ff);
- display:grid;place-items:center;font-size:22px;
+ display:grid;place-items:center;
+ background:linear-gradient(135deg,#00dfff,#814cff);
+ font-size:20px;
 }
-.postbody{line-height:1.5;margin:17px 0}
-.banner{
- background:linear-gradient(120deg,#0753c9,#642bd3);
- border-radius:13px;padding:28px 12px;
- text-align:center;margin:15px 0;
+.post-head strong{font-size:13px}
+.post-head small{display:block;color:var(--muted);margin-top:4px}
+.post-text{font-size:14px;line-height:1.7;color:#d8e1f6;margin:17px 0}
+.post-actions{display:flex;gap:8px;flex-wrap:wrap;border-top:1px solid var(--border);padding-top:13px}
+.action{
+ border:0;background:#19243d;color:#bdcce8;
+ border-radius:10px;padding:10px 13px;font-size:12px;
+ transition:.2s;
 }
-.banner strong{font-size:25px}
-.actions{
- display:flex;justify-content:space-around;
- flex-wrap:wrap;gap:8px;border-top:1px solid #30476b;
- padding-top:13px;
+.action:hover{background:#263c61}
+.action.liked{color:#ff61c4;background:#42213e}
+.right{padding:17px;margin-bottom:15px}
+.right h3{font-size:12px;color:var(--cyan);letter-spacing:1px}
+.trend{padding:12px 0;border-bottom:1px solid var(--border)}
+.trend small{font-size:10px;color:#7f91b5}
+.trend strong{display:block;margin-top:6px;font-size:13px}
+.person{display:flex;align-items:center;gap:9px;margin:14px 0}
+.person .avatar{width:36px;height:36px;font-size:15px}
+.person strong{font-size:12px}
+.person small{display:block;color:var(--muted);font-size:10px;margin-top:4px}
+.tag{color:#00eaff;background:#12304a;padding:6px;border-radius:7px;font-size:10px}
+footer{text-align:center;padding:30px;color:#637394;font-size:11px;letter-spacing:2px}
+.toast{
+ position:fixed;bottom:25px;left:50%;transform:translateX(-50%);
+ background:#172b49;border:1px solid var(--cyan);
+ padding:14px 20px;border-radius:14px;
+ display:none;z-index:100;box-shadow:0 0 25px #00dfff55;
+ font-size:13px;text-align:center;max-width:90%;
 }
-.actions button{
- background:#1c355b;padding:10px 13px;
+.reaction{
+ position:fixed;pointer-events:none;font-size:26px;
+ animation:float 1s ease-out forwards;z-index:100;
 }
-footer{text-align:center;color:#849cbd;padding:25px;font-size:12px}
+@keyframes float{
+ from{transform:translateY(0) scale(.5);opacity:1}
+ to{transform:translateY(-100px) scale(1.5);opacity:0}
+}
+@media(max-width:1000px){
+ .grid{grid-template-columns:175px minmax(0,1fr)}
+ .right-column{display:none}
+}
+@media(max-width:650px){
+ header{height:65px;padding:0 14px}
+ .logo h1{font-size:16px}
+ .header-right .online{display:none}
+ .wrap{padding:12px}
+ .grid{display:block}
+ .side{
+  display:flex;overflow-x:auto;position:static;
+  padding:7px;margin-bottom:12px;
+  scrollbar-width:none;
+ }
+ .nav{white-space:nowrap;margin:0;padding:11px}
+ .side-label{display:none}
+ .hero{padding:22px;min-height:300px}
+ .hero:after{font-size:130px;right:0}
+ .hero:before{width:180px;height:180px;right:-70px}
+ .stats{gap:7px}
+ .stat{padding:11px}
+ .stat strong{font-size:19px}
+ .stat small{font-size:9px}
+}
 </style>
 </head>
+
 <body>
+
 <header>
- <div class="brand">🌎 YAKA99 <span>CONNECT</span></div>
- <div class="tag">CONECTA · COMPARTE · DISFRUTA</div>
- <input class="search" id="buscar" placeholder="🔍 Buscar en YAKA99...">
+ <div class="logo">
+  <div class="logo-icon">Y</div>
+  <div><h1>YAKA99</h1><small>CONNECT INFINITY</small></div>
+ </div>
+ <div class="header-right">
+  <span class="online">● EXPERIENCIA ACTIVA</span>
+  <span class="profile">👤</span>
+ </div>
 </header>
 
-<main>
- <nav class="menu">
-  <a class="active" href="#inicio">🏠 Inicio</a>
-  <a href="#perfil">👤 Mi perfil</a>
-  <a href="#amigos">👥 Amigos</a>
-  <a href="#grupos">🌐 Grupos</a>
- </nav>
+<div class="wrap">
+<div class="grid">
 
- <section class="card" id="inicio">
-  <h2>¡Bienvenido a YAKA99! 💙</h2>
-  <p class="muted">Un mundo nuevo para conectar personas.</p>
-  <div class="banner">
-   <strong>YAKA99 CONNECT</strong>
-   <p>Tu mundo. Tus amigos. Tu comunidad.</p>
-   🌎 🚀 💙
+<aside class="panel side">
+ <a class="nav active" href="#inicio">⌂ Inicio</a>
+ <a class="nav" href="#historias">◉ Historias</a>
+ <a class="nav" href="#crear">✧ Crear publicación</a>
+ <a class="nav" href="#feed">▤ Explorar</a>
+ <a class="nav" href="#comunidad">♧ Comunidad</a>
+ <div class="side-label">UNIVERSO YAKA99</div>
+ <a class="nav" href="#vision">∞ Nuestra visión</a>
+ <div class="side-label">TU ESPACIO</div>
+ <a class="nav" href="#crear">＋ Compartir ideas</a>
+</aside>
+
+<main id="inicio">
+
+<section class="hero">
+ <div class="kicker">✦ THE NEXT DIGITAL EXPERIENCE</div>
+ <h2>NO MIRES<br>EL FUTURO.<br><span class="gradient">VIVILO.</span></h2>
+ <p>
+ Bienvenido a una nueva dimensión social.
+ Descubrí ideas, expresate y conectate con el mundo.
+ </p>
+ <button class="btn" onclick="document.getElementById('feed').scrollIntoView({behavior:'smooth'})">
+ EXPLORAR YAKA99 ↗
+ </button>
+</section>
+
+<div class="stats">
+ <div class="panel stat"><strong>∞</strong><small>Ideas infinitas</small></div>
+ <div class="panel stat"><strong>🌎</strong><small>Sin fronteras</small></div>
+ <div class="panel stat"><strong>99</strong><small>Otra dimensión</small></div>
+</div>
+
+<div class="heading" id="historias">
+ <h3>◉ Momentos de la comunidad</h3><span>DESCUBRIR</span>
+</div>
+
+<section class="stories">
+ <div class="story" onclick="showToast('Las historias estarán disponibles próximamente')">
+  <div class="story-ring"><div class="story-inner">＋</div></div>Tu historia
+ </div>
+ <div class="story" onclick="showToast('Explorando el mundo 🌎')">
+  <div class="story-ring"><div class="story-inner">🌎</div></div>Global
+ </div>
+ <div class="story" onclick="showToast('La innovación nos mueve ⚡')">
+  <div class="story-ring"><div class="story-inner">⚡</div></div>Innovación
+ </div>
+ <div class="story" onclick="showToast('Ideas que inspiran 💡')">
+  <div class="story-ring"><div class="story-inner">💡</div></div>Ideas
+ </div>
+ <div class="story" onclick="showToast('El futuro comienza hoy 🚀')">
+  <div class="story-ring"><div class="story-inner">🚀</div></div>Futuro
+ </div>
+ <div class="story" onclick="showToast('Bienvenido al universo 💎')">
+  <div class="story-ring"><div class="story-inner">💎</div></div>Universo
+ </div>
+</section>
+
+<div class="heading" id="crear">
+ <h3>✧ ¿Qué querés compartir?</h3><span>TU VOZ IMPORTA</span>
+</div>
+
+<section class="panel composer">
+ <textarea id="message" maxlength="1000" placeholder="Escribí una idea, compartí un momento o inspirá al mundo..."></textarea>
+ <div class="compose-foot">
+  <span>✦ Sé parte de algo extraordinario</span>
+  <button class="btn" onclick="publish()">PUBLICAR ↗</button>
+ </div>
+</section>
+
+<div class="heading" id="feed">
+ <h3>▤ Descubrí el universo</h3><span>FEED</span>
+</div>
+
+<section id="posts">
+
+<article class="panel post">
+ <div class="post-head">
+  <div class="avatar">Y</div>
+  <div><strong>YAKA99 OFFICIAL <span class="tag">OFICIAL</span></strong>
+   <small>Presentación de la plataforma</small>
   </div>
- </section>
+ </div>
+ <div class="post-text">
+  🌎 ¡EL FUTURO ES SOCIAL!<br><br>
+  Hoy comienza una nueva visión. Un lugar para
+  compartir, descubrir y conectar con personas
+  de todo el mundo.<br><br>
+  No se trata solamente de estar conectados.
+  Se trata de crear algo extraordinario juntos. 💎
+  <br><br>#YAKA99 #ConnectTheWorld
+ </div>
+ <div class="post-actions">
+  <button class="action" onclick="like(this)">♡ Me gusta 0</button>
+  <button class="action" onclick="comment()">◌ Comentar</button>
+  <button class="action" onclick="share()">↗ Compartir</button>
+ </div>
+</article>
 
- <section class="card">
-  <h2>¿Qué estás pensando? 💭</h2>
-  <textarea id="mensaje" placeholder="Compartí algo con el mundo..."></textarea>
-  <button class="publish" onclick="publicar()">＋ Publicar</button>
- </section>
+<article class="panel post">
+ <div class="post-head">
+  <div class="avatar">🚀</div>
+  <div><strong>FUTURO DIGITAL</strong><small>Inspiración · Comunidad</small></div>
+ </div>
+ <div class="post-text">
+  Una gran revolución comienza con una idea.
+  Nunca subestimes lo que podés construir cuando
+  te atrevés a empezar. ⚡
+ </div>
+ <div class="post-actions">
+  <button class="action" onclick="like(this)">♡ Me gusta 0</button>
+  <button class="action" onclick="comment()">◌ Comentar</button>
+  <button class="action" onclick="share()">↗ Compartir</button>
+ </div>
+</article>
 
- <section id="publicaciones">
-  <article class="card post">
-   <div class="posthead">
-    <div class="avatar">🌎</div>
-    <div>
-     <strong>YAKA99 CONNECT</strong>
-     <div class="muted">Publicación oficial</div>
-    </div>
-   </div>
-   <div class="postbody">
-    ¡Bienvenidos a nuestra comunidad! 💙
-    <br>Conectemos personas y compartamos grandes ideas.
-   </div>
-   <div class="actions">
-    <button onclick="meGusta(this)">💙 Me gusta 0</button>
-    <button onclick="comentar()">💬 Comentar</button>
-    <button onclick="compartir()">↗ Compartir</button>
-   </div>
-  </article>
- </section>
+</section>
 
- <section class="card" id="perfil">
-  <h2>👤 Mi perfil</h2>
-  <p class="muted">Próximamente: tu perfil personal.</p>
- </section>
- <section class="card" id="amigos">
-  <h2>👥 Amigos</h2>
-  <p class="muted">Próximamente: conectar con personas.</p>
- </section>
- <section class="card" id="grupos">
-  <h2>🌐 Comunidades</h2>
-  <p class="muted">Próximamente: crear y descubrir grupos.</p>
- </section>
+<section class="panel right" id="vision" style="margin-top:18px">
+ <div class="kicker">OUR FUTURE</div>
+ <h2 class="gradient">Beyond Connection.</h2>
+ <p style="color:var(--muted);line-height:1.8;font-size:13px">
+ YAKA99 nace con una ambición: crear un ecosistema
+ tecnológico que acerque a las personas y transforme
+ las ideas en oportunidades.
+ </p>
+ <strong style="color:var(--cyan)">CONNECT THE WORLD. ∞</strong>
+</section>
+
 </main>
 
-<footer>
- YAKA99 CONNECT © 2026<br>
- Conectando al mundo 🌎
-</footer>
+<aside class="right-column">
+ <section class="panel right">
+  <h3>↗ EN EL RADAR</h3>
+  <div class="trend"><small>#01 · TECNOLOGÍA</small><strong>El mundo digital</strong></div>
+  <div class="trend"><small>#02 · INNOVACIÓN</small><strong>Ideas extraordinarias</strong></div>
+  <div class="trend"><small>#03 · COMUNIDAD</small><strong>Conectar sin fronteras</strong></div>
+  <div class="trend"><small>#04 · FUTURO</small><strong>La próxima generación</strong></div>
+ </section>
+
+ <section class="panel right" id="comunidad">
+  <h3>✧ UNIVERSOS</h3>
+  <div class="person"><div class="avatar">🌎</div><div><strong>Global World</strong><small>Comunidad internacional</small></div></div>
+  <div class="person"><div class="avatar">💡</div><div><strong>Idea Lab</strong><small>Creatividad e innovación</small></div></div>
+  <div class="person"><div class="avatar">⚡</div><div><strong>Tech Universe</strong><small>Tecnología y futuro</small></div></div>
+ </section>
+
+ <section class="panel right">
+  <h3>🔐 SEGURIDAD</h3>
+  <p style="font-size:12px;color:var(--muted);line-height:1.7">
+   Nuestra visión incluye privacidad, respeto y protección
+   para toda la comunidad.
+  </p>
+ </section>
+</aside>
+
+</div>
+</div>
+
+<footer>YAKA99 CONNECT · INFINITY EDITION · 2026</footer>
+<div class="toast" id="toast"></div>
 
 <script>
-function publicar(){
- const caja=document.getElementById("mensaje");
- const texto=caja.value.trim();
- if(!texto){alert("Escribí algo primero.");return;}
- const post=document.createElement("article");
- post.className="card post";
- const titulo=document.createElement("strong");
- titulo.textContent="👤 Mi publicación";
- const contenido=document.createElement("p");
- contenido.className="postbody";
- contenido.textContent=texto;
- const boton=document.createElement("button");
- boton.textContent="💙 Me gusta 0";
- boton.onclick=function(){meGusta(boton)};
- post.append(titulo,contenido,boton);
- document.getElementById("publicaciones").prepend(post);
- caja.value="";
+function showToast(message){
+ const t=document.getElementById("toast");
+ t.textContent=message;
+ t.style.display="block";
+ clearTimeout(window.toastTimer);
+ window.toastTimer=setTimeout(()=>t.style.display="none",2600);
 }
-function meGusta(boton){
- let n=Number(boton.dataset.likes||0)+1;
- boton.dataset.likes=n;
- boton.textContent="💙 Me gusta "+n;
-}
-function comentar(){
- alert("Los comentarios estarán disponibles en una próxima versión.");
-}
-function compartir(){
- if(navigator.share){
-  navigator.share({title:"YAKA99 CONNECT",url:location.href});
- }else{
-  alert("Compartí nuestra dirección: "+location.href);
+function like(btn){
+ let n=Number(btn.dataset.count||0);
+ let liked=btn.dataset.liked==="true";
+ n+=liked?-1:1;
+ btn.dataset.count=n;
+ btn.dataset.liked=String(!liked);
+ btn.textContent=(liked?"♡":"♥")+" Me gusta "+n;
+ btn.classList.toggle("liked",!liked);
+ if(!liked){
+  const r=document.createElement("div");
+  r.className="reaction";r.textContent="💜";
+  r.style.left=(btn.getBoundingClientRect().left+20)+"px";
+  r.style.top=(btn.getBoundingClientRect().top)+"px";
+  document.body.appendChild(r);
+  setTimeout(()=>r.remove(),1100);
  }
 }
-document.getElementById("buscar").addEventListener("input",function(){
- const q=this.value.toLowerCase();
- document.querySelectorAll(".post").forEach(p=>{
-  p.style.display=p.innerText.toLowerCase().includes(q)?"block":"none";
+function publish(){
+ const input=document.getElementById("message");
+ const value=input.value.trim();
+ if(!value){showToast("¡Primero escribí tu publicación!");return;}
+ const post=document.createElement("article");
+ post.className="panel post";
+ const head=document.createElement("div");
+ head.className="post-head";
+ head.innerHTML='<div class="avatar">👤</div><div><strong>MI ESPACIO</strong><small>Publicado ahora · En este dispositivo</small></div>';
+ const text=document.createElement("div");
+ text.className="post-text";
+ text.textContent=value;
+ const actions=document.createElement("div");
+ actions.className="post-actions";
+ const btn=document.createElement("button");
+ btn.className="action";
+ btn.textContent="♡ Me gusta 0";
+ btn.onclick=()=>like(btn);
+ actions.appendChild(btn);
+ post.append(head,text,actions);
+ document.getElementById("posts").prepend(post);
+ input.value="";
+ showToast("✨ ¡Tu publicación está en el feed!");
+ post.scrollIntoView({behavior:"smooth",block:"center"});
+}
+function comment(){
+ showToast("💬 Los comentarios reales llegarán en la siguiente etapa");
+}
+function share(){
+ if(navigator.share){
+  navigator.share({
+   title:"YAKA99 CONNECT",
+   text:"Descubrí una nueva experiencia digital",
+   url:location.href
+  }).catch(()=>{});
+ }else{
+  showToast("Compartí el enlace de YAKA99 CONNECT");
+ }
+}
+document.querySelectorAll(".nav").forEach(link=>{
+ link.addEventListener("click",()=>{
+  document.querySelectorAll(".nav").forEach(x=>x.classList.remove("active"));
+  link.classList.add("active");
  });
 });
 </script>
+
 </body>
 </html>
