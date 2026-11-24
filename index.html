@@ -1,1 +1,99 @@
 
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>YAKA99 CONNECT</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      background: #101827;
+      color: white;
+    }
+    header {
+      background: #087cf0;
+      padding: 22px;
+      text-align: center;
+    }
+    header h1 {
+      margin: 0;
+      font-size: 27px;
+    }
+    main {
+      max-width: 500px;
+      margin: 30px auto;
+      padding: 15px;
+    }
+    .card {
+      background: #1e293b;
+      padding: 22px;
+      border-radius: 14px;
+      text-align: center;
+    }
+    textarea {
+      width: 100%;
+      box-sizing: border-box;
+      padding: 12px;
+      border-radius: 8px;
+      border: 0;
+      margin: 12px 0;
+    }
+    button {
+      background: #087cf0;
+      color: white;
+      border: 0;
+      padding: 12px 22px;
+      border-radius: 8px;
+      font-weight: bold;
+    }
+    #publicaciones {
+      margin-top: 20px;
+    }
+    .post {
+      background: #334155;
+      padding: 15px;
+      border-radius: 10px;
+      margin-top: 12px;
+      overflow-wrap: anywhere;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>YAKA99 CONNECT</h1>
+    <p>Conectando al mundo</p>
+  </header>
+
+  <main>
+    <div class="card">
+      <h2>¡Bienvenido!</h2>
+      <p>Compartí tus ideas con el mundo.</p>
+      <textarea id="mensaje" placeholder="¿Qué estás pensando?"></textarea>
+      <button onclick="publicar()">Publicar</button>
+    </div>
+
+    <div id="publicaciones"></div>
+  </main>
+
+  <script>
+    function publicar() {
+      const caja = document.getElementById("mensaje");
+      const texto = caja.value.trim();
+
+      if (!texto) return;
+
+      const post = document.createElement("div");
+      post.className = "post";
+      post.textContent = texto;
+
+      document.getElementById("publicaciones")
+        .prepend(post);
+
+      caja.value = "";
+    }
+  </script>
+</body>
+</html>
+
