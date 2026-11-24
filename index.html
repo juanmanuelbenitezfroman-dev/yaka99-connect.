@@ -2,98 +2,197 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>YAKA99 CONNECT</title>
-  <style>
-    body {
-      margin: 0;
-      font-family: Arial, sans-serif;
-      background: #101827;
-      color: white;
-    }
-    header {
-      background: #087cf0;
-      padding: 22px;
-      text-align: center;
-    }
-    header h1 {
-      margin: 0;
-      font-size: 27px;
-    }
-    main {
-      max-width: 500px;
-      margin: 30px auto;
-      padding: 15px;
-    }
-    .card {
-      background: #1e293b;
-      padding: 22px;
-      border-radius: 14px;
-      text-align: center;
-    }
-    textarea {
-      width: 100%;
-      box-sizing: border-box;
-      padding: 12px;
-      border-radius: 8px;
-      border: 0;
-      margin: 12px 0;
-    }
-    button {
-      background: #087cf0;
-      color: white;
-      border: 0;
-      padding: 12px 22px;
-      border-radius: 8px;
-      font-weight: bold;
-    }
-    #publicaciones {
-      margin-top: 20px;
-    }
-    .post {
-      background: #334155;
-      padding: 15px;
-      border-radius: 10px;
-      margin-top: 12px;
-      overflow-wrap: anywhere;
-    }
-  </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#071329">
+<title>YAKA99 CONNECT</title>
+<style>
+*{box-sizing:border-box}
+body{
+ margin:0;background:#071329;color:#f5f8ff;
+ font-family:Arial,sans-serif;
+}
+header{
+ background:#0c1b39;padding:17px;
+ border-bottom:1px solid #243d68;
+ position:sticky;top:0;z-index:5;
+}
+.brand{font-size:25px;font-weight:900;color:#20c8ff}
+.brand span{color:white}
+.tag{font-size:12px;color:#a9bddf;margin-top:5px}
+.search{
+ width:100%;padding:13px;margin-top:14px;
+ border-radius:25px;border:1px solid #304a76;
+ background:#17294a;color:white;font-size:15px;
+}
+main{max-width:650px;margin:auto;padding:15px}
+.menu{
+ display:flex;gap:9px;overflow-x:auto;
+ padding:10px 0 16px;
+}
+.menu a{
+ color:#dceaff;text-decoration:none;
+ background:#17294a;padding:11px 15px;
+ border-radius:20px;white-space:nowrap;
+ font-size:13px;
+}
+.menu a.active{background:#087cf0;color:white}
+.card{
+ background:linear-gradient(145deg,#142849,#101d38);
+ border:1px solid #29436c;border-radius:17px;
+ padding:17px;margin-bottom:16px;
+}
+h2{font-size:19px;margin:4px 0 12px}
+.muted{color:#a9bddf;font-size:13px}
+textarea{
+ width:100%;height:90px;resize:vertical;
+ border:1px solid #38547e;border-radius:12px;
+ padding:13px;background:#0c1931;
+ color:white;font-size:15px;
+}
+button{
+ border:0;border-radius:22px;padding:12px 19px;
+ background:#087cf0;color:white;
+ font-weight:bold;font-size:14px;
+ cursor:pointer;
+}
+.publish{width:100%;margin-top:12px}
+.post{margin-top:15px}
+.posthead{display:flex;align-items:center;gap:11px}
+.avatar{
+ width:43px;height:43px;border-radius:50%;
+ background:linear-gradient(135deg,#087cf0,#9a50ff);
+ display:grid;place-items:center;font-size:22px;
+}
+.postbody{line-height:1.5;margin:17px 0}
+.banner{
+ background:linear-gradient(120deg,#0753c9,#642bd3);
+ border-radius:13px;padding:28px 12px;
+ text-align:center;margin:15px 0;
+}
+.banner strong{font-size:25px}
+.actions{
+ display:flex;justify-content:space-around;
+ flex-wrap:wrap;gap:8px;border-top:1px solid #30476b;
+ padding-top:13px;
+}
+.actions button{
+ background:#1c355b;padding:10px 13px;
+}
+footer{text-align:center;color:#849cbd;padding:25px;font-size:12px}
+</style>
 </head>
 <body>
-  <header>
-    <h1>YAKA99 CONNECT</h1>
-    <p>Conectando al mundo</p>
-  </header>
+<header>
+ <div class="brand">🌎 YAKA99 <span>CONNECT</span></div>
+ <div class="tag">CONECTA · COMPARTE · DISFRUTA</div>
+ <input class="search" id="buscar" placeholder="🔍 Buscar en YAKA99...">
+</header>
 
-  <main>
-    <div class="card">
-      <h2>¡Bienvenido!</h2>
-      <p>Compartí tus ideas con el mundo.</p>
-      <textarea id="mensaje" placeholder="¿Qué estás pensando?"></textarea>
-      <button onclick="publicar()">Publicar</button>
+<main>
+ <nav class="menu">
+  <a class="active" href="#inicio">🏠 Inicio</a>
+  <a href="#perfil">👤 Mi perfil</a>
+  <a href="#amigos">👥 Amigos</a>
+  <a href="#grupos">🌐 Grupos</a>
+ </nav>
+
+ <section class="card" id="inicio">
+  <h2>¡Bienvenido a YAKA99! 💙</h2>
+  <p class="muted">Un mundo nuevo para conectar personas.</p>
+  <div class="banner">
+   <strong>YAKA99 CONNECT</strong>
+   <p>Tu mundo. Tus amigos. Tu comunidad.</p>
+   🌎 🚀 💙
+  </div>
+ </section>
+
+ <section class="card">
+  <h2>¿Qué estás pensando? 💭</h2>
+  <textarea id="mensaje" placeholder="Compartí algo con el mundo..."></textarea>
+  <button class="publish" onclick="publicar()">＋ Publicar</button>
+ </section>
+
+ <section id="publicaciones">
+  <article class="card post">
+   <div class="posthead">
+    <div class="avatar">🌎</div>
+    <div>
+     <strong>YAKA99 CONNECT</strong>
+     <div class="muted">Publicación oficial</div>
     </div>
+   </div>
+   <div class="postbody">
+    ¡Bienvenidos a nuestra comunidad! 💙
+    <br>Conectemos personas y compartamos grandes ideas.
+   </div>
+   <div class="actions">
+    <button onclick="meGusta(this)">💙 Me gusta 0</button>
+    <button onclick="comentar()">💬 Comentar</button>
+    <button onclick="compartir()">↗ Compartir</button>
+   </div>
+  </article>
+ </section>
 
-    <div id="publicaciones"></div>
-  </main>
+ <section class="card" id="perfil">
+  <h2>👤 Mi perfil</h2>
+  <p class="muted">Próximamente: tu perfil personal.</p>
+ </section>
+ <section class="card" id="amigos">
+  <h2>👥 Amigos</h2>
+  <p class="muted">Próximamente: conectar con personas.</p>
+ </section>
+ <section class="card" id="grupos">
+  <h2>🌐 Comunidades</h2>
+  <p class="muted">Próximamente: crear y descubrir grupos.</p>
+ </section>
+</main>
 
-  <script>
-    function publicar() {
-      const caja = document.getElementById("mensaje");
-      const texto = caja.value.trim();
+<footer>
+ YAKA99 CONNECT © 2026<br>
+ Conectando al mundo 🌎
+</footer>
 
-      if (!texto) return;
-
-      const post = document.createElement("div");
-      post.className = "post";
-      post.textContent = texto;
-
-      document.getElementById("publicaciones")
-        .prepend(post);
-
-      caja.value = "";
-    }
-  </script>
+<script>
+function publicar(){
+ const caja=document.getElementById("mensaje");
+ const texto=caja.value.trim();
+ if(!texto){alert("Escribí algo primero.");return;}
+ const post=document.createElement("article");
+ post.className="card post";
+ const titulo=document.createElement("strong");
+ titulo.textContent="👤 Mi publicación";
+ const contenido=document.createElement("p");
+ contenido.className="postbody";
+ contenido.textContent=texto;
+ const boton=document.createElement("button");
+ boton.textContent="💙 Me gusta 0";
+ boton.onclick=function(){meGusta(boton)};
+ post.append(titulo,contenido,boton);
+ document.getElementById("publicaciones").prepend(post);
+ caja.value="";
+}
+function meGusta(boton){
+ let n=Number(boton.dataset.likes||0)+1;
+ boton.dataset.likes=n;
+ boton.textContent="💙 Me gusta "+n;
+}
+function comentar(){
+ alert("Los comentarios estarán disponibles en una próxima versión.");
+}
+function compartir(){
+ if(navigator.share){
+  navigator.share({title:"YAKA99 CONNECT",url:location.href});
+ }else{
+  alert("Compartí nuestra dirección: "+location.href);
+ }
+}
+document.getElementById("buscar").addEventListener("input",function(){
+ const q=this.value.toLowerCase();
+ document.querySelectorAll(".post").forEach(p=>{
+  p.style.display=p.innerText.toLowerCase().includes(q)?"block":"none";
+ });
+});
+</script>
 </body>
 </html>
-
