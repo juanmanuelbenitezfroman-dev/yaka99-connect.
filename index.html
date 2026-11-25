@@ -6,6 +6,10 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="theme-color" content="#070817">
 <title>YAKA99 CONNECT — INFINITY</title>
+
+<!-- SUPABASE: BIBLIOTECA OFICIAL -->
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
 <style>
 :root{
  --bg:#070817;--panel:#10152b;--cyan:#00eaff;
@@ -16,8 +20,7 @@
 html{scroll-behavior:smooth}
 body{
  margin:0;background:var(--bg);color:var(--text);
- font-family:Inter,Arial,sans-serif;
- overflow-x:hidden;
+ font-family:Inter,Arial,sans-serif;overflow-x:hidden;
 }
 body:before{
  content:"";position:fixed;inset:0;pointer-events:none;
@@ -29,8 +32,7 @@ body:before{
 button,input,textarea{font:inherit}
 button{cursor:pointer}
 header{
- position:sticky;top:0;z-index:50;
- height:70px;padding:0 5%;
+ position:sticky;top:0;z-index:50;height:70px;padding:0 5%;
  display:flex;align-items:center;justify-content:space-between;
  background:#080b1ceF;backdrop-filter:blur(20px);
  border-bottom:1px solid #263654;
@@ -53,36 +55,25 @@ header{
  background:linear-gradient(135deg,#00dfff,#a34cff);
 }
 .wrap{max-width:1300px;margin:auto;padding:20px 3%}
-.grid{
- display:grid;grid-template-columns:210px minmax(0,1fr) 245px;
- gap:18px;
-}
+.grid{display:grid;grid-template-columns:210px minmax(0,1fr) 245px;gap:18px}
 .panel{
  background:linear-gradient(145deg,#131b34ed,#0d1226ed);
- border:1px solid var(--border);
- border-radius:19px;
+ border:1px solid var(--border);border-radius:19px;
  box-shadow:0 10px 35px #0003;
 }
 .side{padding:16px;height:max-content;position:sticky;top:85px}
 .nav{
- display:block;padding:13px;margin:4px 0;
- text-decoration:none;color:#aebbd9;
- border-radius:11px;font-size:13px;
- transition:.25s;
+ display:block;padding:13px;margin:4px 0;text-decoration:none;
+ color:#aebbd9;border-radius:11px;font-size:13px;transition:.25s;
 }
 .nav:hover,.nav.active{
- color:var(--cyan);background:#193052;
- box-shadow:inset 3px 0 var(--cyan);
+ color:var(--cyan);background:#193052;box-shadow:inset 3px 0 var(--cyan);
 }
 .nav span{margin-right:11px}
-.side-label{
- font-size:10px;color:#627394;
- letter-spacing:2px;margin:20px 12px 8px;
-}
+.side-label{font-size:10px;color:#627394;letter-spacing:2px;margin:20px 12px 8px}
 .hero{
- min-height:330px;position:relative;overflow:hidden;
- padding:30px;border-radius:23px;
- border:1px solid #42538c;
+ min-height:330px;position:relative;overflow:hidden;padding:30px;
+ border-radius:23px;border:1px solid #42538c;
  background:
  radial-gradient(circle at 75% 50%,#3952b477,transparent 30%),
  radial-gradient(circle at 90% 5%,#b43f9d66,transparent 40%),
@@ -98,15 +89,13 @@ header{
 }
 .hero:after{
  content:"99";position:absolute;right:30px;top:30px;
- font-size:190px;font-weight:1000;
- color:#ffffff0b;pointer-events:none;
+ font-size:190px;font-weight:1000;color:#ffffff0b;pointer-events:none;
 }
 @keyframes rotate{to{transform:rotate(360deg)}}
 .kicker{font-size:10px;letter-spacing:4px;color:var(--cyan)}
 .hero h2{
- font-size:clamp(34px,6vw,59px);
- line-height:1.03;margin:23px 0 13px;
- position:relative;z-index:1;
+ font-size:clamp(34px,6vw,59px);line-height:1.03;
+ margin:23px 0 13px;position:relative;z-index:1;
 }
 .gradient{
  background:linear-gradient(90deg,#00eaff,#a276ff,#ff65c8);
@@ -114,77 +103,59 @@ header{
 }
 .hero p{color:#b6c4e2;line-height:1.7;max-width:430px}
 .btn{
- border:0;border-radius:12px;padding:13px 19px;
- color:#071020;font-weight:900;
- background:linear-gradient(100deg,#00edff,#9b5cff);
- box-shadow:0 0 25px #00dfff44;
- transition:.2s;
+ border:0;border-radius:12px;padding:13px 19px;color:#071020;
+ font-weight:900;background:linear-gradient(100deg,#00edff,#9b5cff);
+ box-shadow:0 0 25px #00dfff44;transition:.2s;
 }
 .btn:hover{transform:translateY(-3px);filter:brightness(1.15)}
-.ghost{
- background:#17233d;border:1px solid #3a5077;
- color:white;box-shadow:none;
-}
-.stats{
- display:grid;grid-template-columns:repeat(3,1fr);
- gap:10px;margin:15px 0;
-}
+.ghost{background:#17233d;border:1px solid #3a5077;color:white;box-shadow:none}
+.stats{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin:15px 0}
 .stat{padding:14px;text-align:center}
 .stat strong{display:block;font-size:22px;color:var(--cyan)}
 .stat small{color:var(--muted);font-size:10px}
 .heading{
- display:flex;justify-content:space-between;
- align-items:center;margin:23px 2px 13px;
+ display:flex;justify-content:space-between;align-items:center;margin:23px 2px 13px;
 }
 .heading h3{font-size:15px;margin:0}
 .heading span{font-size:10px;color:var(--cyan);letter-spacing:1px}
-.stories{
- display:flex;gap:14px;overflow-x:auto;padding:5px 2px 17px;
- scrollbar-width:none;
-}
+.stories{display:flex;gap:14px;overflow-x:auto;padding:5px 2px 17px;scrollbar-width:none}
 .stories::-webkit-scrollbar{display:none}
 .story{min-width:69px;text-align:center;font-size:11px;color:#b9c5e0}
 .story-ring{
- width:65px;height:65px;margin:auto auto 8px;
- padding:3px;border-radius:50%;
- background:linear-gradient(140deg,#00edff,#a34cff,#ff48bd);
- transition:.3s;
+ width:65px;height:65px;margin:auto auto 8px;padding:3px;border-radius:50%;
+ background:linear-gradient(140deg,#00edff,#a34cff,#ff48bd);transition:.3s;
 }
 .story-ring:hover{transform:scale(1.1)}
 .story-inner{
  height:100%;border:3px solid #11172d;border-radius:50%;
- display:grid;place-items:center;font-size:24px;
- background:#192541;
+ display:grid;place-items:center;font-size:24px;background:#192541;
 }
 .composer{padding:17px}
 textarea{
- width:100%;min-height:80px;resize:vertical;
- padding:14px;border-radius:12px;
- background:#080d1c;border:1px solid #303c60;
+ width:100%;min-height:80px;resize:vertical;padding:14px;
+ border-radius:12px;background:#080d1c;border:1px solid #303c60;
  color:white;outline:none;
 }
 textarea:focus{border-color:var(--cyan)}
 .compose-foot{
- display:flex;justify-content:space-between;
- align-items:center;margin-top:12px;
- gap:8px;color:var(--muted);font-size:11px;
+ display:flex;justify-content:space-between;align-items:center;
+ margin-top:12px;gap:8px;color:var(--muted);font-size:11px;
 }
 .post{padding:17px;margin-bottom:14px}
 .post-head{display:flex;align-items:center;gap:11px}
 .avatar{
- width:43px;height:43px;border-radius:50%;
- display:grid;place-items:center;
- background:linear-gradient(135deg,#00dfff,#814cff);
- font-size:20px;
+ width:43px;height:43px;border-radius:50%;display:grid;place-items:center;
+ background:linear-gradient(135deg,#00dfff,#814cff);font-size:20px;
 }
 .post-head strong{font-size:13px}
 .post-head small{display:block;color:var(--muted);margin-top:4px}
 .post-text{font-size:14px;line-height:1.7;color:#d8e1f6;margin:17px 0}
-.post-actions{display:flex;gap:8px;flex-wrap:wrap;border-top:1px solid var(--border);padding-top:13px}
+.post-actions{
+ display:flex;gap:8px;flex-wrap:wrap;border-top:1px solid var(--border);padding-top:13px;
+}
 .action{
- border:0;background:#19243d;color:#bdcce8;
- border-radius:10px;padding:10px 13px;font-size:12px;
- transition:.2s;
+ border:0;background:#19243d;color:#bdcce8;border-radius:10px;
+ padding:10px 13px;font-size:12px;transition:.2s;
 }
 .action:hover{background:#263c61}
 .action.liked{color:#ff61c4;background:#42213e}
@@ -201,9 +172,8 @@ textarea:focus{border-color:var(--cyan)}
 footer{text-align:center;padding:30px;color:#637394;font-size:11px;letter-spacing:2px}
 .toast{
  position:fixed;bottom:25px;left:50%;transform:translateX(-50%);
- background:#172b49;border:1px solid var(--cyan);
- padding:14px 20px;border-radius:14px;
- display:none;z-index:100;box-shadow:0 0 25px #00dfff55;
+ background:#172b49;border:1px solid var(--cyan);padding:14px 20px;
+ border-radius:14px;display:none;z-index:100;box-shadow:0 0 25px #00dfff55;
  font-size:13px;text-align:center;max-width:90%;
 }
 .reaction{
@@ -225,9 +195,8 @@ footer{text-align:center;padding:30px;color:#637394;font-size:11px;letter-spacin
  .wrap{padding:12px}
  .grid{display:block}
  .side{
-  display:flex;overflow-x:auto;position:static;
-  padding:7px;margin-bottom:12px;
-  scrollbar-width:none;
+  display:flex;overflow-x:auto;position:static;padding:7px;
+  margin-bottom:12px;scrollbar-width:none;
  }
  .nav{white-space:nowrap;margin:0;padding:11px}
  .side-label{display:none}
@@ -243,7 +212,6 @@ footer{text-align:center;padding:30px;color:#637394;font-size:11px;letter-spacin
 </head>
 
 <body>
-
 <header>
  <div class="logo">
   <div class="logo-icon">Y</div>
@@ -271,14 +239,10 @@ footer{text-align:center;padding:30px;color:#637394;font-size:11px;letter-spacin
 </aside>
 
 <main id="inicio">
-
 <section class="hero">
  <div class="kicker">✦ THE NEXT DIGITAL EXPERIENCE</div>
  <h2>NO MIRES<br>EL FUTURO.<br><span class="gradient">VIVILO.</span></h2>
- <p>
- Bienvenido a una nueva dimensión social.
- Descubrí ideas, expresate y conectate con el mundo.
- </p>
+ <p>Bienvenido a una nueva dimensión social. Descubrí ideas, expresate y conectate con el mundo.</p>
  <button class="btn" onclick="document.getElementById('feed').scrollIntoView({behavior:'smooth'})">
  EXPLORAR YAKA99 ↗
  </button>
@@ -295,24 +259,12 @@ footer{text-align:center;padding:30px;color:#637394;font-size:11px;letter-spacin
 </div>
 
 <section class="stories">
- <div class="story" onclick="showToast('Las historias estarán disponibles próximamente')">
-  <div class="story-ring"><div class="story-inner">＋</div></div>Tu historia
- </div>
- <div class="story" onclick="showToast('Explorando el mundo 🌎')">
-  <div class="story-ring"><div class="story-inner">🌎</div></div>Global
- </div>
- <div class="story" onclick="showToast('La innovación nos mueve ⚡')">
-  <div class="story-ring"><div class="story-inner">⚡</div></div>Innovación
- </div>
- <div class="story" onclick="showToast('Ideas que inspiran 💡')">
-  <div class="story-ring"><div class="story-inner">💡</div></div>Ideas
- </div>
- <div class="story" onclick="showToast('El futuro comienza hoy 🚀')">
-  <div class="story-ring"><div class="story-inner">🚀</div></div>Futuro
- </div>
- <div class="story" onclick="showToast('Bienvenido al universo 💎')">
-  <div class="story-ring"><div class="story-inner">💎</div></div>Universo
- </div>
+ <div class="story" onclick="showToast('Las historias estarán disponibles próximamente')"><div class="story-ring"><div class="story-inner">＋</div></div>Tu historia</div>
+ <div class="story" onclick="showToast('Explorando el mundo 🌎')"><div class="story-ring"><div class="story-inner">🌎</div></div>Global</div>
+ <div class="story" onclick="showToast('La innovación nos mueve ⚡')"><div class="story-ring"><div class="story-inner">⚡</div></div>Innovación</div>
+ <div class="story" onclick="showToast('Ideas que inspiran 💡')"><div class="story-ring"><div class="story-inner">💡</div></div>Ideas</div>
+ <div class="story" onclick="showToast('El futuro comienza hoy 🚀')"><div class="story-ring"><div class="story-inner">🚀</div></div>Futuro</div>
+ <div class="story" onclick="showToast('Bienvenido al universo 💎')"><div class="story-ring"><div class="story-inner">💎</div></div>Universo</div>
 </section>
 
 <div class="heading" id="crear">
@@ -332,21 +284,15 @@ footer{text-align:center;padding:30px;color:#637394;font-size:11px;letter-spacin
 </div>
 
 <section id="posts">
-
 <article class="panel post">
  <div class="post-head">
   <div class="avatar">Y</div>
-  <div><strong>YAKA99 OFFICIAL <span class="tag">OFICIAL</span></strong>
-   <small>Presentación de la plataforma</small>
-  </div>
+  <div><strong>YAKA99 OFFICIAL <span class="tag">OFICIAL</span></strong><small>Presentación de la plataforma</small></div>
  </div>
  <div class="post-text">
   🌎 ¡EL FUTURO ES SOCIAL!<br><br>
-  Hoy comienza una nueva visión. Un lugar para
-  compartir, descubrir y conectar con personas
-  de todo el mundo.<br><br>
-  No se trata solamente de estar conectados.
-  Se trata de crear algo extraordinario juntos. 💎
+  Hoy comienza una nueva visión. Un lugar para compartir, descubrir y conectar con personas de todo el mundo.<br><br>
+  No se trata solamente de estar conectados. Se trata de crear algo extraordinario juntos. 💎
   <br><br>#YAKA99 #ConnectTheWorld
  </div>
  <div class="post-actions">
@@ -362,9 +308,7 @@ footer{text-align:center;padding:30px;color:#637394;font-size:11px;letter-spacin
   <div><strong>FUTURO DIGITAL</strong><small>Inspiración · Comunidad</small></div>
  </div>
  <div class="post-text">
-  Una gran revolución comienza con una idea.
-  Nunca subestimes lo que podés construir cuando
-  te atrevés a empezar. ⚡
+  Una gran revolución comienza con una idea. Nunca subestimes lo que podés construir cuando te atrevés a empezar. ⚡
  </div>
  <div class="post-actions">
   <button class="action" onclick="like(this)">♡ Me gusta 0</button>
@@ -372,20 +316,16 @@ footer{text-align:center;padding:30px;color:#637394;font-size:11px;letter-spacin
   <button class="action" onclick="share()">↗ Compartir</button>
  </div>
 </article>
-
 </section>
 
 <section class="panel right" id="vision" style="margin-top:18px">
  <div class="kicker">OUR FUTURE</div>
  <h2 class="gradient">Beyond Connection.</h2>
  <p style="color:var(--muted);line-height:1.8;font-size:13px">
- YAKA99 nace con una ambición: crear un ecosistema
- tecnológico que acerque a las personas y transforme
- las ideas en oportunidades.
+ YAKA99 nace con una ambición: crear un ecosistema tecnológico que acerque a las personas y transforme las ideas en oportunidades.
  </p>
  <strong style="color:var(--cyan)">CONNECT THE WORLD. ∞</strong>
 </section>
-
 </main>
 
 <aside class="right-column">
@@ -396,19 +336,16 @@ footer{text-align:center;padding:30px;color:#637394;font-size:11px;letter-spacin
   <div class="trend"><small>#03 · COMUNIDAD</small><strong>Conectar sin fronteras</strong></div>
   <div class="trend"><small>#04 · FUTURO</small><strong>La próxima generación</strong></div>
  </section>
-
  <section class="panel right" id="comunidad">
   <h3>✧ UNIVERSOS</h3>
   <div class="person"><div class="avatar">🌎</div><div><strong>Global World</strong><small>Comunidad internacional</small></div></div>
   <div class="person"><div class="avatar">💡</div><div><strong>Idea Lab</strong><small>Creatividad e innovación</small></div></div>
   <div class="person"><div class="avatar">⚡</div><div><strong>Tech Universe</strong><small>Tecnología y futuro</small></div></div>
  </section>
-
  <section class="panel right">
   <h3>🔐 SEGURIDAD</h3>
   <p style="font-size:12px;color:var(--muted);line-height:1.7">
-   Nuestra visión incluye privacidad, respeto y protección
-   para toda la comunidad.
+   Nuestra visión incluye privacidad, respeto y protección para toda la comunidad.
   </p>
  </section>
 </aside>
@@ -420,6 +357,22 @@ footer{text-align:center;padding:30px;color:#637394;font-size:11px;letter-spacin
 <div class="toast" id="toast"></div>
 
 <script>
+// ==========================================
+// CONEXIÓN INICIAL CON SUPABASE
+// ==========================================
+const SUPABASE_URL = "https://znacqrungclknapgqnsk.supabase.co";
+const SUPABASE_ANON_KEY = "sb_publishable_zrPEuGPG2eEIVjYBoKxMpw_Q72orPZa";
+
+const supabaseClient = window.supabase.createClient(
+ SUPABASE_URL,
+ SUPABASE_ANON_KEY
+);
+
+console.log("Cliente de Supabase inicializado.");
+
+// ==========================================
+// FUNCIONES DE YAKA99 CONNECT
+// ==========================================
 function showToast(message){
  const t=document.getElementById("toast");
  t.textContent=message;
@@ -427,6 +380,7 @@ function showToast(message){
  clearTimeout(window.toastTimer);
  window.toastTimer=setTimeout(()=>t.style.display="none",2600);
 }
+
 function like(btn){
  let n=Number(btn.dataset.count||0);
  let liked=btn.dataset.liked==="true";
@@ -444,6 +398,7 @@ function like(btn){
   setTimeout(()=>r.remove(),1100);
  }
 }
+
 function publish(){
  const input=document.getElementById("message");
  const value=input.value.trim();
@@ -469,9 +424,11 @@ function publish(){
  showToast("✨ ¡Tu publicación está en el feed!");
  post.scrollIntoView({behavior:"smooth",block:"center"});
 }
+
 function comment(){
  showToast("💬 Los comentarios reales llegarán en la siguiente etapa");
 }
+
 function share(){
  if(navigator.share){
   navigator.share({
@@ -483,6 +440,7 @@ function share(){
   showToast("Compartí el enlace de YAKA99 CONNECT");
  }
 }
+
 document.querySelectorAll(".nav").forEach(link=>{
  link.addEventListener("click",()=>{
   document.querySelectorAll(".nav").forEach(x=>x.classList.remove("active"));
