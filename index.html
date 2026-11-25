@@ -1,516 +1,278 @@
-
 <!DOCTYPE html>
 <html lang="es">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="theme-color" content="#080b18">
+<meta name="description" content="YAKA99 CONNECT — una nueva dimensión social.">
 <title>YAKA99 CONNECT INFINITY</title>
-
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-
 <style>
-:root {
-  --bg:#080b18;
-  --panel:#11182b;
-  --cyan:#00eaff;
-  --purple:#9b5cff;
-  --pink:#ff42b7;
-  --text:#f4f7ff;
-  --muted:#9ba8c4;
-  --border:rgba(255,255,255,.1);
-}
+:root{--bg:#080b18;--panel:#11182b;--cyan:#00eaff;--purple:#9b5cff;--pink:#ff42b7;--text:#f4f7ff;--muted:#9ba8c4;--border:rgba(255,255,255,.1);--green:#49e0a1;--red:#ff718b}
 *{box-sizing:border-box}
-body{
-  margin:0;background:
-  radial-gradient(circle at 10% 10%,#17224a 0,transparent 35%),
-  radial-gradient(circle at 90% 30%,#281342 0,transparent 35%),
-  var(--bg);
-  color:var(--text);font-family:Arial,sans-serif;
-}
-button,input,textarea{font:inherit}
-button{cursor:pointer}
-header{
-  position:sticky;top:0;z-index:10;
-  display:flex;align-items:center;justify-content:space-between;
-  padding:15px 5%;background:rgba(8,11,24,.92);
-  border-bottom:1px solid var(--border);backdrop-filter:blur(15px);
-}
-.logo{font-size:22px;font-weight:900;letter-spacing:1px}
-.logo span{color:var(--cyan)}
-nav{display:flex;gap:17px;flex-wrap:wrap}
-nav a{color:var(--muted);text-decoration:none;font-size:13px}
-nav a:hover{color:var(--cyan)}
+html{scroll-behavior:smooth}
+body{margin:0;background:radial-gradient(circle at 10% 10%,#17224a 0,transparent 35%),radial-gradient(circle at 90% 30%,#281342 0,transparent 35%),var(--bg);color:var(--text);font-family:Arial,sans-serif}
+button,input,textarea{font:inherit}button{cursor:pointer}
+header{position:sticky;top:0;z-index:10;display:flex;align-items:center;justify-content:space-between;gap:16px;padding:15px 5%;background:rgba(8,11,24,.94);border-bottom:1px solid var(--border);backdrop-filter:blur(15px)}
+.logo{font-size:22px;font-weight:900;letter-spacing:1px;white-space:nowrap}.logo span{color:var(--cyan)}
+nav{display:flex;gap:15px;flex-wrap:wrap}nav a{color:var(--muted);text-decoration:none;font-size:13px}nav a:hover{color:var(--cyan)}
 .container{max-width:1050px;margin:auto;padding:25px 18px}
-.hero{
-  text-align:center;padding:75px 15px 55px;
-}
-.tag{color:var(--cyan);letter-spacing:3px;font-size:12px}
+.hero{text-align:center;padding:75px 15px 55px}.tag{color:var(--cyan);letter-spacing:3px;font-size:12px}
 h1{font-size:clamp(38px,8vw,75px);line-height:1.05;margin:20px 0}
-h1 span{
-  background:linear-gradient(90deg,var(--cyan),var(--purple),var(--pink));
-  -webkit-background-clip:text;color:transparent;
-}
+h1 span{background:linear-gradient(90deg,var(--cyan),var(--purple),var(--pink));-webkit-background-clip:text;color:transparent}
 .subtitle{color:var(--muted);max-width:600px;margin:15px auto;line-height:1.7}
-.btn{
-  border:0;border-radius:12px;padding:13px 20px;
-  color:#06101b;font-weight:800;
-  background:linear-gradient(100deg,var(--cyan),#9b8cff);
-}
-.btn:hover{filter:brightness(1.12)}
-.btn.secondary{
-  color:white;background:#202a43;border:1px solid var(--border);
-}
-.stats{display:flex;justify-content:center;gap:35px;margin-top:35px;flex-wrap:wrap}
-.stat strong{display:block;font-size:23px;color:var(--cyan)}
-.stat small{color:var(--muted)}
+.btn{border:0;border-radius:12px;padding:13px 20px;color:#06101b;font-weight:800;background:linear-gradient(100deg,var(--cyan),#9b8cff)}
+.btn:hover{filter:brightness(1.12)}.btn.secondary{color:white;background:#202a43;border:1px solid var(--border)}
+.btn:disabled{opacity:.45;cursor:not-allowed;filter:none}
+.stats{display:flex;justify-content:center;gap:35px;margin-top:35px;flex-wrap:wrap}.stat strong{display:block;font-size:23px;color:var(--cyan)}.stat small{color:var(--muted)}
 .section-title{margin:35px 0 17px;font-size:22px}
-.panel{
-  background:rgba(17,24,43,.88);border:1px solid var(--border);
-  border-radius:18px;padding:20px;margin:15px 0;
-}
-.auth-panel{max-width:480px;margin:25px auto}
-.auth-panel h2{margin-top:0}
-input,textarea{
-  width:100%;padding:14px;margin:7px 0 13px;
-  border:1px solid var(--border);border-radius:10px;
-  background:#080f20;color:white;outline:none;
-}
-input:focus,textarea:focus{border-color:var(--cyan)}
-label{font-size:13px;color:var(--muted)}
-.auth-actions{display:flex;gap:10px;flex-wrap:wrap}
-.auth-actions button{flex:1}
-.message{font-size:13px;color:var(--cyan);line-height:1.5;min-height:20px}
-.hidden{display:none!important}
-.userbar{display:flex;align-items:center;gap:12px;flex-wrap:wrap}
-.avatar{
-  width:42px;height:42px;border-radius:50%;
-  display:grid;place-items:center;
-  background:linear-gradient(130deg,var(--cyan),var(--purple));
-  color:#06101b;font-weight:900;font-size:18px;
-}
-.story-list{display:flex;gap:14px;overflow:auto;padding:10px 0}
-.story{
-  min-width:85px;text-align:center;color:var(--muted);font-size:12px
-}
-.story-icon{
-  width:65px;height:65px;border-radius:50%;margin:auto auto 8px;
-  display:grid;place-items:center;font-size:25px;
-  border:2px solid var(--cyan);background:#182440;
-}
-.post-head{display:flex;align-items:center;gap:10px}
-.post-head strong{display:block}
-.post-head small{color:var(--muted)}
-.post p{line-height:1.7;color:#e2e8f6}
-.post-actions{display:flex;gap:18px;flex-wrap:wrap}
-.post-actions button{
-  color:var(--muted);border:0;background:none;padding:8px 0;
-}
-.post-actions button:hover{color:var(--cyan)}
-.notice{font-size:12px;color:var(--muted);line-height:1.6}
-footer{text-align:center;padding:35px;color:var(--muted);font-size:12px}
+.panel{background:rgba(17,24,43,.9);border:1px solid var(--border);border-radius:18px;padding:20px;margin:15px 0;overflow:hidden}
+.auth-panel{max-width:480px;margin:25px auto}.auth-panel h2{margin-top:0}
+input,textarea{width:100%;padding:14px;margin:7px 0 13px;border:1px solid var(--border);border-radius:10px;background:#080f20;color:white;outline:none}
+input:focus,textarea:focus{border-color:var(--cyan)}label{font-size:13px;color:var(--muted)}
+.auth-actions{display:flex;gap:10px;flex-wrap:wrap}.auth-actions button{flex:1}
+.message{font-size:13px;color:var(--cyan);line-height:1.5;min-height:20px;overflow-wrap:anywhere}
+.hidden{display:none!important}.userbar{display:flex;align-items:center;gap:12px;flex-wrap:wrap}
+.avatar{width:42px;height:42px;flex:0 0 42px;border-radius:50%;display:grid;place-items:center;background:linear-gradient(130deg,var(--cyan),var(--purple));color:#06101b;font-weight:900;font-size:18px}
+.story-list{display:flex;gap:14px;overflow:auto;padding:10px 0}.story{min-width:85px;text-align:center;color:var(--muted);font-size:12px}
+.story-icon{width:65px;height:65px;border-radius:50%;margin:auto auto 8px;display:grid;place-items:center;font-size:25px;border:2px solid var(--cyan);background:#182440}
+.post-head{display:flex;align-items:center;gap:10px}.post-head strong{display:block}.post-head small{color:var(--muted)}
+.post p{line-height:1.7;color:#e2e8f6;overflow-wrap:anywhere}.post-actions{display:flex;gap:18px;flex-wrap:wrap}
+.post-actions button{color:var(--muted);border:0;background:none;padding:8px 0}.post-actions button:hover{color:var(--cyan)}
+.notice{font-size:12px;color:var(--muted);line-height:1.6}footer{text-align:center;padding:35px;color:var(--muted);font-size:12px}
 hr{border:0;border-top:1px solid var(--border);margin:20px 0}
-@media(max-width:650px){
- header{align-items:flex-start;gap:12px;flex-direction:column}
- nav{gap:12px}
- .hero{padding-top:45px}
-}
+.pill{display:inline-block;border:1px solid rgba(0,234,255,.35);color:var(--cyan);background:rgba(0,234,255,.08);border-radius:99px;padding:5px 10px;font-size:11px;font-weight:bold}
+.admin-head{display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap}
+.admin-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px;margin:15px 0}
+.admin-tile{background:#0b1427;border:1px solid var(--border);border-radius:13px;padding:15px}
+.admin-tile strong{display:block;margin:5px 0}.admin-tile small{color:var(--muted);line-height:1.5}
+.table-wrap{overflow-x:auto}table{width:100%;border-collapse:collapse;font-size:12px;min-width:420px}
+th,td{text-align:left;padding:11px 9px;border-bottom:1px solid var(--border);vertical-align:top;overflow-wrap:anywhere}
+th{color:var(--cyan);font-weight:700}td{color:#dce5f8}
+pre{white-space:pre-wrap;overflow-wrap:anywhere;margin:0;font:11px/1.5 monospace;color:#dce5f8}
+@media(max-width:650px){header{align-items:flex-start;flex-direction:column}nav{gap:12px}.hero{padding-top:45px}.admin-grid{grid-template-columns:1fr}}
 </style>
 </head>
-
 <body>
-
 <header>
   <div class="logo">YAKA99 <span>CONNECT</span></div>
   <nav>
-    <a href="#inicio">⌂ Inicio</a>
-    <a href="#historias">◉ Historias</a>
-    <a href="#crear">＋ Crear</a>
-    <a href="#feed">▤ Explorar</a>
-    <a href="#cuenta">👤 Mi cuenta</a>
+    <a href="#inicio">⌂ Inicio</a><a href="#historias">◉ Historias</a><a href="#crear">＋ Crear</a>
+    <a href="#feed">▤ Explorar</a><a href="#cuenta">👤 Mi cuenta</a><a href="#admin" id="adminNav" class="hidden">♛ Founder</a>
   </nav>
 </header>
 
 <main class="container">
-
 <section class="hero" id="inicio">
   <div class="tag">✦ THE NEXT DIGITAL EXPERIENCE</div>
   <h1>NO MIRES<br><span>EL FUTURO.</span><br>VIVILO.</h1>
-  <p class="subtitle">
-    Bienvenido a una nueva dimensión social.
-    Descubrí ideas, expresate y conectate con el mundo.
-  </p>
-  <button class="btn" onclick="document.getElementById('cuenta').scrollIntoView({behavior:'smooth'})">
-    UNIRME A YAKA99 ↗
-  </button>
-  <div class="stats">
-    <div class="stat"><strong>∞</strong><small>Ideas infinitas</small></div>
-    <div class="stat"><strong>🌎</strong><small>Sin fronteras</small></div>
-    <div class="stat"><strong>99</strong><small>Otra dimensión</small></div>
-  </div>
+  <p class="subtitle">Bienvenido a una nueva dimensión social. Descubrí ideas, expresate y conectate con el mundo.</p>
+  <button class="btn" onclick="document.getElementById('cuenta').scrollIntoView({behavior:'smooth'})">UNIRME A YAKA99 ↗</button>
+  <div class="stats"><div class="stat"><strong>∞</strong><small>Ideas infinitas</small></div><div class="stat"><strong>🌎</strong><small>Sin fronteras</small></div><div class="stat"><strong>99</strong><small>Otra dimensión</small></div></div>
 </section>
-
 <hr>
 
 <section id="cuenta">
   <h2 class="section-title">👤 Tu cuenta YAKA99</h2>
-
   <div class="panel auth-panel" id="authPanel">
-    <h2 id="authTitle">Bienvenido a YAKA99</h2>
-    <p class="notice">Creá tu cuenta o ingresá para conectarte.</p>
-
-    <div id="nameField">
-      <label>Tu nombre</label>
-      <input id="fullName" type="text" placeholder="Cómo querés que te conozcan">
-    </div>
-
-    <label>Correo electrónico</label>
-    <input id="email" type="email" placeholder="tu correo electrónico" autocomplete="email">
-
-    <label>Contraseña</label>
-    <input id="password" type="password" placeholder="Mínimo 6 caracteres" autocomplete="current-password">
-
-    <div class="auth-actions">
-      <button class="btn" id="registerBtn" onclick="registerUser()">Crear cuenta</button>
-      <button class="btn secondary" id="loginBtn" onclick="loginUser()">Iniciar sesión</button>
-    </div>
-
-    <hr>
-    <button class="btn secondary" style="width:100%" onclick="resetPassword()">
-      Recuperar contraseña
-    </button>
-    <p class="message" id="authMessage"></p>
-    <p class="notice">
-      Al registrarte, Supabase puede enviarte un correo para confirmar tu dirección.
-    </p>
+    <h2 id="authTitle">Bienvenido a YAKA99</h2><p class="notice">Creá tu cuenta o ingresá para conectarte.</p>
+    <div id="nameField"><label for="fullName">Tu nombre</label><input id="fullName" type="text" placeholder="Cómo querés que te conozcan" autocomplete="name"></div>
+    <label for="email">Correo electrónico</label><input id="email" type="email" placeholder="tu correo electrónico" autocomplete="email">
+    <label for="password">Contraseña</label><input id="password" type="password" placeholder="Mínimo 6 caracteres" autocomplete="current-password">
+    <div class="auth-actions"><button class="btn" id="registerBtn" onclick="registerUser()">Crear cuenta</button><button class="btn secondary" id="loginBtn" onclick="loginUser()">Iniciar sesión</button></div>
+    <hr><button class="btn secondary" style="width:100%" onclick="resetPassword()">Recuperar contraseña</button>
+    <p class="message" id="authMessage" role="status" aria-live="polite"></p>
+    <p class="notice">Al registrarte, Supabase puede enviarte un correo para confirmar tu dirección.</p>
   </div>
-
   <div class="panel hidden" id="userPanel">
-    <div class="userbar">
-      <div class="avatar" id="userAvatar">Y</div>
-      <div style="flex:1">
-        <strong id="userName">Usuario</strong>
-        <div class="notice" id="userEmail"></div>
-      </div>
-      <button class="btn secondary" onclick="logoutUser()">Cerrar sesión</button>
-    </div>
-    <p class="message" id="userMessage"></p>
+    <div class="userbar"><div class="avatar" id="userAvatar">Y</div><div style="flex:1;min-width:0"><strong id="userName">Usuario</strong><div class="notice" id="userEmail"></div><div id="accountRole" class="notice">Usuario YAKA99</div></div><button class="btn secondary" onclick="logoutUser()">Cerrar sesión</button></div>
+    <p class="message" id="userMessage" role="status" aria-live="polite"></p>
   </div>
-
-  <div class="panel hidden" id="passwordPanel">
-    <h2>Crear nueva contraseña</h2>
-    <label>Nueva contraseña</label>
-    <input id="newPassword" type="password" placeholder="Nueva contraseña">
-    <button class="btn" onclick="changePassword()">Guardar contraseña</button>
-    <p class="message" id="passwordMessage"></p>
-  </div>
+  <div class="panel hidden" id="passwordPanel"><h2>Crear nueva contraseña</h2><label for="newPassword">Nueva contraseña</label><input id="newPassword" type="password" placeholder="Mínimo 6 caracteres" autocomplete="new-password"><button class="btn" onclick="changePassword()">Guardar contraseña</button><p class="message" id="passwordMessage"></p></div>
 </section>
 
-<hr>
-
-<section id="historias">
-  <h2 class="section-title">◉ Momentos de la comunidad</h2>
-  <div class="story-list">
-    <div class="story"><div class="story-icon">＋</div>Tu historia</div>
-    <div class="story"><div class="story-icon">🌎</div>Global</div>
-    <div class="story"><div class="story-icon">⚡</div>Innovación</div>
-    <div class="story"><div class="story-icon">💡</div>Ideas</div>
-    <div class="story"><div class="story-icon">🚀</div>Futuro</div>
-    <div class="story"><div class="story-icon">💎</div>Universo</div>
-  </div>
-</section>
-
-<hr>
-
-<section id="crear">
-  <h2 class="section-title">✧ ¿Qué querés compartir?</h2>
+<section id="admin" class="hidden">
+  <hr><div class="admin-head"><h2 class="section-title">♛ YAKA99 Founder · Panel administrativo</h2><span class="pill">ACCESO VERIFICADO</span></div>
   <div class="panel">
-    <strong>TU VOZ IMPORTA</strong>
-    <p class="notice">Compartí tus ideas con la comunidad YAKA99.</p>
-    <textarea id="postText" rows="4" placeholder="¿Qué estás pensando?"></textarea>
-    <button class="btn" onclick="createPost()">PUBLICAR ↗</button>
-    <p class="message" id="postMessage"></p>
-    <p class="notice">La publicación está en modo demostración. La conexión con la base de datos se configurará en el siguiente paso.</p>
-  </div>
-</section>
-
-<hr>
-
-<section id="feed">
-  <h2 class="section-title">▤ Descubrí el universo</h2>
-
-  <div class="panel post">
-    <div class="post-head">
-      <div class="avatar">Y</div>
-      <div><strong>YAKA99 OFFICIAL</strong><small>Presentación de la plataforma</small></div>
+    <div class="admin-head"><div><strong>Centro de administración</strong><p class="notice">Este panel aparece únicamente después de verificar el rol fundador en Supabase.</p></div><button class="btn secondary" onclick="loadFounderData()">Actualizar datos</button></div>
+    <div class="admin-grid">
+      <div class="admin-tile"><span>👥</span><strong>Usuarios y roles</strong><small>Consulta de los registros de roles permitidos por las políticas RLS.</small></div>
+      <div class="admin-tile"><span>🛡️</span><strong>Seguridad</strong><small>La autorización real se aplica en Supabase, no solamente en esta página.</small></div>
+      <div class="admin-tile"><span>🔐</span><strong>Permisos</strong><small>El fundador puede consultar los roles según la política existente.</small></div>
+      <div class="admin-tile"><span>👑</span><strong>Funciones exclusivas</strong><small>Las operaciones sensibles requieren funciones seguras del lado del servidor.</small></div>
     </div>
-    <p>
-      🌎 ¡EL FUTURO ES SOCIAL!<br><br>
-      Hoy comienza una nueva visión. Un lugar para compartir,
-      descubrir y conectar con personas de todo el mundo.<br><br>
-      No se trata solamente de estar conectados.
-      Se trata de crear algo extraordinario juntos. 💎<br><br>
-      #YAKA99 #ConnectTheWorld
-    </p>
-    <div class="post-actions">
-      <button onclick="likePost(this)">♡ Me gusta <span>0</span></button>
-      <button onclick="demoMessage()">◌ Comentar</button>
-      <button onclick="sharePost()">↗ Compartir</button>
-    </div>
-  </div>
-
-  <div class="panel post">
-    <div class="post-head">
-      <div class="avatar">🚀</div>
-      <div><strong>FUTURO DIGITAL</strong><small>Inspiración · Comunidad</small></div>
-    </div>
-    <p>
-      Una gran revolución comienza con una idea.
-      Nunca subestimes lo que podés construir cuando te atrevés a empezar. ⚡
-    </p>
-    <div class="post-actions">
-      <button onclick="likePost(this)">♡ Me gusta <span>0</span></button>
-      <button onclick="demoMessage()">◌ Comentar</button>
-      <button onclick="sharePost()">↗ Compartir</button>
+    <hr><div class="admin-head"><strong>Registros de yaka99_user_roles</strong><span class="notice" id="rolesCount">Sin cargar</span></div>
+    <p class="notice">La tabla se consulta con SELECT y respeta RLS. Se muestran los campos que la base de datos devuelva, sin asumir nombres de columnas.</p>
+    <div id="rolesLoading" class="notice">Esperando consulta...</div>
+    <div class="table-wrap hidden" id="rolesTableWrap"><table><thead id="rolesTableHead"></thead><tbody id="rolesTableBody"></tbody></table></div>
+    <p class="message" id="adminMessage" role="status" aria-live="polite"></p>
+    <hr>
+    <div class="admin-tile">
+      <strong>Gestión de usuarios y asignación de roles</strong>
+      <p class="notice">La configuración actual de Supabase concede SELECT a usuarios autenticados, pero no concede INSERT, UPDATE ni DELETE. Por seguridad, esta versión no simula cambios ni intenta modificar roles. Para habilitar altas, cambios y bajas hace falta crear funciones RPC seguras con validación del fundador y reglas específicas en la base de datos.</p>
+      <span class="pill">GESTIÓN DE ROLES: SOLO LECTURA POR AHORA</span>
     </div>
   </div>
 </section>
 
 <hr>
-
-<section id="vision" class="hero">
-  <div class="tag">OUR FUTURE</div>
-  <h2>Beyond Connection.</h2>
-  <p class="subtitle">
-    YAKA99 nace con una ambición: crear un ecosistema tecnológico
-    que acerque a las personas y transforme las ideas en oportunidades.
-  </p>
-  <h3 style="color:var(--cyan)">CONNECT THE WORLD. ∞</h3>
+<section id="historias"><h2 class="section-title">◉ Momentos de la comunidad</h2><div class="story-list">
+  <div class="story"><div class="story-icon">＋</div>Tu historia</div><div class="story"><div class="story-icon">🌎</div>Global</div><div class="story"><div class="story-icon">⚡</div>Innovación</div><div class="story"><div class="story-icon">💡</div>Ideas</div><div class="story"><div class="story-icon">🚀</div>Futuro</div><div class="story"><div class="story-icon">💎</div>Universo</div>
+</div></section>
+<hr>
+<section id="crear"><h2 class="section-title">✧ ¿Qué querés compartir?</h2><div class="panel"><strong>TU VOZ IMPORTA</strong><p class="notice">Compartí tus ideas con la comunidad YAKA99.</p><textarea id="postText" rows="4" placeholder="¿Qué estás pensando?"></textarea><button class="btn" onclick="createPost()">PUBLICAR ↗</button><p class="message" id="postMessage"></p><p class="notice">Las publicaciones todavía están en modo demostración; el feed se conectará a tablas y políticas específicas en una próxima etapa.</p></div></section>
+<hr>
+<section id="feed"><h2 class="section-title">▤ Descubrí el universo</h2>
+  <div class="panel post"><div class="post-head"><div class="avatar">Y</div><div><strong>YAKA99 OFFICIAL</strong><small>Presentación de la plataforma</small></div></div><p>🌎 ¡EL FUTURO ES SOCIAL!<br><br>Hoy comienza una nueva visión. Un lugar para compartir, descubrir y conectar con personas de todo el mundo.<br><br>No se trata solamente de estar conectados. Se trata de crear algo extraordinario juntos. 💎<br><br>#YAKA99 #ConnectTheWorld</p><div class="post-actions"><button onclick="likePost(this)">♡ Me gusta <span>0</span></button><button onclick="demoMessage()">◌ Comentar</button><button onclick="sharePost()">↗ Compartir</button></div></div>
+  <div class="panel post"><div class="post-head"><div class="avatar">🚀</div><div><strong>FUTURO DIGITAL</strong><small>Inspiración · Comunidad</small></div></div><p>Una gran revolución comienza con una idea. Nunca subestimes lo que podés construir cuando te atrevés a empezar. ⚡</p><div class="post-actions"><button onclick="likePost(this)">♡ Me gusta <span>0</span></button><button onclick="demoMessage()">◌ Comentar</button><button onclick="sharePost()">↗ Compartir</button></div></div>
 </section>
-
+<hr>
+<section id="vision" class="hero"><div class="tag">OUR FUTURE</div><h2>Beyond Connection.</h2><p class="subtitle">YAKA99 nace con una ambición: crear un ecosistema tecnológico que acerque a las personas y transforme las ideas en oportunidades.</p><h3 style="color:var(--cyan)">CONNECT THE WORLD. ∞</h3></section>
 </main>
-
-<footer>
-  YAKA99 CONNECT · INFINITY EDITION · 2026
-</footer>
+<footer>YAKA99 CONNECT · INFINITY EDITION · 2026</footer>
 
 <script>
-/* CONFIGURACIÓN DE SUPABASE */
+/* CONFIGURACIÓN: usar únicamente la clave pública publishable/anon.
+   Nunca colocar la service_role key en un archivo HTML público. */
 const SUPABASE_URL = "https://znacqrungclknapgqnsk.supabase.co";
 const SUPABASE_ANON_KEY = "sb_publishable_zrPEuGPG2eEIVjYBoKxMpw_Q72orPZa";
+const supabaseClient = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
 
-const supabaseClient = window.supabase.createClient(
-  SUPABASE_URL,
-  SUPABASE_ANON_KEY
-);
+const $ = (id) => document.getElementById(id);
+function showMessage(message){ $("authMessage").textContent = message; }
+function setAuthMode(mode){ $("nameField").classList.toggle("hidden", mode !== "register"); }
 
-const authMessage = document.getElementById("authMessage");
-
-function showMessage(message) {
-  authMessage.textContent = message;
-}
-
-function setAuthMode(mode) {
-  document.getElementById("nameField").classList.toggle("hidden", mode !== "register");
-}
-
-async function registerUser() {
-  const name = document.getElementById("fullName").value.trim();
-  const email = document.getElementById("email").value.trim();
-  const password = document.getElementById("password").value;
-
-  if (!name || !email || password.length < 6) {
-    showMessage("Completá tu nombre, correo y una contraseña de al menos 6 caracteres.");
-    return;
-  }
-
+async function registerUser(){
+  const name=$("fullName").value.trim(), email=$("email").value.trim(), password=$("password").value;
+  if(!name||!email||password.length<6){showMessage("Completá tu nombre, correo y una contraseña de al menos 6 caracteres.");return;}
   showMessage("Creando tu cuenta...");
-
-  try {
-    const { data, error } = await supabaseClient.auth.signUp({
-      email,
-      password,
-      options: {
-        data: { full_name: name },
-        emailRedirectTo: window.location.origin + window.location.pathname
-      }
-    });
-
-    if (error) throw error;
-
-    if (data.session) {
-      showMessage("¡Tu cuenta fue creada correctamente!");
-    } else {
-      showMessage("Cuenta creada. Revisá tu correo para confirmar el registro.");
-    }
-  } catch (error) {
-    showMessage("No se pudo crear la cuenta: " + error.message);
-  }
+  try{
+    const {data,error}=await supabaseClient.auth.signUp({email,password,options:{data:{full_name:name},emailRedirectTo:window.location.origin+window.location.pathname}});
+    if(error)throw error;
+    showMessage(data.session?"¡Tu cuenta fue creada correctamente!":"Cuenta creada. Revisá tu correo para confirmar el registro.");
+  }catch(error){showMessage("No se pudo crear la cuenta: "+error.message);}
 }
-
-async function loginUser() {
-  const email = document.getElementById("email").value.trim();
-  const password = document.getElementById("password").value;
-
-  if (!email || !password) {
-    showMessage("Ingresá tu correo y contraseña.");
-    return;
-  }
-
+async function loginUser(){
+  const email=$("email").value.trim(),password=$("password").value;
+  if(!email||!password){showMessage("Ingresá tu correo y contraseña.");return;}
   showMessage("Iniciando sesión...");
-
-  try {
-    const { error } = await supabaseClient.auth.signInWithPassword({
-      email,
-      password
-    });
-
-    if (error) throw error;
-
-    showMessage("¡Bienvenido a YAKA99!");
-  } catch (error) {
-    showMessage("No se pudo iniciar sesión: " + error.message);
-  }
+  try{const {error}=await supabaseClient.auth.signInWithPassword({email,password});if(error)throw error;showMessage("¡Bienvenido a YAKA99!");}
+  catch(error){showMessage("No se pudo iniciar sesión: "+error.message);}
 }
-
-async function logoutUser() {
-  const { error } = await supabaseClient.auth.signOut();
-
-  if (error) {
-    document.getElementById("userMessage").textContent = error.message;
-  }
+async function logoutUser(){
+  const {error}=await supabaseClient.auth.signOut();
+  if(error)$("userMessage").textContent=error.message;
+  else{$("userMessage").textContent="Sesión cerrada.";$("admin").classList.add("hidden");$("adminNav").classList.add("hidden");}
 }
-
-async function resetPassword() {
-  const email = document.getElementById("email").value.trim();
-
-  if (!email) {
-    showMessage("Primero escribí tu correo electrónico.");
-    return;
-  }
-
+async function resetPassword(){
+  const email=$("email").value.trim();if(!email){showMessage("Primero escribí tu correo electrónico.");return;}
   showMessage("Enviando solicitud...");
-
-  try {
-    const { error } = await supabaseClient.auth.resetPasswordForEmail(email, {
-      redirectTo: window.location.origin + window.location.pathname
+  try{const {error}=await supabaseClient.auth.resetPasswordForEmail(email,{redirectTo:window.location.origin+window.location.pathname});if(error)throw error;showMessage("Si el correo está registrado, recibirás instrucciones para recuperar tu contraseña.");}
+  catch(error){showMessage("Error: "+error.message);}
+}
+async function changePassword(){
+  const password=$("newPassword").value;
+  if(password.length<6){$("passwordMessage").textContent="La contraseña debe tener al menos 6 caracteres.";return;}
+  try{const {error}=await supabaseClient.auth.updateUser({password});if(error)throw error;$("passwordMessage").textContent="¡Contraseña actualizada correctamente!";$("passwordPanel").classList.add("hidden");}
+  catch(error){$("passwordMessage").textContent="No se pudo actualizar: "+error.message;}
+}
+function updateAccount(user){
+  if(user){
+    $("authPanel").classList.add("hidden");$("userPanel").classList.remove("hidden");
+    const name=user.user_metadata?.full_name||"Usuario YAKA99";
+    $("userName").textContent=name;$("userEmail").textContent=user.email||"";$("userAvatar").textContent=name.charAt(0).toUpperCase();
+  }else{
+    $("authPanel").classList.remove("hidden");$("userPanel").classList.add("hidden");
+    $("admin").classList.add("hidden");$("adminNav").classList.add("hidden");$("accountRole").textContent="Usuario YAKA99";
+  }
+}
+function normalizeFounderResult(data){
+  if(typeof data==="boolean")return data;
+  if(data&&typeof data==="object"){
+    if(typeof data.is_yaka99_founder==="boolean")return data.is_yaka99_founder;
+    if(typeof data.result==="boolean")return data.result;
+  }
+  return false;
+}
+async function verifyFounder(){
+  $("admin").classList.add("hidden");$("adminNav").classList.add("hidden");$("accountRole").textContent="Usuario YAKA99";
+  const {data:sessionData,error:sessionError}=await supabaseClient.auth.getSession();
+  if(sessionError||!sessionData.session?.user)return false;
+  try{
+    const {data,error}=await supabaseClient.rpc("is_yaka99_founder");
+    if(error)throw error;
+    const isFounder=normalizeFounderResult(data);
+    if(isFounder){
+      $("admin").classList.remove("hidden");$("adminNav").classList.remove("hidden");
+      $("accountRole").textContent="♛ YAKA99 Founder · Administrador principal";
+      await loadFounderData();
+    }
+    return isFounder;
+  }catch(error){
+    $("adminMessage").textContent="No se pudo verificar el rol fundador. El panel permanece bloqueado por seguridad. Detalle: "+error.message;
+    return false;
+  }
+}
+function safeCell(value){
+  if(value===null||value===undefined)return "—";
+  if(typeof value==="object")return JSON.stringify(value);
+  return String(value);
+}
+async function loadFounderData(){
+  $("rolesLoading").classList.remove("hidden");$("rolesTableWrap").classList.add("hidden");
+  $("rolesLoading").textContent="Consultando roles en Supabase...";
+  $("adminMessage").textContent="";
+  try{
+    const {data,error}=await supabaseClient.from("yaka99_user_roles").select("*");
+    if(error)throw error;
+    const rows=Array.isArray(data)?data:[];
+    $("rolesCount").textContent=rows.length+" registro(s)";
+    const head=$("rolesTableHead"),body=$("rolesTableBody");head.replaceChildren();body.replaceChildren();
+    if(rows.length===0){
+      $("rolesLoading").textContent="La consulta fue correcta, pero no hay registros visibles para esta cuenta según las políticas RLS.";
+      return;
+    }
+    const columns=[...new Set(rows.flatMap(row=>Object.keys(row)))];
+    const tr=document.createElement("tr");
+    columns.forEach(column=>{const th=document.createElement("th");th.textContent=column;tr.appendChild(th);});
+    head.appendChild(tr);
+    rows.forEach(row=>{
+      const rowElement=document.createElement("tr");
+      columns.forEach(column=>{const td=document.createElement("td");td.textContent=safeCell(row[column]);rowElement.appendChild(td);});
+      body.appendChild(rowElement);
     });
-
-    if (error) throw error;
-
-    showMessage("Si el correo está registrado, recibirás instrucciones para recuperar tu contraseña.");
-  } catch (error) {
-    showMessage("Error: " + error.message);
+    $("rolesLoading").classList.add("hidden");$("rolesTableWrap").classList.remove("hidden");
+  }catch(error){
+    $("rolesLoading").textContent="No se pudieron cargar los roles: "+error.message;
+    $("rolesCount").textContent="Error de consulta";
   }
 }
-
-async function changePassword() {
-  const password = document.getElementById("newPassword").value;
-
-  if (password.length < 6) {
-    document.getElementById("passwordMessage").textContent =
-      "La contraseña debe tener al menos 6 caracteres.";
-    return;
-  }
-
-  const { error } = await supabaseClient.auth.updateUser({
-    password
-  });
-
-  document.getElementById("passwordMessage").textContent =
-    error ? error.message : "¡Contraseña actualizada correctamente!";
-
-  if (!error) {
-    document.getElementById("passwordPanel").classList.add("hidden");
-  }
-}
-
-function updateAccount(user) {
-  const authPanel = document.getElementById("authPanel");
-  const userPanel = document.getElementById("userPanel");
-
-  if (user) {
-    authPanel.classList.add("hidden");
-    userPanel.classList.remove("hidden");
-
-    const name = user.user_metadata?.full_name || "Usuario YAKA99";
-
-    document.getElementById("userName").textContent = name;
-    document.getElementById("userEmail").textContent = user.email || "";
-    document.getElementById("userAvatar").textContent =
-      name.charAt(0).toUpperCase();
-  } else {
-    authPanel.classList.remove("hidden");
-    userPanel.classList.add("hidden");
-  }
-}
-
-supabaseClient.auth.onAuthStateChange((event, session) => {
-  updateAccount(session?.user || null);
-
-  if (event === "PASSWORD_RECOVERY") {
-    document.getElementById("passwordPanel").classList.remove("hidden");
-    document.getElementById("passwordPanel").scrollIntoView({
-      behavior: "smooth"
-    });
-  }
+supabaseClient.auth.onAuthStateChange((event,session)=>{
+  updateAccount(session?.user||null);
+  if(event==="PASSWORD_RECOVERY"){$("passwordPanel").classList.remove("hidden");$("passwordPanel").scrollIntoView({behavior:"smooth"});}
+  if(session?.user){Promise.resolve().then(()=>verifyFounder());}
 });
-
-async function checkSession() {
-  const { data, error } = await supabaseClient.auth.getSession();
-
-  if (error) {
-    showMessage("No se pudo comprobar la sesión: " + error.message);
-    return;
-  }
-
-  updateAccount(data.session?.user || null);
+async function checkSession(){
+  const {data,error}=await supabaseClient.auth.getSession();
+  if(error){showMessage("No se pudo comprobar la sesión: "+error.message);return;}
+  updateAccount(data.session?.user||null);
+  if(data.session?.user)await verifyFounder();
 }
-
+function createPost(){
+  const text=$("postText").value.trim();
+  if(!text){$("postMessage").textContent="Escribí algo antes de publicar.";return;}
+  $("postMessage").textContent="La publicación todavía no se guarda en el servidor. Conectaremos el feed a la base de datos en la siguiente etapa.";
+  $("postText").value="";
+}
+function likePost(button){const count=button.querySelector("span");count.textContent=Number(count.textContent)+1;button.style.color="var(--cyan)";}
+function demoMessage(){alert("Los comentarios reales se habilitarán al conectar la base de datos.");}
+async function sharePost(){
+  const shareData={title:"YAKA99 CONNECT",text:"Conectate con el futuro.",url:window.location.href};
+  if(navigator.share){try{await navigator.share(shareData);}catch(error){}}
+  else if(navigator.clipboard?.writeText){try{await navigator.clipboard.writeText(shareData.url);alert("Enlace copiado.");}catch(error){alert("No se pudo copiar el enlace.");}}
+  else{alert("Copiá este enlace: "+shareData.url);}
+}
 checkSession();
-
-function createPost() {
-  const text = document.getElementById("postText").value.trim();
-  const message = document.getElementById("postMessage");
-
-  if (!text) {
-    message.textContent = "Escribí algo antes de publicar.";
-    return;
-  }
-
-  message.textContent =
-    "La publicación todavía no se guarda en el servidor. Conectaremos el feed a la base de datos en el siguiente paso.";
-
-  document.getElementById("postText").value = "";
-}
-
-function likePost(button) {
-  const count = button.querySelector("span");
-  count.textContent = Number(count.textContent) + 1;
-  button.style.color = "var(--cyan)";
-}
-
-function demoMessage() {
-  alert("Los comentarios reales se habilitarán al conectar la base de datos.");
-}
-
-async function sharePost() {
-  const shareData = {
-    title: "YAKA99 CONNECT",
-    text: "Conectate con el futuro.",
-    url: window.location.href
-  };
-
-  if (navigator.share) {
-    try {
-      await navigator.share(shareData);
-    } catch (error) {}
-  } else {
-    await navigator.clipboard.writeText(shareData.url);
-    alert("Enlace copiado.");
-  }
-}
 </script>
-
 </body>
 </html>
