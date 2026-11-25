@@ -9,270 +9,107 @@
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <style>
 :root{--bg:#080b18;--panel:#11182b;--cyan:#00eaff;--purple:#9b5cff;--pink:#ff42b7;--text:#f4f7ff;--muted:#9ba8c4;--border:rgba(255,255,255,.1);--green:#49e0a1;--red:#ff718b}
-*{box-sizing:border-box}
-html{scroll-behavior:smooth}
-body{margin:0;background:radial-gradient(circle at 10% 10%,#17224a 0,transparent 35%),radial-gradient(circle at 90% 30%,#281342 0,transparent 35%),var(--bg);color:var(--text);font-family:Arial,sans-serif}
-button,input,textarea{font:inherit}button{cursor:pointer}
+*{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;background:radial-gradient(circle at 10% 10%,#17224a 0,transparent 35%),radial-gradient(circle at 90% 30%,#281342 0,transparent 35%),var(--bg);color:var(--text);font-family:Arial,sans-serif}
+button,input,textarea{font:inherit}button{cursor:pointer}button:disabled{opacity:.45;cursor:not-allowed}
 header{position:sticky;top:0;z-index:10;display:flex;align-items:center;justify-content:space-between;gap:16px;padding:15px 5%;background:rgba(8,11,24,.94);border-bottom:1px solid var(--border);backdrop-filter:blur(15px)}
-.logo{font-size:22px;font-weight:900;letter-spacing:1px;white-space:nowrap}.logo span{color:var(--cyan)}
-nav{display:flex;gap:15px;flex-wrap:wrap}nav a{color:var(--muted);text-decoration:none;font-size:13px}nav a:hover{color:var(--cyan)}
-.container{max-width:1050px;margin:auto;padding:25px 18px}
-.hero{text-align:center;padding:75px 15px 55px}.tag{color:var(--cyan);letter-spacing:3px;font-size:12px}
-h1{font-size:clamp(38px,8vw,75px);line-height:1.05;margin:20px 0}
-h1 span{background:linear-gradient(90deg,var(--cyan),var(--purple),var(--pink));-webkit-background-clip:text;color:transparent}
-.subtitle{color:var(--muted);max-width:600px;margin:15px auto;line-height:1.7}
-.btn{border:0;border-radius:12px;padding:13px 20px;color:#06101b;font-weight:800;background:linear-gradient(100deg,var(--cyan),#9b8cff)}
-.btn:hover{filter:brightness(1.12)}.btn.secondary{color:white;background:#202a43;border:1px solid var(--border)}
-.btn:disabled{opacity:.45;cursor:not-allowed;filter:none}
-.stats{display:flex;justify-content:center;gap:35px;margin-top:35px;flex-wrap:wrap}.stat strong{display:block;font-size:23px;color:var(--cyan)}.stat small{color:var(--muted)}
-.section-title{margin:35px 0 17px;font-size:22px}
-.panel{background:rgba(17,24,43,.9);border:1px solid var(--border);border-radius:18px;padding:20px;margin:15px 0;overflow:hidden}
-.auth-panel{max-width:480px;margin:25px auto}.auth-panel h2{margin-top:0}
-input,textarea{width:100%;padding:14px;margin:7px 0 13px;border:1px solid var(--border);border-radius:10px;background:#080f20;color:white;outline:none}
-input:focus,textarea:focus{border-color:var(--cyan)}label{font-size:13px;color:var(--muted)}
-.auth-actions{display:flex;gap:10px;flex-wrap:wrap}.auth-actions button{flex:1}
-.message{font-size:13px;color:var(--cyan);line-height:1.5;min-height:20px;overflow-wrap:anywhere}
-.hidden{display:none!important}.userbar{display:flex;align-items:center;gap:12px;flex-wrap:wrap}
-.avatar{width:42px;height:42px;flex:0 0 42px;border-radius:50%;display:grid;place-items:center;background:linear-gradient(130deg,var(--cyan),var(--purple));color:#06101b;font-weight:900;font-size:18px}
-.story-list{display:flex;gap:14px;overflow:auto;padding:10px 0}.story{min-width:85px;text-align:center;color:var(--muted);font-size:12px}
-.story-icon{width:65px;height:65px;border-radius:50%;margin:auto auto 8px;display:grid;place-items:center;font-size:25px;border:2px solid var(--cyan);background:#182440}
-.post-head{display:flex;align-items:center;gap:10px}.post-head strong{display:block}.post-head small{color:var(--muted)}
-.post p{line-height:1.7;color:#e2e8f6;overflow-wrap:anywhere}.post-actions{display:flex;gap:18px;flex-wrap:wrap}
-.post-actions button{color:var(--muted);border:0;background:none;padding:8px 0}.post-actions button:hover{color:var(--cyan)}
-.notice{font-size:12px;color:var(--muted);line-height:1.6}footer{text-align:center;padding:35px;color:var(--muted);font-size:12px}
-hr{border:0;border-top:1px solid var(--border);margin:20px 0}
-.pill{display:inline-block;border:1px solid rgba(0,234,255,.35);color:var(--cyan);background:rgba(0,234,255,.08);border-radius:99px;padding:5px 10px;font-size:11px;font-weight:bold}
-.admin-head{display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap}
-.admin-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px;margin:15px 0}
-.admin-tile{background:#0b1427;border:1px solid var(--border);border-radius:13px;padding:15px}
-.admin-tile strong{display:block;margin:5px 0}.admin-tile small{color:var(--muted);line-height:1.5}
-.table-wrap{overflow-x:auto}table{width:100%;border-collapse:collapse;font-size:12px;min-width:420px}
-th,td{text-align:left;padding:11px 9px;border-bottom:1px solid var(--border);vertical-align:top;overflow-wrap:anywhere}
-th{color:var(--cyan);font-weight:700}td{color:#dce5f8}
-pre{white-space:pre-wrap;overflow-wrap:anywhere;margin:0;font:11px/1.5 monospace;color:#dce5f8}
-@media(max-width:650px){header{align-items:flex-start;flex-direction:column}nav{gap:12px}.hero{padding-top:45px}.admin-grid{grid-template-columns:1fr}}
+.logo{font-size:22px;font-weight:900;letter-spacing:1px;white-space:nowrap}.logo span{color:var(--cyan)}nav{display:flex;gap:15px;flex-wrap:wrap}nav a{color:var(--muted);text-decoration:none;font-size:13px}nav a:hover{color:var(--cyan)}
+.container{max-width:1050px;margin:auto;padding:25px 18px}.hero{text-align:center;padding:65px 15px 45px}.tag{color:var(--cyan);letter-spacing:3px;font-size:12px}
+h1{font-size:clamp(38px,8vw,75px);line-height:1.05;margin:20px 0}h1 span{background:linear-gradient(90deg,var(--cyan),var(--purple),var(--pink));-webkit-background-clip:text;color:transparent}
+.subtitle{color:var(--muted);max-width:600px;margin:15px auto;line-height:1.7}.btn{border:0;border-radius:12px;padding:13px 20px;color:#06101b;font-weight:800;background:linear-gradient(100deg,var(--cyan),#9b8cff)}.btn:hover{filter:brightness(1.12)}.btn.secondary{color:white;background:#202a43;border:1px solid var(--border)}.btn.danger{color:white;background:#63283b}
+.stats{display:flex;justify-content:center;gap:35px;margin-top:30px;flex-wrap:wrap}.stat strong{display:block;font-size:23px;color:var(--cyan)}.stat small{color:var(--muted)}
+.section-title{margin:30px 0 17px;font-size:22px}.panel{background:rgba(17,24,43,.9);border:1px solid var(--border);border-radius:18px;padding:20px;margin:15px 0;overflow:hidden}
+.auth-panel{max-width:480px;margin:25px auto}.auth-panel h2{margin-top:0}input,textarea{width:100%;padding:14px;margin:7px 0 13px;border:1px solid var(--border);border-radius:10px;background:#080f20;color:white;outline:none}input:focus,textarea:focus{border-color:var(--cyan)}label{font-size:13px;color:var(--muted)}
+.auth-actions{display:flex;gap:10px;flex-wrap:wrap}.auth-actions button{flex:1}.message{font-size:13px;color:var(--cyan);line-height:1.5;min-height:20px;overflow-wrap:anywhere}.hidden{display:none!important}.notice{font-size:12px;color:var(--muted);line-height:1.6}
+.userbar,.post-head{display:flex;align-items:center;gap:12px;flex-wrap:wrap}.avatar{width:42px;height:42px;flex:0 0 42px;border-radius:50%;display:grid;place-items:center;background:linear-gradient(130deg,var(--cyan),var(--purple));color:#06101b;font-weight:900;font-size:18px;overflow:hidden}.avatar img{width:100%;height:100%;object-fit:cover}
+.story-list{display:flex;gap:14px;overflow:auto;padding:10px 0}.story{min-width:85px;text-align:center;color:var(--muted);font-size:12px;cursor:pointer}.story-icon{width:65px;height:65px;border-radius:50%;margin:auto auto 8px;display:grid;place-items:center;font-size:25px;border:2px solid var(--cyan);background:#182440;overflow:hidden}
+.post p{line-height:1.7;color:#e2e8f6;overflow-wrap:anywhere;white-space:pre-wrap}.post-actions{display:flex;gap:18px;flex-wrap:wrap}.post-actions button{color:var(--muted);border:0;background:none;padding:8px 0}.post-actions button:hover,.post-actions button.liked{color:var(--cyan)}
+hr{border:0;border-top:1px solid var(--border);margin:20px 0}.pill{display:inline-block;border:1px solid rgba(0,234,255,.35);color:var(--cyan);background:rgba(0,234,255,.08);border-radius:99px;padding:5px 10px;font-size:11px;font-weight:bold}
+.admin-head{display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap}.admin-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px;margin:15px 0}.admin-tile{background:#0b1427;border:1px solid var(--border);border-radius:13px;padding:15px}.admin-tile strong{display:block;margin:5px 0;font-size:22px}.admin-tile small{color:var(--muted);line-height:1.5}
+.table-wrap{overflow-x:auto}table{width:100%;border-collapse:collapse;font-size:12px;min-width:420px}th,td{text-align:left;padding:11px 9px;border-bottom:1px solid var(--border);vertical-align:top;overflow-wrap:anywhere}th{color:var(--cyan)}td{color:#dce5f8}
+.comment{border-left:2px solid #344563;padding:7px 12px;margin:10px 0;color:#dce5f8;font-size:13px}.comment small{color:var(--muted)}.inline-form{display:flex;gap:8px;align-items:center}.inline-form input{margin:5px 0}.inline-form button{white-space:nowrap}
+footer{text-align:center;padding:35px;color:var(--muted);font-size:12px}.empty{text-align:center;color:var(--muted);padding:25px}.post-image{max-width:100%;max-height:480px;border-radius:12px;margin-top:10px}
+@media(max-width:650px){header{align-items:flex-start;flex-direction:column}nav{gap:12px}.hero{padding-top:40px}.admin-grid{grid-template-columns:1fr}.inline-form{align-items:stretch}.inline-form button{padding:10px}}
 </style>
 </head>
 <body>
 <header>
-  <div class="logo">YAKA99 <span>CONNECT</span></div>
-  <nav>
-    <a href="#inicio">⌂ Inicio</a><a href="#historias">◉ Historias</a><a href="#crear">＋ Crear</a>
-    <a href="#feed">▤ Explorar</a><a href="#cuenta">👤 Mi cuenta</a><a href="#admin" id="adminNav" class="hidden">♛ Founder</a>
-  </nav>
+ <div class="logo">YAKA99 <span>CONNECT</span></div>
+ <nav><a href="#inicio">⌂ Inicio</a><a href="#historias">◉ Historias</a><a href="#crear">＋ Crear</a><a href="#feed">▤ Explorar</a><a href="#cuenta">👤 Cuenta</a><a href="#admin" id="adminNav" class="hidden">♛ Founder</a></nav>
 </header>
-
 <main class="container">
 <section class="hero" id="inicio">
-  <div class="tag">✦ THE NEXT DIGITAL EXPERIENCE</div>
-  <h1>NO MIRES<br><span>EL FUTURO.</span><br>VIVILO.</h1>
-  <p class="subtitle">Bienvenido a una nueva dimensión social. Descubrí ideas, expresate y conectate con el mundo.</p>
-  <button class="btn" onclick="document.getElementById('cuenta').scrollIntoView({behavior:'smooth'})">UNIRME A YAKA99 ↗</button>
-  <div class="stats"><div class="stat"><strong>∞</strong><small>Ideas infinitas</small></div><div class="stat"><strong>🌎</strong><small>Sin fronteras</small></div><div class="stat"><strong>99</strong><small>Otra dimensión</small></div></div>
+ <div class="tag">✦ THE NEXT DIGITAL EXPERIENCE</div><h1>NO MIRES<br><span>EL FUTURO.</span><br>VIVILO.</h1>
+ <p class="subtitle">Bienvenido a una nueva dimensión social. Descubrí ideas, expresate y conectate con el mundo.</p>
+ <button class="btn" onclick="document.getElementById('cuenta').scrollIntoView({behavior:'smooth'})">UNIRME A YAKA99 ↗</button>
+ <div class="stats"><div class="stat"><strong>∞</strong><small>Ideas infinitas</small></div><div class="stat"><strong>🌎</strong><small>Sin fronteras</small></div><div class="stat"><strong>99</strong><small>Otra dimensión</small></div></div>
+</section><hr>
+<section id="cuenta"><h2 class="section-title">👤 Tu cuenta YAKA99</h2>
+ <div class="panel auth-panel" id="authPanel"><h2 id="authTitle">Bienvenido a YAKA99</h2><p class="notice">Creá tu cuenta o ingresá para conectarte.</p>
+  <div id="nameField"><label>Tu nombre</label><input id="fullName" placeholder="Cómo querés que te conozcan" autocomplete="name"></div>
+  <label>Correo electrónico</label><input id="email" type="email" placeholder="tu correo electrónico" autocomplete="email">
+  <label>Contraseña</label><input id="password" type="password" placeholder="Mínimo 6 caracteres" autocomplete="current-password">
+  <div class="auth-actions"><button class="btn" id="registerBtn" onclick="registerUser()">Crear cuenta</button><button class="btn secondary" onclick="loginUser()">Iniciar sesión</button></div>
+  <hr><button class="btn secondary" style="width:100%" onclick="resetPassword()">Recuperar contraseña</button><p class="message" id="authMessage" role="status"></p><p class="notice">Confirmá tu correo si Supabase lo solicita.</p>
+ </div>
+ <div class="panel hidden" id="userPanel"><div class="userbar"><div class="avatar" id="userAvatar">Y</div><div style="flex:1;min-width:0"><strong id="userName">Usuario</strong><div class="notice" id="userEmail"></div><div id="accountRole" class="notice">Usuario YAKA99</div></div><button class="btn secondary" onclick="logoutUser()">Cerrar sesión</button></div><p class="message" id="userMessage"></p></div>
+ <div class="panel hidden" id="profilePanel"><h3>✧ Mi perfil</h3><label>Nombre público</label><input id="profileName" maxlength="60"><label>Nombre de usuario (sin espacios)</label><input id="profileUsername" maxlength="30" placeholder="mi_usuario"><label>Descripción</label><textarea id="profileBio" rows="2" maxlength="240" placeholder="Contá algo sobre vos"></textarea><label>URL de foto de perfil (opcional)</label><input id="profileAvatar" type="url" placeholder="https://..."><button class="btn" onclick="saveProfile()">Guardar perfil</button><p class="message" id="profileMessage"></p></div>
+ <div class="panel hidden" id="passwordPanel"><h3>Nueva contraseña</h3><input id="newPassword" type="password" placeholder="Mínimo 6 caracteres"><button class="btn" onclick="changePassword()">Guardar contraseña</button><p class="message" id="passwordMessage"></p></div>
+</section>
+<section id="admin" class="hidden"><hr><div class="admin-head"><h2 class="section-title">♛ YAKA99 Founder · Administración</h2><span class="pill">ROL VERIFICADO EN SUPABASE</span></div>
+ <div class="panel"><div class="admin-head"><div><strong>Centro de control</strong><p class="notice">Acceso condicionado por la función segura is_yaka99_founder().</p></div><button class="btn secondary" onclick="loadFounderData()">Actualizar</button></div>
+  <div class="admin-grid"><div class="admin-tile">👥<strong id="statUsers">—</strong><small>Perfiles registrados visibles</small></div><div class="admin-tile">▤<strong id="statPosts">—</strong><small>Publicaciones visibles</small></div><div class="admin-tile">◉<strong id="statStories">—</strong><small>Historias activas visibles</small></div></div>
+  <h3>Roles de YAKA99</h3><p class="notice">Consulta de solo lectura. Se respetan las políticas RLS existentes.</p><div id="rolesLoading" class="notice">Esperando consulta...</div><div class="table-wrap hidden" id="rolesTableWrap"><table><thead id="rolesTableHead"></thead><tbody id="rolesTableBody"></tbody></table></div><p class="message" id="adminMessage"></p>
+  <div class="admin-tile"><strong>Seguridad administrativa</strong><small>Este panel no permite modificar roles desde el navegador. Las operaciones sensibles deben implementarse con funciones RPC seguras y validación del fundador en la base de datos.</small></div>
+ </div>
 </section>
 <hr>
-
-<section id="cuenta">
-  <h2 class="section-title">👤 Tu cuenta YAKA99</h2>
-  <div class="panel auth-panel" id="authPanel">
-    <h2 id="authTitle">Bienvenido a YAKA99</h2><p class="notice">Creá tu cuenta o ingresá para conectarte.</p>
-    <div id="nameField"><label for="fullName">Tu nombre</label><input id="fullName" type="text" placeholder="Cómo querés que te conozcan" autocomplete="name"></div>
-    <label for="email">Correo electrónico</label><input id="email" type="email" placeholder="tu correo electrónico" autocomplete="email">
-    <label for="password">Contraseña</label><input id="password" type="password" placeholder="Mínimo 6 caracteres" autocomplete="current-password">
-    <div class="auth-actions"><button class="btn" id="registerBtn" onclick="registerUser()">Crear cuenta</button><button class="btn secondary" id="loginBtn" onclick="loginUser()">Iniciar sesión</button></div>
-    <hr><button class="btn secondary" style="width:100%" onclick="resetPassword()">Recuperar contraseña</button>
-    <p class="message" id="authMessage" role="status" aria-live="polite"></p>
-    <p class="notice">Al registrarte, Supabase puede enviarte un correo para confirmar tu dirección.</p>
-  </div>
-  <div class="panel hidden" id="userPanel">
-    <div class="userbar"><div class="avatar" id="userAvatar">Y</div><div style="flex:1;min-width:0"><strong id="userName">Usuario</strong><div class="notice" id="userEmail"></div><div id="accountRole" class="notice">Usuario YAKA99</div></div><button class="btn secondary" onclick="logoutUser()">Cerrar sesión</button></div>
-    <p class="message" id="userMessage" role="status" aria-live="polite"></p>
-  </div>
-  <div class="panel hidden" id="passwordPanel"><h2>Crear nueva contraseña</h2><label for="newPassword">Nueva contraseña</label><input id="newPassword" type="password" placeholder="Mínimo 6 caracteres" autocomplete="new-password"><button class="btn" onclick="changePassword()">Guardar contraseña</button><p class="message" id="passwordMessage"></p></div>
-</section>
-
-<section id="admin" class="hidden">
-  <hr><div class="admin-head"><h2 class="section-title">♛ YAKA99 Founder · Panel administrativo</h2><span class="pill">ACCESO VERIFICADO</span></div>
-  <div class="panel">
-    <div class="admin-head"><div><strong>Centro de administración</strong><p class="notice">Este panel aparece únicamente después de verificar el rol fundador en Supabase.</p></div><button class="btn secondary" onclick="loadFounderData()">Actualizar datos</button></div>
-    <div class="admin-grid">
-      <div class="admin-tile"><span>👥</span><strong>Usuarios y roles</strong><small>Consulta de los registros de roles permitidos por las políticas RLS.</small></div>
-      <div class="admin-tile"><span>🛡️</span><strong>Seguridad</strong><small>La autorización real se aplica en Supabase, no solamente en esta página.</small></div>
-      <div class="admin-tile"><span>🔐</span><strong>Permisos</strong><small>El fundador puede consultar los roles según la política existente.</small></div>
-      <div class="admin-tile"><span>👑</span><strong>Funciones exclusivas</strong><small>Las operaciones sensibles requieren funciones seguras del lado del servidor.</small></div>
-    </div>
-    <hr><div class="admin-head"><strong>Registros de yaka99_user_roles</strong><span class="notice" id="rolesCount">Sin cargar</span></div>
-    <p class="notice">La tabla se consulta con SELECT y respeta RLS. Se muestran los campos que la base de datos devuelva, sin asumir nombres de columnas.</p>
-    <div id="rolesLoading" class="notice">Esperando consulta...</div>
-    <div class="table-wrap hidden" id="rolesTableWrap"><table><thead id="rolesTableHead"></thead><tbody id="rolesTableBody"></tbody></table></div>
-    <p class="message" id="adminMessage" role="status" aria-live="polite"></p>
-    <hr>
-    <div class="admin-tile">
-      <strong>Gestión de usuarios y asignación de roles</strong>
-      <p class="notice">La configuración actual de Supabase concede SELECT a usuarios autenticados, pero no concede INSERT, UPDATE ni DELETE. Por seguridad, esta versión no simula cambios ni intenta modificar roles. Para habilitar altas, cambios y bajas hace falta crear funciones RPC seguras con validación del fundador y reglas específicas en la base de datos.</p>
-      <span class="pill">GESTIÓN DE ROLES: SOLO LECTURA POR AHORA</span>
-    </div>
-  </div>
-</section>
-
+<section id="historias"><h2 class="section-title">◉ Historias de la comunidad</h2><div class="panel hidden" id="storyCreate"><label>Compartí un momento (texto, hasta 500 caracteres)</label><textarea id="storyText" rows="2" maxlength="500" placeholder="¿Qué está pasando?"></textarea><button class="btn" onclick="createStory()">Publicar historia · 24 h</button><p class="message" id="storyMessage"></p></div><div class="story-list" id="storyList"><div class="empty">Iniciá sesión para compartir historias.</div></div></section>
 <hr>
-<section id="historias"><h2 class="section-title">◉ Momentos de la comunidad</h2><div class="story-list">
-  <div class="story"><div class="story-icon">＋</div>Tu historia</div><div class="story"><div class="story-icon">🌎</div>Global</div><div class="story"><div class="story-icon">⚡</div>Innovación</div><div class="story"><div class="story-icon">💡</div>Ideas</div><div class="story"><div class="story-icon">🚀</div>Futuro</div><div class="story"><div class="story-icon">💎</div>Universo</div>
-</div></section>
+<section id="crear"><h2 class="section-title">✧ ¿Qué querés compartir?</h2><div class="panel" id="composer"><strong>TU VOZ IMPORTA</strong><p class="notice">Las publicaciones se guardan en la base de datos.</p><textarea id="postText" rows="4" maxlength="5000" placeholder="¿Qué estás pensando?"></textarea><label>URL de imagen (opcional)</label><input id="postImage" type="url" placeholder="https://..."><button class="btn" id="publishBtn" onclick="createPost()">PUBLICAR ↗</button><p class="message" id="postMessage"></p></div></section>
 <hr>
-<section id="crear"><h2 class="section-title">✧ ¿Qué querés compartir?</h2><div class="panel"><strong>TU VOZ IMPORTA</strong><p class="notice">Compartí tus ideas con la comunidad YAKA99.</p><textarea id="postText" rows="4" placeholder="¿Qué estás pensando?"></textarea><button class="btn" onclick="createPost()">PUBLICAR ↗</button><p class="message" id="postMessage"></p><p class="notice">Las publicaciones todavía están en modo demostración; el feed se conectará a tablas y políticas específicas en una próxima etapa.</p></div></section>
+<section id="feed"><div class="admin-head"><h2 class="section-title">▤ Feed de la comunidad</h2><button class="btn secondary" onclick="loadFeed()">Actualizar feed</button></div><div id="feedList"><div class="empty">Cargando publicaciones...</div></div></section>
 <hr>
-<section id="feed"><h2 class="section-title">▤ Descubrí el universo</h2>
-  <div class="panel post"><div class="post-head"><div class="avatar">Y</div><div><strong>YAKA99 OFFICIAL</strong><small>Presentación de la plataforma</small></div></div><p>🌎 ¡EL FUTURO ES SOCIAL!<br><br>Hoy comienza una nueva visión. Un lugar para compartir, descubrir y conectar con personas de todo el mundo.<br><br>No se trata solamente de estar conectados. Se trata de crear algo extraordinario juntos. 💎<br><br>#YAKA99 #ConnectTheWorld</p><div class="post-actions"><button onclick="likePost(this)">♡ Me gusta <span>0</span></button><button onclick="demoMessage()">◌ Comentar</button><button onclick="sharePost()">↗ Compartir</button></div></div>
-  <div class="panel post"><div class="post-head"><div class="avatar">🚀</div><div><strong>FUTURO DIGITAL</strong><small>Inspiración · Comunidad</small></div></div><p>Una gran revolución comienza con una idea. Nunca subestimes lo que podés construir cuando te atrevés a empezar. ⚡</p><div class="post-actions"><button onclick="likePost(this)">♡ Me gusta <span>0</span></button><button onclick="demoMessage()">◌ Comentar</button><button onclick="sharePost()">↗ Compartir</button></div></div>
-</section>
-<hr>
+<section id="people"><h2 class="section-title">⌕ Encontrar personas</h2><div class="panel"><input id="userSearch" placeholder="Buscar por nombre o usuario..." oninput="searchPeople()"><div id="peopleResults" class="notice">Escribí para buscar perfiles.</div></div></section>
 <section id="vision" class="hero"><div class="tag">OUR FUTURE</div><h2>Beyond Connection.</h2><p class="subtitle">YAKA99 nace con una ambición: crear un ecosistema tecnológico que acerque a las personas y transforme las ideas en oportunidades.</p><h3 style="color:var(--cyan)">CONNECT THE WORLD. ∞</h3></section>
-</main>
-<footer>YAKA99 CONNECT · INFINITY EDITION · 2026</footer>
-
+</main><footer>YAKA99 CONNECT · INFINITY EDITION · 2026</footer>
 <script>
-/* CONFIGURACIÓN: usar únicamente la clave pública publishable/anon.
-   Nunca colocar la service_role key en un archivo HTML público. */
-const SUPABASE_URL = "https://znacqrungclknapgqnsk.supabase.co";
-const SUPABASE_ANON_KEY = "sb_publishable_zrPEuGPG2eEIVjYBoKxMpw_Q72orPZa";
-const supabaseClient = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
-
-const $ = (id) => document.getElementById(id);
-function showMessage(message){ $("authMessage").textContent = message; }
-function setAuthMode(mode){ $("nameField").classList.toggle("hidden", mode !== "register"); }
-
-async function registerUser(){
-  const name=$("fullName").value.trim(), email=$("email").value.trim(), password=$("password").value;
-  if(!name||!email||password.length<6){showMessage("Completá tu nombre, correo y una contraseña de al menos 6 caracteres.");return;}
-  showMessage("Creando tu cuenta...");
-  try{
-    const {data,error}=await supabaseClient.auth.signUp({email,password,options:{data:{full_name:name},emailRedirectTo:window.location.origin+window.location.pathname}});
-    if(error)throw error;
-    showMessage(data.session?"¡Tu cuenta fue creada correctamente!":"Cuenta creada. Revisá tu correo para confirmar el registro.");
-  }catch(error){showMessage("No se pudo crear la cuenta: "+error.message);}
-}
-async function loginUser(){
-  const email=$("email").value.trim(),password=$("password").value;
-  if(!email||!password){showMessage("Ingresá tu correo y contraseña.");return;}
-  showMessage("Iniciando sesión...");
-  try{const {error}=await supabaseClient.auth.signInWithPassword({email,password});if(error)throw error;showMessage("¡Bienvenido a YAKA99!");}
-  catch(error){showMessage("No se pudo iniciar sesión: "+error.message);}
-}
-async function logoutUser(){
-  const {error}=await supabaseClient.auth.signOut();
-  if(error)$("userMessage").textContent=error.message;
-  else{$("userMessage").textContent="Sesión cerrada.";$("admin").classList.add("hidden");$("adminNav").classList.add("hidden");}
-}
-async function resetPassword(){
-  const email=$("email").value.trim();if(!email){showMessage("Primero escribí tu correo electrónico.");return;}
-  showMessage("Enviando solicitud...");
-  try{const {error}=await supabaseClient.auth.resetPasswordForEmail(email,{redirectTo:window.location.origin+window.location.pathname});if(error)throw error;showMessage("Si el correo está registrado, recibirás instrucciones para recuperar tu contraseña.");}
-  catch(error){showMessage("Error: "+error.message);}
-}
-async function changePassword(){
-  const password=$("newPassword").value;
-  if(password.length<6){$("passwordMessage").textContent="La contraseña debe tener al menos 6 caracteres.";return;}
-  try{const {error}=await supabaseClient.auth.updateUser({password});if(error)throw error;$("passwordMessage").textContent="¡Contraseña actualizada correctamente!";$("passwordPanel").classList.add("hidden");}
-  catch(error){$("passwordMessage").textContent="No se pudo actualizar: "+error.message;}
-}
-function updateAccount(user){
-  if(user){
-    $("authPanel").classList.add("hidden");$("userPanel").classList.remove("hidden");
-    const name=user.user_metadata?.full_name||"Usuario YAKA99";
-    $("userName").textContent=name;$("userEmail").textContent=user.email||"";$("userAvatar").textContent=name.charAt(0).toUpperCase();
-  }else{
-    $("authPanel").classList.remove("hidden");$("userPanel").classList.add("hidden");
-    $("admin").classList.add("hidden");$("adminNav").classList.add("hidden");$("accountRole").textContent="Usuario YAKA99";
-  }
-}
-function normalizeFounderResult(data){
-  if(typeof data==="boolean")return data;
-  if(data&&typeof data==="object"){
-    if(typeof data.is_yaka99_founder==="boolean")return data.is_yaka99_founder;
-    if(typeof data.result==="boolean")return data.result;
-  }
-  return false;
-}
-async function verifyFounder(){
-  $("admin").classList.add("hidden");$("adminNav").classList.add("hidden");$("accountRole").textContent="Usuario YAKA99";
-  const {data:sessionData,error:sessionError}=await supabaseClient.auth.getSession();
-  if(sessionError||!sessionData.session?.user)return false;
-  try{
-    const {data,error}=await supabaseClient.rpc("is_yaka99_founder");
-    if(error)throw error;
-    const isFounder=normalizeFounderResult(data);
-    if(isFounder){
-      $("admin").classList.remove("hidden");$("adminNav").classList.remove("hidden");
-      $("accountRole").textContent="♛ YAKA99 Founder · Administrador principal";
-      await loadFounderData();
-    }
-    return isFounder;
-  }catch(error){
-    $("adminMessage").textContent="No se pudo verificar el rol fundador. El panel permanece bloqueado por seguridad. Detalle: "+error.message;
-    return false;
-  }
-}
-function safeCell(value){
-  if(value===null||value===undefined)return "—";
-  if(typeof value==="object")return JSON.stringify(value);
-  return String(value);
-}
-async function loadFounderData(){
-  $("rolesLoading").classList.remove("hidden");$("rolesTableWrap").classList.add("hidden");
-  $("rolesLoading").textContent="Consultando roles en Supabase...";
-  $("adminMessage").textContent="";
-  try{
-    const {data,error}=await supabaseClient.from("yaka99_user_roles").select("*");
-    if(error)throw error;
-    const rows=Array.isArray(data)?data:[];
-    $("rolesCount").textContent=rows.length+" registro(s)";
-    const head=$("rolesTableHead"),body=$("rolesTableBody");head.replaceChildren();body.replaceChildren();
-    if(rows.length===0){
-      $("rolesLoading").textContent="La consulta fue correcta, pero no hay registros visibles para esta cuenta según las políticas RLS.";
-      return;
-    }
-    const columns=[...new Set(rows.flatMap(row=>Object.keys(row)))];
-    const tr=document.createElement("tr");
-    columns.forEach(column=>{const th=document.createElement("th");th.textContent=column;tr.appendChild(th);});
-    head.appendChild(tr);
-    rows.forEach(row=>{
-      const rowElement=document.createElement("tr");
-      columns.forEach(column=>{const td=document.createElement("td");td.textContent=safeCell(row[column]);rowElement.appendChild(td);});
-      body.appendChild(rowElement);
-    });
-    $("rolesLoading").classList.add("hidden");$("rolesTableWrap").classList.remove("hidden");
-  }catch(error){
-    $("rolesLoading").textContent="No se pudieron cargar los roles: "+error.message;
-    $("rolesCount").textContent="Error de consulta";
-  }
-}
-supabaseClient.auth.onAuthStateChange((event,session)=>{
-  updateAccount(session?.user||null);
-  if(event==="PASSWORD_RECOVERY"){$("passwordPanel").classList.remove("hidden");$("passwordPanel").scrollIntoView({behavior:"smooth"});}
-  if(session?.user){Promise.resolve().then(()=>verifyFounder());}
-});
-async function checkSession(){
-  const {data,error}=await supabaseClient.auth.getSession();
-  if(error){showMessage("No se pudo comprobar la sesión: "+error.message);return;}
-  updateAccount(data.session?.user||null);
-  if(data.session?.user)await verifyFounder();
-}
-function createPost(){
-  const text=$("postText").value.trim();
-  if(!text){$("postMessage").textContent="Escribí algo antes de publicar.";return;}
-  $("postMessage").textContent="La publicación todavía no se guarda en el servidor. Conectaremos el feed a la base de datos en la siguiente etapa.";
-  $("postText").value="";
-}
-function likePost(button){const count=button.querySelector("span");count.textContent=Number(count.textContent)+1;button.style.color="var(--cyan)";}
-function demoMessage(){alert("Los comentarios reales se habilitarán al conectar la base de datos.");}
-async function sharePost(){
-  const shareData={title:"YAKA99 CONNECT",text:"Conectate con el futuro.",url:window.location.href};
-  if(navigator.share){try{await navigator.share(shareData);}catch(error){}}
-  else if(navigator.clipboard?.writeText){try{await navigator.clipboard.writeText(shareData.url);alert("Enlace copiado.");}catch(error){alert("No se pudo copiar el enlace.");}}
-  else{alert("Copiá este enlace: "+shareData.url);}
-}
-checkSession();
+/* Solo clave pública publishable/anon. Nunca usar service_role en el navegador. */
+const SUPABASE_URL="https://znacqrungclknapgqnsk.supabase.co";
+const SUPABASE_ANON_KEY="sb_publishable_zrPEuGPG2eEIVjYBoKxMpw_Q72orPZa";
+const db=window.supabase.createClient(SUPABASE_URL,SUPABASE_ANON_KEY);
+const $=id=>document.getElementById(id);
+let currentUser=null, founderVerified=false, searchTimer=null;
+const say=(id,msg)=>$(id).textContent=msg;
+const esc=s=>String(s??"").replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
+const initials=s=>(s||"Y").trim().charAt(0).toUpperCase();
+function avatarMarkup(profile,name){const url=profile?.avatar_url;return `<div class="avatar">${url?`<img src="${esc(url)}" alt="" referrerpolicy="no-referrer" onerror="this.remove()">`:esc(initials(name))}</div>`}
+function timeAgo(value){const d=new Date(value);return isNaN(d)? "":d.toLocaleString("es-PY",{dateStyle:"short",timeStyle:"short"})}
+function normalizeFounder(data){if(typeof data==="boolean")return data;if(Array.isArray(data)&&data.length===1)return normalizeFounder(data[0]);if(data&&typeof data==="object"){if(typeof data.is_yaka99_founder==="boolean")return data.is_yaka99_founder;if(typeof data.result==="boolean")return data.result;}return false}
+async function registerUser(){const name=$("fullName").value.trim(),email=$("email").value.trim(),password=$("password").value;if(!name||!email||password.length<6){say("authMessage","Completá nombre, correo y contraseña de al menos 6 caracteres.");return;}say("authMessage","Creando cuenta...");try{const {data,error}=await db.auth.signUp({email,password,options:{data:{full_name:name},emailRedirectTo:location.origin+location.pathname}});if(error)throw error;say("authMessage",data.session?"¡Cuenta creada!":"Cuenta creada. Revisá tu correo para confirmar.");}catch(e){say("authMessage","No se pudo crear la cuenta: "+e.message)}}
+async function loginUser(){const email=$("email").value.trim(),password=$("password").value;if(!email||!password){say("authMessage","Ingresá correo y contraseña.");return;}say("authMessage","Ingresando...");try{const {error}=await db.auth.signInWithPassword({email,password});if(error)throw error;say("authMessage","¡Bienvenido a YAKA99!");}catch(e){say("authMessage","No se pudo iniciar sesión: "+e.message)}}
+async function logoutUser(){const {error}=await db.auth.signOut();if(error)say("userMessage",error.message);else{currentUser=null;founderVerified=false;updateUI(null)}}
+async function resetPassword(){const email=$("email").value.trim();if(!email){say("authMessage","Primero escribí tu correo.");return;}try{const {error}=await db.auth.resetPasswordForEmail(email,{redirectTo:location.origin+location.pathname});if(error)throw error;say("authMessage","Si el correo existe, recibirás instrucciones.");}catch(e){say("authMessage",e.message)}}
+async function changePassword(){const password=$("newPassword").value;if(password.length<6){say("passwordMessage","Mínimo 6 caracteres.");return;}try{const {error}=await db.auth.updateUser({password});if(error)throw error;say("passwordMessage","Contraseña actualizada.");$("passwordPanel").classList.add("hidden");}catch(e){say("passwordMessage",e.message)}}
+async function updateUI(user){currentUser=user;$("authPanel").classList.toggle("hidden",!!user);$("userPanel").classList.toggle("hidden",!user);$("profilePanel").classList.toggle("hidden",!user);$("storyCreate").classList.toggle("hidden",!user);$("composer").classList.toggle("hidden",!user);if(!user){$("admin").classList.add("hidden");$("adminNav").classList.add("hidden");$("accountRole").textContent="Usuario YAKA99";$("storyList").innerHTML='<div class="empty">Iniciá sesión para compartir historias.</div>';return;}const name=user.user_metadata?.full_name||user.email||"Usuario";$("userName").textContent=name;$("userEmail").textContent=user.email||"";$("userAvatar").textContent=initials(name);await loadProfile();await verifyFounder();await Promise.all([loadFeed(),loadStories()]);}
+async function loadProfile(){if(!currentUser)return;const {data,error}=await db.from("yaka99_profiles").select("*").eq("id",currentUser.id).maybeSingle();if(error){say("profileMessage","No se pudo cargar el perfil: "+error.message);return;}const p=data||{};$("profileName").value=p.display_name||currentUser.user_metadata?.full_name||"";$("profileUsername").value=p.username||"";$("profileBio").value=p.bio||"";$("profileAvatar").value=p.avatar_url||"";}
+async function saveProfile(){if(!currentUser)return;const display_name=$("profileName").value.trim(),username=$("profileUsername").value.trim().toLowerCase().replace(/^@/,""),bio=$("profileBio").value.trim(),avatar_url=$("profileAvatar").value.trim()||null;if(!display_name){say("profileMessage","El nombre público es obligatorio.");return;}if(username&&!/^[a-z0-9_.]{3,30}$/.test(username)){say("profileMessage","Usuario: 3-30 caracteres, letras, números, punto o guion bajo.");return;}say("profileMessage","Guardando...");const {error}=await db.from("yaka99_profiles").upsert({id:currentUser.id,display_name,username:username||null,bio,avatar_url,updated_at:new Date().toISOString()});if(error){say("profileMessage","No se pudo guardar: "+error.message);return;}say("profileMessage","Perfil actualizado.");$("userName").textContent=display_name;$("userAvatar").textContent=initials(display_name);await loadFeed();}
+async function verifyFounder(){founderVerified=false;$("admin").classList.add("hidden");$("adminNav").classList.add("hidden");$("accountRole").textContent="Usuario YAKA99";if(!currentUser)return;try{const {data,error}=await db.rpc("is_yaka99_founder");if(error)throw error;if(normalizeFounder(data)){founderVerified=true;$("admin").classList.remove("hidden");$("adminNav").classList.remove("hidden");$("accountRole").textContent="♛ YAKA99 Founder · Administrador principal";await loadFounderData();}}catch(e){say("adminMessage","Verificación no disponible; panel bloqueado. "+e.message)}}
+async function createPost(){if(!currentUser){say("postMessage","Iniciá sesión para publicar.");return;}const content=$("postText").value.trim(),image_url=$("postImage").value.trim()||null;if(!content&&!image_url){say("postMessage","Escribí algo o agregá una imagen.");return;}if(image_url&&!/^https:\/\/\S+/i.test(image_url)){say("postMessage","La imagen debe usar una URL https válida.");return;}$("publishBtn").disabled=true;say("postMessage","Publicando...");const {error}=await db.from("yaka99_posts").insert({user_id:currentUser.id,content,image_url});$("publishBtn").disabled=false;if(error){say("postMessage","No se pudo publicar: "+error.message);return;}$("postText").value="";$("postImage").value="";say("postMessage","¡Publicación compartida!");await loadFeed();}
+async function loadFeed(){const host=$("feedList");host.innerHTML='<div class="empty">Cargando publicaciones...</div>';const {data:posts,error}=await db.from("yaka99_posts").select("id,user_id,content,image_url,created_at,yaka99_profiles(display_name,username,avatar_url)").order("created_at",{ascending:false}).limit(50);if(error){host.innerHTML=`<div class="panel notice">No se pudo cargar el feed: ${esc(error.message)}. Ejecutá primero el SQL de configuración.</div>`;return;}if(!posts?.length){host.innerHTML='<div class="empty">Todavía no hay publicaciones. ¡Sé el primero en compartir!</div>';return;}const ids=posts.map(p=>p.id);let likes=[],comments=[];const likeRes=await db.from("yaka99_post_likes").select("post_id,user_id").in("post_id",ids);if(!likeRes.error)likes=likeRes.data||[];const commentRes=await db.from("yaka99_post_comments").select("id,post_id,user_id,content,created_at,yaka99_profiles(display_name,username)").in("post_id",ids).order("created_at",{ascending:true});if(!commentRes.error)comments=commentRes.data||[];host.innerHTML=posts.map(p=>{const profile=p.yaka99_profiles||{},name=profile.display_name||profile.username||"Usuario YAKA99",mine=likes.some(l=>l.post_id===p.id&&l.user_id===currentUser?.id),count=likes.filter(l=>l.post_id===p.id).length,cs=comments.filter(c=>c.post_id===p.id);return `<article class="panel post" data-post="${esc(p.id)}"><div class="post-head">${avatarMarkup(profile,name)}<div><strong>${esc(name)}</strong><small>${profile.username?"@"+esc(profile.username)+" · ":""}${esc(timeAgo(p.created_at))}</small></div></div><p>${esc(p.content||"")}</p>${p.image_url?`<img class="post-image" src="${esc(p.image_url)}" alt="Imagen de publicación" loading="lazy" onerror="this.style.display='none'">`:""}<div class="post-actions"><button class="${mine?"liked":""}" onclick="toggleLike('${esc(p.id)}',this)">♡ Me gusta <span>${count}</span></button><button onclick="document.getElementById('comment-${esc(p.id)}').focus()">◌ Comentar (${cs.length})</button>${p.user_id===currentUser?.id?`<button onclick="deletePost('${esc(p.id)}')">Eliminar</button>`:""}<button onclick="sharePost('${esc(p.id)}')">↗ Compartir</button></div><div>${cs.map(c=>`<div class="comment"><strong>${esc(c.yaka99_profiles?.display_name||c.yaka99_profiles?.username||"Usuario")}</strong> <small>${esc(timeAgo(c.created_at))}</small><div>${esc(c.content)}</div>${c.user_id===currentUser?.id?`<button class="post-actions" onclick="deleteComment('${esc(c.id)}')">Eliminar comentario</button>`:""}</div>`).join("")}</div><div class="inline-form"><input id="comment-${esc(p.id)}" maxlength="1000" placeholder="Escribí un comentario..."><button class="btn secondary" onclick="addComment('${esc(p.id)}')">Enviar</button></div></article>`}).join("");}
+async function toggleLike(postId,button){if(!currentUser){alert("Iniciá sesión para indicar Me gusta.");return;}const already=button.classList.contains("liked");let result;if(already)result=await db.from("yaka99_post_likes").delete().eq("post_id",postId).eq("user_id",currentUser.id);else result=await db.from("yaka99_post_likes").insert({post_id:postId,user_id:currentUser.id});if(result.error){alert("No se pudo actualizar el Me gusta: "+result.error.message);return;}await loadFeed();}
+async function addComment(postId){if(!currentUser){alert("Iniciá sesión para comentar.");return;}const input=$("comment-"+postId),content=input.value.trim();if(!content)return;const {error}=await db.from("yaka99_post_comments").insert({post_id:postId,user_id:currentUser.id,content});if(error){alert("No se pudo comentar: "+error.message);return;}await loadFeed();}
+async function deleteComment(id){if(!confirm("¿Eliminar este comentario?"))return;const {error}=await db.from("yaka99_post_comments").delete().eq("id",id);if(error)alert(error.message);else await loadFeed();}
+async function deletePost(id){if(!confirm("¿Eliminar tu publicación?"))return;const {error}=await db.from("yaka99_posts").delete().eq("id",id);if(error)alert(error.message);else await loadFeed();}
+async function sharePost(id){const url=location.href.split("#")[0]+"#feed";try{if(navigator.share)await navigator.share({title:"YAKA99 CONNECT",text:"Mirá esta publicación en YAKA99",url});else{await navigator.clipboard.writeText(url);alert("Enlace copiado.");}}catch(e){}}
+async function createStory(){if(!currentUser)return;const content=$("storyText").value.trim();if(!content){say("storyMessage","Escribí tu historia.");return;}const {error}=await db.from("yaka99_stories").insert({user_id:currentUser.id,content});if(error){say("storyMessage","No se pudo publicar: "+error.message);return;}$("storyText").value="";say("storyMessage","Historia publicada por 24 horas.");await loadStories();}
+async function loadStories(){const host=$("storyList");const {data,error}=await db.from("yaka99_stories").select("id,user_id,content,created_at,expires_at,yaka99_profiles(display_name,username,avatar_url)").gt("expires_at",new Date().toISOString()).order("created_at",{ascending:false}).limit(40);if(error){host.innerHTML=`<div class="empty">No se pudieron cargar historias: ${esc(error.message)}</div>`;return;}if(!data?.length){host.innerHTML='<div class="empty">Todavía no hay historias activas.</div>';return;}host.innerHTML=data.map(s=>{const p=s.yaka99_profiles||{},name=p.display_name||p.username||"Usuario";return `<div class="story" onclick="viewStory('${esc(s.id)}')"><div class="story-icon">${p.avatar_url?`<img src="${esc(p.avatar_url)}" style="width:100%;height:100%;object-fit:cover">`:esc(initials(name))}</div>${esc(name)}</div>`}).join("");window.storyCache=data;}
+function viewStory(id){const s=(window.storyCache||[]).find(x=>x.id===id);if(s)alert((s.yaka99_profiles?.display_name||"Historia")+"\n\n"+s.content+"\n\nVence: "+timeAgo(s.expires_at));}
+function searchPeople(){clearTimeout(searchTimer);searchTimer=setTimeout(runPeopleSearch,350)}
+async function runPeopleSearch(){const q=$("userSearch").value.trim();const host=$("peopleResults");if(q.length<2){host.textContent="Escribí al menos 2 caracteres.";return;}const {data,error}=await db.from("yaka99_profiles").select("id,display_name,username,bio,avatar_url").or(`display_name.ilike.%${q.replace(/[,%()]/g,"") }%,username.ilike.%${q.replace(/[,%()]/g,"") }%`).limit(20);if(error){host.textContent="Error de búsqueda: "+error.message;return;}if(!data?.length){host.textContent="No encontramos perfiles.";return;}host.innerHTML=data.map(p=>`<div class="userbar" style="padding:10px 0;border-bottom:1px solid var(--border)">${avatarMarkup(p,p.display_name)}<div><strong>${esc(p.display_name||"Usuario")}</strong><div class="notice">${p.username?"@"+esc(p.username):""} ${esc(p.bio||"")}</div></div></div>`).join("");}
+async function loadFounderData(){if(!founderVerified)return;say("adminMessage","Actualizando estadísticas...");const [u,p,s,r]=await Promise.all([db.from("yaka99_profiles").select("id",{count:"exact",head:true}),db.from("yaka99_posts").select("id",{count:"exact",head:true}),db.from("yaka99_stories").select("id",{count:"exact",head:true}).gt("expires_at",new Date().toISOString()),db.from("yaka99_user_roles").select("*")]);$("statUsers").textContent=u.error?"—":u.count??0;$("statPosts").textContent=p.error?"—":p.count??0;$("statStories").textContent=s.error?"—":s.count??0;if(r.error){$("rolesLoading").textContent="No se pudieron consultar roles: "+r.error.message;return;}renderRoles(r.data||[]);say("adminMessage","Datos actualizados. Las estadísticas reflejan los registros visibles según RLS.");}
+function renderRoles(rows){const head=$("rolesTableHead"),body=$("rolesTableBody");head.replaceChildren();body.replaceChildren();$("rolesLoading").classList.remove("hidden");$("rolesTableWrap").classList.add("hidden");if(!rows.length){$("rolesLoading").textContent="Consulta correcta: no hay registros visibles.";return;}const cols=[...new Set(rows.flatMap(x=>Object.keys(x)))],tr=document.createElement("tr");cols.forEach(c=>{const th=document.createElement("th");th.textContent=c;tr.appendChild(th)});head.appendChild(tr);rows.forEach(row=>{const tr=document.createElement("tr");cols.forEach(c=>{const td=document.createElement("td");td.textContent=typeof row[c]==="object"&&row[c]!==null?JSON.stringify(row[c]):String(row[c]??"—");tr.appendChild(td)});body.appendChild(tr)});$("rolesLoading").classList.add("hidden");$("rolesTableWrap").classList.remove("hidden");}
+db.auth.onAuthStateChange((event,session)=>{if(event==="PASSWORD_RECOVERY")$("passwordPanel").classList.remove("hidden");if(event==="SIGNED_OUT")updateUI(null);else if(session?.user&&currentUser?.id!==session.user.id)setTimeout(()=>updateUI(session.user),0);});
+async function init(){const {data,error}=await db.auth.getSession();if(error)say("authMessage",error.message);await updateUI(data?.session?.user||null);if(location.hash==="#recovery")$("passwordPanel").classList.remove("hidden");}
+init();
 </script>
-</body>
-</html>
+</body></html>
