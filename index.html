@@ -1,126 +1,271 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="es">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta name="theme-color" content="#080b18">
-<meta name="description" content="YAKA99 CONNECT — una nueva dimensión social.">
-<title>YAKA99 CONNECT INFINITY</title>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#070b18">
+<meta name="description" content="YAKA99 CONNECT INFINITY — un ecosistema digital global.">
+<title>YAKA99 CONNECT · INFINITY</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <style>
-:root{--bg:#080b18;--panel:#11182b;--cyan:#00eaff;--purple:#9b5cff;--pink:#ff42b7;--text:#f4f7ff;--muted:#9ba8c4;--border:rgba(255,255,255,.1);--green:#49e0a1;--red:#ff718b}
-*{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;background:radial-gradient(circle at 10% 10%,#17224a 0,transparent 35%),radial-gradient(circle at 90% 30%,#281342 0,transparent 35%),var(--bg);color:var(--text);font-family:Arial,sans-serif}
-button,input,textarea{font:inherit}button{cursor:pointer}button:disabled{opacity:.45;cursor:not-allowed}
-header{position:sticky;top:0;z-index:10;display:flex;align-items:center;justify-content:space-between;gap:16px;padding:15px 5%;background:rgba(8,11,24,.94);border-bottom:1px solid var(--border);backdrop-filter:blur(15px)}
-.logo{font-size:22px;font-weight:900;letter-spacing:1px;white-space:nowrap}.logo span{color:var(--cyan)}nav{display:flex;gap:15px;flex-wrap:wrap}nav a{color:var(--muted);text-decoration:none;font-size:13px}nav a:hover{color:var(--cyan)}
-.container{max-width:1050px;margin:auto;padding:25px 18px}.hero{text-align:center;padding:65px 15px 45px}.tag{color:var(--cyan);letter-spacing:3px;font-size:12px}
-h1{font-size:clamp(38px,8vw,75px);line-height:1.05;margin:20px 0}h1 span{background:linear-gradient(90deg,var(--cyan),var(--purple),var(--pink));-webkit-background-clip:text;color:transparent}
-.subtitle{color:var(--muted);max-width:600px;margin:15px auto;line-height:1.7}.btn{border:0;border-radius:12px;padding:13px 20px;color:#06101b;font-weight:800;background:linear-gradient(100deg,var(--cyan),#9b8cff)}.btn:hover{filter:brightness(1.12)}.btn.secondary{color:white;background:#202a43;border:1px solid var(--border)}.btn.danger{color:white;background:#63283b}
-.stats{display:flex;justify-content:center;gap:35px;margin-top:30px;flex-wrap:wrap}.stat strong{display:block;font-size:23px;color:var(--cyan)}.stat small{color:var(--muted)}
-.section-title{margin:30px 0 17px;font-size:22px}.panel{background:rgba(17,24,43,.9);border:1px solid var(--border);border-radius:18px;padding:20px;margin:15px 0;overflow:hidden}
-.auth-panel{max-width:480px;margin:25px auto}.auth-panel h2{margin-top:0}input,textarea{width:100%;padding:14px;margin:7px 0 13px;border:1px solid var(--border);border-radius:10px;background:#080f20;color:white;outline:none}input:focus,textarea:focus{border-color:var(--cyan)}label{font-size:13px;color:var(--muted)}
-.auth-actions{display:flex;gap:10px;flex-wrap:wrap}.auth-actions button{flex:1}.message{font-size:13px;color:var(--cyan);line-height:1.5;min-height:20px;overflow-wrap:anywhere}.hidden{display:none!important}.notice{font-size:12px;color:var(--muted);line-height:1.6}
-.userbar,.post-head{display:flex;align-items:center;gap:12px;flex-wrap:wrap}.avatar{width:42px;height:42px;flex:0 0 42px;border-radius:50%;display:grid;place-items:center;background:linear-gradient(130deg,var(--cyan),var(--purple));color:#06101b;font-weight:900;font-size:18px;overflow:hidden}.avatar img{width:100%;height:100%;object-fit:cover}
-.story-list{display:flex;gap:14px;overflow:auto;padding:10px 0}.story{min-width:85px;text-align:center;color:var(--muted);font-size:12px;cursor:pointer}.story-icon{width:65px;height:65px;border-radius:50%;margin:auto auto 8px;display:grid;place-items:center;font-size:25px;border:2px solid var(--cyan);background:#182440;overflow:hidden}
-.post p{line-height:1.7;color:#e2e8f6;overflow-wrap:anywhere;white-space:pre-wrap}.post-actions{display:flex;gap:18px;flex-wrap:wrap}.post-actions button{color:var(--muted);border:0;background:none;padding:8px 0}.post-actions button:hover,.post-actions button.liked{color:var(--cyan)}
-hr{border:0;border-top:1px solid var(--border);margin:20px 0}.pill{display:inline-block;border:1px solid rgba(0,234,255,.35);color:var(--cyan);background:rgba(0,234,255,.08);border-radius:99px;padding:5px 10px;font-size:11px;font-weight:bold}
-.admin-head{display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap}.admin-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px;margin:15px 0}.admin-tile{background:#0b1427;border:1px solid var(--border);border-radius:13px;padding:15px}.admin-tile strong{display:block;margin:5px 0;font-size:22px}.admin-tile small{color:var(--muted);line-height:1.5}
-.table-wrap{overflow-x:auto}table{width:100%;border-collapse:collapse;font-size:12px;min-width:420px}th,td{text-align:left;padding:11px 9px;border-bottom:1px solid var(--border);vertical-align:top;overflow-wrap:anywhere}th{color:var(--cyan)}td{color:#dce5f8}
-.comment{border-left:2px solid #344563;padding:7px 12px;margin:10px 0;color:#dce5f8;font-size:13px}.comment small{color:var(--muted)}.inline-form{display:flex;gap:8px;align-items:center}.inline-form input{margin:5px 0}.inline-form button{white-space:nowrap}
-footer{text-align:center;padding:35px;color:var(--muted);font-size:12px}.empty{text-align:center;color:var(--muted);padding:25px}.post-image{max-width:100%;max-height:480px;border-radius:12px;margin-top:10px}
-@media(max-width:650px){header{align-items:flex-start;flex-direction:column}nav{gap:12px}.hero{padding-top:40px}.admin-grid{grid-template-columns:1fr}.inline-form{align-items:stretch}.inline-form button{padding:10px}}
-
-.ecosystem-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px;margin:18px 0}
-.ecosystem-card{position:relative;min-height:155px;padding:19px;border:1px solid var(--border);border-radius:16px;background:linear-gradient(145deg,rgba(22,35,65,.95),rgba(13,18,35,.95));overflow:hidden}
-.ecosystem-card:before{content:"";position:absolute;width:110px;height:110px;right:-45px;top:-45px;border-radius:50%;background:rgba(0,234,255,.08);filter:blur(4px)}
-.ecosystem-card .module-icon{font-size:25px;color:var(--cyan)}
-.ecosystem-card h3{margin:10px 0 7px;font-size:17px}
-.ecosystem-card p{margin:0;color:var(--muted);font-size:12px;line-height:1.6}
-.module-status{display:inline-block;margin-top:13px;padding:5px 9px;border-radius:20px;font-size:10px;letter-spacing:.5px;color:#b8c5df;background:#26334d;border:1px solid var(--border)}
-@media(max-width:760px){.ecosystem-grid{grid-template-columns:repeat(2,minmax(0,1fr))}}
-@media(max-width:480px){.ecosystem-grid{grid-template-columns:1fr}}
-
+:root{--bg:#070b18;--panel:#0e1629;--panel2:#111d35;--line:#233453;--text:#edf4ff;--muted:#91a4c2;--cyan:#4de5ff;--blue:#637bff;--purple:#ad6bff;--green:#43e0a0;--red:#ff6e86;--radius:20px}
+*{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;background:radial-gradient(ellipse at 15% 0%,#142958 0,transparent 35%),radial-gradient(ellipse at 90% 10%,#24134a 0,transparent 30%),var(--bg);color:var(--text);font-family:Inter,system-ui,sans-serif;min-height:100vh}button,input,textarea{font:inherit}button{cursor:pointer;color:inherit}.hidden{display:none!important}.muted{color:var(--muted)}.small{font-size:12px}.wrap{max-width:1450px;margin:auto;padding:20px}.top{display:flex;align-items:center;justify-content:space-between;gap:15px;padding:14px 20px;border:1px solid #273b61;background:#081124d9;backdrop-filter:blur(18px);border-radius:22px;position:sticky;top:10px;z-index:20}.brand{display:flex;align-items:center;gap:12px;font-weight:900;letter-spacing:1.2px}.logo{width:42px;height:42px;border-radius:14px;background:linear-gradient(135deg,var(--cyan),var(--blue),var(--purple));display:grid;place-items:center;color:#06101d;font-size:20px;font-weight:900;box-shadow:0 0 28px #4de5ff55}.brand span em{font-style:normal;color:var(--cyan)}.top-actions{display:flex;align-items:center;gap:9px}.btn{border:1px solid #344b73;background:#14213b;padding:10px 15px;border-radius:12px;font-weight:700;transition:.2s}.btn:hover{transform:translateY(-1px);border-color:var(--cyan)}.btn.primary{background:linear-gradient(110deg,#24c9e8,#6475ff);border:0;color:#06101d}.btn.ghost{background:transparent}.btn.danger{border-color:#75364c;color:#ff9bad}.hero{padding:38px 10px 25px;display:grid;grid-template-columns:1.25fr .75fr;gap:25px;align-items:center}.eyebrow{color:var(--cyan);font-size:12px;letter-spacing:3px;font-weight:800}.hero h1{font-size:clamp(34px,6vw,68px);line-height:1.02;margin:12px 0}.gradient{background:linear-gradient(90deg,#fff,var(--cyan),#a68bff);-webkit-background-clip:text;background-clip:text;color:transparent}.hero p{max-width:690px;color:#a9bad5;line-height:1.7}.orb{height:260px;border-radius:30px;border:1px solid #344b73;background:radial-gradient(circle at 50% 45%,#285f9c88,transparent 45%),linear-gradient(145deg,#121f3c,#0b1022);display:grid;place-items:center;position:relative;overflow:hidden}.orb:before,.orb:after{content:"";position:absolute;width:210px;height:210px;border:1px solid #4de5ff66;border-radius:50%;box-shadow:0 0 35px #4de5ff33;transform:rotateX(65deg)}.orb:after{width:280px;height:280px;transform:rotateY(65deg) rotateX(65deg);border-color:#ad6bff66}.globe{font-size:95px;filter:drop-shadow(0 0 24px #4de5ff99);z-index:1}.stats{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin:12px 0 25px}.stat,.panel,.module{background:linear-gradient(145deg,#111d35ed,#0b1428ed);border:1px solid var(--line);border-radius:var(--radius);padding:18px}.stat b{font-size:24px;display:block}.stat span{font-size:12px;color:var(--muted)}.layout{display:grid;grid-template-columns:245px minmax(0,1fr) 275px;gap:18px;align-items:start}.side{position:sticky;top:90px}.nav{display:grid;gap:7px;margin-top:12px}.nav button{display:flex;align-items:center;gap:11px;text-align:left;width:100%;padding:12px;border:1px solid transparent;background:transparent;border-radius:12px;color:#b8c8e2}.nav button.active,.nav button:hover{background:#172745;border-color:#30466e;color:white}.nav i{font-style:normal;width:23px;text-align:center}.section-title{display:flex;align-items:center;justify-content:space-between;gap:10px;margin:0 0 15px}.section-title h2{font-size:19px;margin:0}.module-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}.module{padding:16px;min-height:130px;position:relative;overflow:hidden}.module .ico{font-size:25px}.module h3{font-size:14px;margin:10px 0 5px}.module p{font-size:11px;color:var(--muted);line-height:1.5;margin:0}.module:after{content:"";position:absolute;width:90px;height:90px;border-radius:50%;background:#4de5ff0c;right:-25px;bottom:-30px}.feed{display:grid;gap:14px;margin-top:18px}.composer textarea,.field{width:100%;border:1px solid #2b4167;background:#091326;color:white;border-radius:13px;padding:13px;outline:none}.composer textarea:focus,.field:focus{border-color:var(--cyan)}textarea{resize:vertical;min-height:90px}.post{background:#0d172b;border:1px solid #263a5d;border-radius:18px;padding:17px}.post-head{display:flex;align-items:center;gap:10px}.avatar{width:39px;height:39px;flex:0 0 39px;border-radius:50%;display:grid;place-items:center;background:linear-gradient(135deg,#20cce9,#815dff);font-weight:900;color:#06101d}.post p{white-space:pre-wrap;line-height:1.6;color:#dce8fa}.post-actions{display:flex;gap:8px;flex-wrap:wrap;border-top:1px solid #223452;padding-top:12px}.post-actions button{background:#14223d;border:1px solid #293f63;padding:8px 11px;border-radius:10px;font-size:12px}.right-stack{display:grid;gap:14px}.auth{max-width:490px;margin:65px auto}.auth .panel{padding:25px}.auth h2{margin-top:0}.auth-tabs{display:flex;gap:8px;margin-bottom:18px}.auth-tabs button{flex:1}.field{margin:7px 0 12px}.notice{padding:11px 13px;border-radius:12px;background:#14223b;color:#b8c9e5;font-size:12px;line-height:1.5;margin:10px 0}.notice.good{border:1px solid #23664f}.notice.warn{border:1px solid #72552b}.pill{display:inline-flex;padding:5px 9px;border-radius:99px;background:#123047;color:var(--cyan);font-size:10px;font-weight:800;letter-spacing:1px}.profile-row{display:flex;align-items:center;gap:12px}.profile-big{width:58px;height:58px;font-size:21px}.divider{height:1px;background:#263a5a;margin:15px 0}.admin-table{width:100%;border-collapse:collapse;font-size:12px}.admin-table td,.admin-table th{padding:10px;border-bottom:1px solid #263a5a;text-align:left}.bottom-nav{display:none}.footer{text-align:center;color:#667b9d;font-size:11px;padding:35px 10px}.status{font-size:11px;color:var(--green)}.empty{padding:25px;text-align:center;color:var(--muted);border:1px dashed #30466e;border-radius:15px}
+@media(max-width:1050px){.layout{grid-template-columns:210px minmax(0,1fr)}.right-col{display:none}.module-grid{grid-template-columns:repeat(2,1fr)}}
+@media(max-width:700px){.wrap{padding:10px}.top{padding:11px;top:5px}.brand{font-size:12px}.top-actions .btn{padding:8px;font-size:11px}.hero{grid-template-columns:1fr;padding:28px 5px 18px}.orb{height:170px}.globe{font-size:65px}.stats{gap:7px}.stat{padding:12px}.stat b{font-size:19px}.layout{display:block}.side{display:none}.module-grid{grid-template-columns:repeat(2,1fr);gap:8px}.module{padding:13px;min-height:125px}.maincol{padding-bottom:75px}.bottom-nav{display:flex;position:fixed;bottom:0;left:0;right:0;z-index:30;background:#081124f2;border-top:1px solid #263a5d;justify-content:space-around;padding:8px 3px calc(8px + env(safe-area-inset-bottom));backdrop-filter:blur(18px)}.bottom-nav button{border:0;background:transparent;color:#a9bad5;font-size:10px;display:grid;gap:3px;justify-items:center}.bottom-nav button span{font-size:18px}.auth{margin:30px auto}.auth .panel{padding:19px}}
 </style>
 </head>
 <body>
-<header>
- <div class="logo">YAKA99 <span>CONNECT</span></div>
- <nav><a href="#inicio">⌂ Inicio</a><a href="#historias">◉ Historias</a><a href="#crear">＋ Crear</a><a href="#feed">▤ Explorar</a><a href="#cuenta">👤 Cuenta</a><a href="#ecosistema">∞ Ecosistema</a><a href="#admin" id="adminNav" class="hidden">♛ Founder</a></nav>
+<div class="wrap">
+<header class="top">
+  <div class="brand"><div class="logo">Y</div><span>YAKA99 <em>CONNECT</em></span><span class="pill">INFINITY</span></div>
+  <div class="top-actions"><span id="connection" class="status">● Conectando</span><button class="btn ghost" id="topProfile" onclick="showSection('profile')">Mi cuenta</button><button class="btn primary" id="topAuth" onclick="showAuth()">Ingresar</button></div>
 </header>
-<main class="container">
-<section class="hero" id="inicio">
- <div class="tag">✦ THE NEXT DIGITAL EXPERIENCE</div><h1>NO MIRES<br><span>EL FUTURO.</span><br>VIVILO.</h1>
- <p class="subtitle">Bienvenido a una nueva dimensión social. Descubrí ideas, expresate y conectate con el mundo.</p>
- <button class="btn" onclick="document.getElementById('cuenta').scrollIntoView({behavior:'smooth'})">UNIRME A YAKA99 ↗</button>
- <div class="stats"><div class="stat"><strong>∞</strong><small>Ideas infinitas</small></div><div class="stat"><strong>🌎</strong><small>Sin fronteras</small></div><div class="stat"><strong>99</strong><small>Otra dimensión</small></div></div>
-</section><hr>
-<section id="cuenta"><h2 class="section-title">👤 Tu cuenta YAKA99</h2>
- <div class="panel auth-panel" id="authPanel"><h2 id="authTitle">Bienvenido a YAKA99</h2><p class="notice">Creá tu cuenta o ingresá para conectarte.</p>
-  <div id="nameField"><label>Tu nombre</label><input id="fullName" placeholder="Cómo querés que te conozcan" autocomplete="name"></div>
-  <label>Correo electrónico</label><input id="email" type="email" placeholder="tu correo electrónico" autocomplete="email">
-  <label>Contraseña</label><input id="password" type="password" placeholder="Mínimo 6 caracteres" autocomplete="current-password">
-  <div class="auth-actions"><button class="btn" id="registerBtn" onclick="registerUser()">Crear cuenta</button><button class="btn secondary" onclick="loginUser()">Iniciar sesión</button></div>
-  <hr><button class="btn secondary" style="width:100%" onclick="resetPassword()">Recuperar contraseña</button><p class="message" id="authMessage" role="status"></p><p class="notice">Confirmá tu correo si Supabase lo solicita.</p>
- </div>
- <div class="panel hidden" id="userPanel"><div class="userbar"><div class="avatar" id="userAvatar">Y</div><div style="flex:1;min-width:0"><strong id="userName">Usuario</strong><div class="notice" id="userEmail"></div><div id="accountRole" class="notice">Usuario YAKA99</div></div><button class="btn secondary" onclick="logoutUser()">Cerrar sesión</button></div><p class="message" id="userMessage"></p></div>
- <div class="panel hidden" id="profilePanel"><h3>✧ Mi perfil</h3><label>Nombre público</label><input id="profileName" maxlength="60"><label>Nombre de usuario (sin espacios)</label><input id="profileUsername" maxlength="30" placeholder="mi_usuario"><label>Descripción</label><textarea id="profileBio" rows="2" maxlength="240" placeholder="Contá algo sobre vos"></textarea><label>URL de foto de perfil (opcional)</label><input id="profileAvatar" type="url" placeholder="https://..."><button class="btn" onclick="saveProfile()">Guardar perfil</button><p class="message" id="profileMessage"></p></div>
- <div class="panel hidden" id="passwordPanel"><h3>Nueva contraseña</h3><input id="newPassword" type="password" placeholder="Mínimo 6 caracteres"><button class="btn" onclick="changePassword()">Guardar contraseña</button><p class="message" id="passwordMessage"></p></div>
-</section>
-<section id="admin" class="hidden"><hr><div class="admin-head"><h2 class="section-title">♛ YAKA99 Founder · Administración</h2><span class="pill">ROL VERIFICADO EN SUPABASE</span></div>
- <div class="panel"><div class="admin-head"><div><strong>Centro de control</strong><p class="notice">Acceso condicionado por la función segura is_yaka99_founder().</p></div><button class="btn secondary" onclick="loadFounderData()">Actualizar</button></div>
-  <div class="admin-grid"><div class="admin-tile">👥<strong id="statUsers">—</strong><small>Perfiles registrados visibles</small></div><div class="admin-tile">▤<strong id="statPosts">—</strong><small>Publicaciones visibles</small></div><div class="admin-tile">◉<strong id="statStories">—</strong><small>Historias activas visibles</small></div></div>
-  <h3>Roles de YAKA99</h3><p class="notice">Consulta de solo lectura. Se respetan las políticas RLS existentes.</p><div id="rolesLoading" class="notice">Esperando consulta...</div><div class="table-wrap hidden" id="rolesTableWrap"><table><thead id="rolesTableHead"></thead><tbody id="rolesTableBody"></tbody></table></div><p class="message" id="adminMessage"></p>
-  <div class="admin-tile"><strong>Seguridad administrativa</strong><small>Este panel no permite modificar roles desde el navegador. Las operaciones sensibles deben implementarse con funciones RPC seguras y validación del fundador en la base de datos.</small></div>
- </div>
-</section>
-<hr>
-<section id="historias"><h2 class="section-title">◉ Historias de la comunidad</h2><div class="panel hidden" id="storyCreate"><label>Compartí un momento (texto, hasta 500 caracteres)</label><textarea id="storyText" rows="2" maxlength="500" placeholder="¿Qué está pasando?"></textarea><button class="btn" onclick="createStory()">Publicar historia · 24 h</button><p class="message" id="storyMessage"></p></div><div class="story-list" id="storyList"><div class="empty">Iniciá sesión para compartir historias.</div></div></section>
-<hr>
-<section id="crear"><h2 class="section-title">✧ ¿Qué querés compartir?</h2><div class="panel" id="composer"><strong>TU VOZ IMPORTA</strong><p class="notice">Las publicaciones se guardan en la base de datos.</p><textarea id="postText" rows="4" maxlength="5000" placeholder="¿Qué estás pensando?"></textarea><label>URL de imagen (opcional)</label><input id="postImage" type="url" placeholder="https://..."><button class="btn" id="publishBtn" onclick="createPost()">PUBLICAR ↗</button><p class="message" id="postMessage"></p></div></section>
-<hr>
-<section id="feed"><div class="admin-head"><h2 class="section-title">▤ Feed de la comunidad</h2><button class="btn secondary" onclick="loadFeed()">Actualizar feed</button></div><div id="feedList"><div class="empty">Cargando publicaciones...</div></div></section>
-<hr>
-<section id="people"><h2 class="section-title">⌕ Encontrar personas</h2><div class="panel"><input id="userSearch" placeholder="Buscar por nombre o usuario..." oninput="searchPeople()"><div id="peopleResults" class="notice">Escribí para buscar perfiles.</div></div></section>
 
-<hr>
-<section id="ecosistema">
-  <div class="tag">YAKA99 DIGITAL UNIVERSE</div>
-  <h2 class="section-title">∞ El ecosistema YAKA99</h2>
-  <p class="notice">Una sola identidad digital, múltiples experiencias. Estos módulos forman parte de la arquitectura prevista; cada servicio se habilitará cuando tenga su backend, seguridad y pruebas correspondientes.</p>
-  <div class="ecosystem-grid">
-    <article class="ecosystem-card"><div class="module-icon">◉</div><h3>YAKA99 SOCIAL</h3><p>Perfiles, publicaciones, historias, reacciones y comunidad.</p><span class="module-status">BASE SOCIAL CONECTADA</span></article>
-    <article class="ecosystem-card"><div class="module-icon">✧</div><h3>YAKA99 AI</h3><p>Asistencia inteligente e inteligencia contextual integrada.</p><span class="module-status">EN DISEÑO</span></article>
-    <article class="ecosystem-card"><div class="module-icon">⌁</div><h3>YAKA99 MESSENGER</h3><p>Mensajería privada, conversaciones y controles de privacidad.</p><span class="module-status">EN DISEÑO</span></article>
-    <article class="ecosystem-card"><div class="module-icon">◇</div><h3>YAKA99 MARKET</h3><p>Espacio para descubrir productos, servicios y oportunidades.</p><span class="module-status">EN DISEÑO</span></article>
-    <article class="ecosystem-card"><div class="module-icon">▣</div><h3>YAKA99 BUSINESS</h3><p>Herramientas para marcas, comercios y organizaciones.</p><span class="module-status">EN DISEÑO</span></article>
-    <article class="ecosystem-card"><div class="module-icon">⌑</div><h3>YAKA99 PAY</h3><p>Arquitectura de pagos sujeta a proveedores y cumplimiento legal.</p><span class="module-status">PLANIFICACIÓN</span></article>
-    <article class="ecosystem-card"><div class="module-icon">▤</div><h3>YAKA99 ACADEMY</h3><p>Aprendizaje, cursos y conocimiento compartido.</p><span class="module-status">EN DISEÑO</span></article>
-    <article class="ecosystem-card"><div class="module-icon">◈</div><h3>YAKA99 SECURITY</h3><p>Protección de cuentas, auditoría y defensa de la plataforma.</p><span class="module-status">ARQUITECTURA EN DISEÑO</span></article>
-    <article class="ecosystem-card"><div class="module-icon">◎</div><h3>YAKA99 ID</h3><p>Identidad unificada y gestión segura de acceso.</p><span class="module-status">EN DISEÑO</span></article>
-    <article class="ecosystem-card"><div class="module-icon">◉</div><h3>YAKA99 LIVE</h3><p>Experiencias en directo y transmisión en tiempo real.</p><span class="module-status">PLANIFICACIÓN</span></article>
-    <article class="ecosystem-card"><div class="module-icon">⌘</div><h3>INTELLIGENCE CORE</h3><p>Coordinación de servicios, automatización autorizada y señales de seguridad.</p><span class="module-status">ARQUITECTURA EN DISEÑO</span></article>
-    <article class="ecosystem-card"><div class="module-icon">♛</div><h3>FOUNDER COMMAND</h3><p>Centro de supervisión del fundador, con privilegios verificados desde Supabase.</p><span class="module-status">ACCESO FOUNDER</span></article>
-  </div>
+<section class="hero">
+ <div><div class="eyebrow">UN NUEVO UNIVERSO DIGITAL</div><h1>El mundo conectado.<br><span class="gradient">Sin límites.</span></h1><p>Una plataforma, múltiples posibilidades. Conectá personas, ideas, comunidades y oportunidades desde un ecosistema digital diseñado para crecer globalmente.</p><div style="display:flex;gap:10px;flex-wrap:wrap"><button class="btn primary" onclick="showAuth()">Crear mi cuenta</button><button class="btn" onclick="showSection('explore')">Explorar INFINITY</button></div></div>
+ <div class="orb"><div class="globe">🌐</div></div>
 </section>
 
-<section id="vision" class="hero"><div class="tag">OUR FUTURE</div><h2>Beyond Connection.</h2><p class="subtitle">YAKA99 nace con una ambición: crear un ecosistema tecnológico que acerque a las personas y transforme las ideas en oportunidades.</p><h3 style="color:var(--cyan)">CONNECT THE WORLD. ∞</h3></section>
-</main><footer>YAKA99 CONNECT · INFINITY ECOSYSTEM · NACIDO EN PARAGUAY, DISEÑADO PARA EL MUNDO · 2026</footer>
+<section class="stats">
+ <div class="stat"><b>∞</b><span>Posibilidades</span></div><div class="stat"><b>12</b><span>Módulos del ecosistema</span></div><div class="stat"><b id="onlineCount">—</b><span>Comunidad conectada</span></div>
+</section>
+
+<section id="authPanel" class="auth hidden">
+ <div class="panel">
+  <div class="eyebrow">BIENVENIDO A INFINITY</div><h2 id="authTitle">Crear cuenta</h2>
+  <div class="auth-tabs"><button class="btn primary" id="signupTab" onclick="setAuthMode('signup')">Registrarme</button><button class="btn" id="loginTab" onclick="setAuthMode('login')">Ingresar</button></div>
+  <form id="authForm">
+   <label class="small muted">Nombre público</label><input class="field" id="authName" placeholder="Cómo querés que te conozcan">
+   <label class="small muted">Correo electrónico</label><input class="field" id="authEmail" type="email" required autocomplete="email" placeholder="tu@email.com">
+   <label class="small muted">Contraseña</label><input class="field" id="authPassword" type="password" required minlength="8" autocomplete="current-password" placeholder="Mínimo 8 caracteres">
+   <button class="btn primary" style="width:100%;margin-top:8px" id="authSubmit">Crear mi cuenta</button>
+  </form>
+  <button class="btn ghost" style="width:100%;margin-top:8px" onclick="resetPassword()">Olvidé mi contraseña</button>
+  <div id="authMessage" class="notice hidden"></div><button class="btn ghost" style="width:100%;margin-top:10px" onclick="hideAuth()">Volver</button>
+ </div>
+</section>
+
+<div id="app" class="layout hidden">
+ <aside class="side panel">
+  <div class="profile-row"><div class="avatar" id="sideAvatar">Y</div><div><b id="sideName">Mi cuenta</b><div class="small muted" id="sideRole">Miembro</div></div></div>
+  <div class="divider"></div><div class="small muted">NAVEGACIÓN</div>
+  <nav class="nav">
+   <button class="active" data-section="home" onclick="showSection('home')"><i>⌂</i> Inicio</button>
+   <button data-section="explore" onclick="showSection('explore')"><i>✧</i> Explorar módulos</button>
+   <button data-section="feed" onclick="showSection('feed')"><i>▤</i> Comunidad</button>
+   <button data-section="profile" onclick="showSection('profile')"><i>◉</i> Mi perfil</button>
+   <button data-section="founder" id="founderNav" class="hidden" onclick="showSection('founder')"><i>♛</i> Founder Command</button>
+  </nav><div class="divider"></div><button class="btn ghost" style="width:100%" onclick="signOut()">Cerrar sesión</button>
+ </aside>
+
+ <main class="maincol">
+  <section id="section-home">
+   <div class="section-title"><div><div class="eyebrow">PANEL PRINCIPAL</div><h2>Tu universo empieza aquí</h2></div><span class="pill">INFINITY CORE</span></div>
+   <div class="module-grid" id="homeModules"></div>
+   <div class="feed" id="homeFeed"><div class="empty">Iniciá sesión para participar de la comunidad.</div></div>
+  </section>
+  <section id="section-explore" class="hidden">
+   <div class="section-title"><div><div class="eyebrow">ECOSISTEMA</div><h2>Explorar YAKA99</h2></div></div>
+   <div class="notice">Estos módulos representan la hoja de ruta del ecosistema. Los que todavía están en desarrollo se muestran como próximos lanzamientos.</div>
+   <div class="module-grid" id="allModules"></div>
+  </section>
+  <section id="section-feed" class="hidden">
+   <div class="section-title"><div><div class="eyebrow">COMUNIDAD GLOBAL</div><h2>Publicaciones</h2></div><button class="btn" onclick="loadPosts()">Actualizar</button></div>
+   <div class="panel composer" id="composer"><textarea id="postText" maxlength="3000" placeholder="¿Qué querés compartir con la comunidad?"></textarea><div style="display:flex;justify-content:space-between;align-items:center;margin-top:10px"><span class="small muted">Compartí ideas con respeto.</span><button class="btn primary" onclick="createPost()">Publicar</button></div></div>
+   <div class="feed" id="feedList"><div class="empty">Cargando publicaciones…</div></div>
+  </section>
+  <section id="section-profile" class="hidden">
+   <div class="section-title"><div><div class="eyebrow">IDENTIDAD DIGITAL</div><h2>Mi perfil</h2></div></div>
+   <div class="panel"><div class="profile-row"><div class="avatar profile-big" id="profileAvatar">Y</div><div><h2 id="profileName" style="margin:0 0 5px">Mi perfil</h2><span class="pill" id="profileBadge">MIEMBRO</span><div class="small muted" id="profileEmail" style="margin-top:6px"></div></div></div><div class="divider"></div>
+   <label class="small muted">Nombre público</label><input class="field" id="editName" maxlength="40" placeholder="Tu nombre público">
+   <label class="small muted">Descripción</label><textarea class="field" id="editBio" maxlength="240" placeholder="Contá algo sobre vos…" style="min-height:75px"></textarea>
+   <button class="btn primary" onclick="saveProfile()">Guardar perfil</button><div id="profileMessage" class="notice hidden"></div></div>
+  </section>
+  <section id="section-founder" class="hidden">
+   <div class="section-title"><div><div class="eyebrow">ACCESO RESTRINGIDO</div><h2>♛ Founder Command</h2></div><span class="pill">FOUNDER</span></div>
+   <div class="notice good">Tu sesión fue verificada contra los permisos de Supabase. Esta pantalla no concede privilegios: la seguridad real depende de las políticas RLS del servidor.</div>
+   <div class="stats"><div class="stat"><b id="founderUsers">—</b><span>Roles visibles</span></div><div class="stat"><b id="founderPosts">—</b><span>Publicaciones</span></div><div class="stat"><b>ROOT</b><span>Cuenta fundadora</span></div></div>
+   <div class="panel"><div class="section-title"><h2>Roles registrados</h2><button class="btn" onclick="loadFounderData()">Actualizar</button></div><div id="rolesOutput" class="small muted">Cargando datos autorizados…</div></div>
+   <div class="notice warn">La asignación o revocación de administradores debe ejecutarse mediante una función segura del servidor, autorizada exclusivamente para el fundador. No se habilita desde el navegador por seguridad.</div>
+  </section>
+ </main>
+
+ <aside class="right-col right-stack">
+  <div class="panel"><div class="eyebrow">ESTADO DEL SISTEMA</div><h3 style="margin:9px 0">INFINITY CORE</h3><div class="status" id="systemStatus">● Verificando conexión</div><div class="divider"></div><div class="small muted">Autenticación protegida por Supabase Auth y permisos controlados por RLS.</div></div>
+  <div class="panel"><div class="eyebrow">PRÓXIMAMENTE</div><h3>El ecosistema crece</h3><p class="small muted">Nuevas herramientas, experiencias y servicios se incorporarán por etapas.</p><span class="pill">ROADMAP ACTIVO</span></div>
+  <div class="panel"><div class="eyebrow">FUNDADOR</div><h3>YAKA99 Founder</h3><p class="small muted">La visión, la dirección y el gobierno del ecosistema comienzan con una base segura.</p></div>
+ </aside>
+</div>
+<nav class="bottom-nav hidden" id="bottomNav"><button onclick="showSection('home')"><span>⌂</span>Inicio</button><button onclick="showSection('explore')"><span>✧</span>Explorar</button><button onclick="showSection('feed')"><span>▤</span>Comunidad</button><button onclick="showSection('profile')"><span>◉</span>Perfil</button></nav>
+<div class="footer">YAKA99 CONNECT · INFINITY © 2026 · Construyendo desde Paraguay para el mundo.</div>
+</div>
+
 <script>
-/* Solo clave pública publishable/anon. Nunca usar service_role en el navegador. */
-const SUPABASE_URL="https://znacqrungclknapgqnsk.supabase.co";
-const SUPABASE_ANON_KEY="sb_publishable_zrPEuGPG2eEIVjYBoKxMpw_Q72orPZa";
-const db=window.supabase.createClient(SUPABASE_URL,SUPABASE_ANON_KEY);
-const $=id=>document.getElementById(id);
-let currentUser=null, founderVerified=false, searchTimer=null;
-const say=(id,msg)=>$(id).textContent=msg;
-const esc=s=>String(s??"").replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
-const initials=s=>(s||"Y").trim().charAt(0).toUpperCase();
-function avatarMarkup(profile,name){const url=profile?.avatar_url;return `<div class="avatar">${url?`<img src="${esc(url)}" alt="" referrerpolicy="no-referrer" onerror="this.remove()">`:esc(initials(name))}</div>`}
-function timeAgo(value){const d=new Date(value);return isNaN(d)? "":d.toLocaleString("es-PY",{dateStyle:"short",timeStyle:"short"})}
-function normalizeFounder(data){if(typeof data==="boolean")return data;if(Array.isArray(data)&&data.length===1)return normalizeFounder(data[0]);if(data&&typeof data==="object"){if(typeof data.is_yaka99_founder==="boolean")return data.is_yaka99_founder;if(typeof data.result==="boolean")return data.result;}return false}
-async function registerUser(){const name=$("fullName").value.trim(),email=$("email").value.trim(),password=$("password").value;if(!name||!email||password.length<6){say("authMessage","Completá nombre, correo y contraseña de al menos 6 caracteres.");return;}say("authMessage","Creando cuenta...");try{const {data,error}=await db.auth.signUp({email,password,options:{data:{full_name:name},emailRedirectTo:location.origin+location.pathname}});if(error)throw error;say("authMessage",data.session?"¡Cuenta creada!":"Cuenta creada. Revisá tu correo para confirmar.");}catch(e){say("authMessage","No se pudo crear la cuenta: "+e.message)}}
-async function loginUser(){const email=$("email").value.trim(),password=$("password").value;if(!email||!password){say("authMessage","Ingresá correo y contraseña.");return;}say("authMessage","Ingresando...");try{const {error}=await db.auth.signInWithPassword({email,password});if(error)throw error;say("authMessage","¡Bienvenido a YAKA99!");}catch(e){say("authMessage","No se pudo iniciar sesión: "+e.message)}}
-async function logoutUser(){const {error}=await db.auth.signOut();if(error)say("userMessage",error.message);else{currentUser=null;founderVerified=false;updateUI(null)}}
-async function resetPassword(){const email=$("email").value.trim();if(!email){say("authMessage","Primero escribí tu correo.");return;}try{const {error}=await db.auth.resetPasswordForEmail(email,{redirectTo:location.origin+location.pathname});if(error)throw error;say("authMessage","Si el correo existe, recibirás instrucciones.");}catch(e){say("authMessage",e.message)}}
-async function changePassword(){const password=$("newPassword").value;if(password.length<6){say("passwordMessage","Mínimo 6 caracteres.");return;}try{const {error}=await db.auth.updateUser({password});if(error)throw error;say("passwordMessage","Contraseña actualizada.");$("passwordPanel").classList.add("hidden");}catch(e){say("passwordMessage",e.message)}}
-async function updateUI(user){currentUser=user;$("authPanel").classList.toggle("hidden",!!user);$("userPanel").classList.toggle("hidden",!user);$("profilePanel").classList.toggle("hidden",!user);$("storyCreate").classList.toggle("hidden",!user);$("composer").classList.toggle("hidden",!user);if(!us
+"use strict";
+/* Configuración del proyecto existente. La publishable/anon key puede estar en el frontend.
+   Nunca coloques aquí una service_role key ni contraseñas. */
+const SUPABASE_URL = "https://znacqrungclknapgqnsk.supabase.co";
+const SUPABASE_ANON_KEY = "sb_publishable_zrPEuGPG2eEIVjYBoKxMpw_Q72orPZa";
+const db = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+const $ = id => document.getElementById(id);
+let currentUser = null, currentProfile = null, isFounder = false, authMode = "signup";
+
+const modules = [
+ ["🌐","YAKA99 SOCIAL","Personas, publicaciones y comunidades.","Disponible en esta versión"],
+ ["🤖","YAKA99 AI","Inteligencia artificial integrada.","Próxima etapa"],
+ ["💬","YAKA99 MESSENGER","Mensajes y comunicación privada.","Próxima etapa"],
+ ["🛍️","YAKA99 MARKET","Comercio y oportunidades digitales.","Próxima etapa"],
+ ["🏢","YAKA99 BUSINESS","Herramientas para empresas.","Próxima etapa"],
+ ["💳","YAKA99 PAY","Infraestructura de pagos regulada.","Próxima etapa"],
+ ["🎓","YAKA99 ACADEMY","Educación y aprendizaje.","Próxima etapa"],
+ ["🛡️","YAKA99 SECURITY","Seguridad y defensa digital.","Próxima etapa"],
+ ["🪪","YAKA99 ID","Identidad y autenticación.","Próxima etapa"],
+ ["📡","YAKA99 LIVE","Transmisiones y contenido en vivo.","Próxima etapa"],
+ ["🧠","INTELLIGENCE CORE","Servicios inteligentes del ecosistema.","Próxima etapa"],
+ ["♛","FOUNDER COMMAND","Centro de gobierno del fundador.","Acceso restringido"]
+];
+function renderModules(){
+ const card = m=>`<article class="module"><div class="ico">${m[0]}</div><h3>${m[1]}</h3><p>${m[2]}</p><div style="margin-top:10px"><span class="pill">${m[3]}</span></div></article>`;
+ $("homeModules").innerHTML = modules.slice(0,6).map(card).join("");
+ $("allModules").innerHTML = modules.map(card).join("");
+}
+function message(id,text,good=false){const el=$(id);el.textContent=text;el.classList.remove("hidden","good","warn");el.classList.add("notice",good?"good":"warn");}
+function setAuthMode(mode){
+ authMode=mode;const signup=mode==="signup";
+ $("authTitle").textContent=signup?"Crear cuenta":"Bienvenido de nuevo";
+ $("authName").classList.toggle("hidden",!signup);
+ $("authName").previousElementSibling.classList.toggle("hidden",!signup);
+ $("authSubmit").textContent=signup?"Crear mi cuenta":"Ingresar";
+ $("signupTab").className=signup?"btn primary":"btn";$("loginTab").className=signup?"btn":"btn primary";
+}
+function showAuth(){ $("authPanel").classList.remove("hidden");$("app").classList.add("hidden");$("bottomNav").classList.add("hidden");window.scrollTo({top:0,behavior:"smooth"});}
+function hideAuth(){if(currentUser){$("authPanel").classList.add("hidden");$("app").classList.remove("hidden");$("bottomNav").classList.remove("hidden");}else{$("authPanel").classList.add("hidden");}}
+async function resetPassword(){
+ const email=$("authEmail").value.trim();if(!email){message("authMessage","Escribí tu correo electrónico primero.");return;}
+ const {error}=await db.auth.resetPasswordForEmail(email,{redirectTo:location.origin+location.pathname});
+ if(error)message("authMessage",error.message);else message("authMessage","Te enviamos un enlace de recuperación si el correo está registrado.",true);
+}
+$("authForm").addEventListener("submit",async e=>{
+ e.preventDefault();const email=$("authEmail").value.trim(),password=$("authPassword").value,name=$("authName").value.trim();
+ $("authSubmit").disabled=true;$("authSubmit").textContent="Procesando…";
+ try{
+  if(authMode==="signup"){
+   const {data,error}=await db.auth.signUp({email,password,options:{data:{display_name:name||email.split("@")[0]}}});
+   if(error)throw error;
+   if(data.session){message("authMessage","Cuenta creada. Bienvenido a YAKA99 CONNECT.",true);await updateUI(data.user);}
+   else message("authMessage","Registro iniciado. Revisá tu correo para confirmar la cuenta.",true);
+  }else{
+   const {data,error}=await db.auth.signInWithPassword({email,password});if(error)throw error;
+   message("authMessage","Sesión iniciada correctamente.",true);await updateUI(data.user);
+  }
+ }catch(err){message("authMessage",err.message||"No se pudo completar la operación.");}
+ finally{$("authSubmit").disabled=false;$("authSubmit").textContent=authMode==="signup"?"Crear mi cuenta":"Ingresar";}
+});
+async function updateUI(user){
+ currentUser=user||null;
+ $("authPanel").classList.add("hidden");
+ $("app").classList.toggle("hidden",!user);$("bottomNav").classList.toggle("hidden",!user);
+ $("topAuth").classList.toggle("hidden",!!user);$("topProfile").classList.toggle("hidden",!user);
+ if(!user){currentProfile=null;isFounder=false;return;}
+ $("connection").textContent="● Sesión activa";$("systemStatus").textContent="● Conectado y autenticado";
+ await loadProfile();await checkFounder();await loadPosts();showSection("home");
+}
+async function loadProfile(){
+ if(!currentUser)return;
+ const {data,error}=await db.from("yaka99_profiles").select("*").eq("id",currentUser.id).maybeSingle();
+ if(error){console.warn("Perfil:",error.message);currentProfile=null;}
+ else currentProfile=data;
+ const name=currentProfile?.display_name||currentUser.user_metadata?.display_name||currentUser.email.split("@")[0];
+ const bio=currentProfile?.bio||"";
+ $("sideName").textContent=name;$("profileName").textContent=name;
+ $("sideAvatar").textContent=name.slice(0,1).toUpperCase();$("profileAvatar").textContent=name.slice(0,1).toUpperCase();
+ $("profileEmail").textContent=currentUser.email;$("editName").value=name;$("editBio").value=bio;
+}
+async function saveProfile(){
+ if(!currentUser)return;
+ const display_name=$("editName").value.trim();const bio=$("editBio").value.trim();
+ if(!display_name){message("profileMessage","El nombre público no puede estar vacío.");return;}
+ const {error}=await db.from("yaka99_profiles").upsert({id:currentUser.id,display_name,bio,updated_at:new Date().toISOString()},{onConflict:"id"});
+ if(error){message("profileMessage","No se pudo guardar: "+error.message);return;}
+ message("profileMessage","Perfil actualizado correctamente.",true);await loadProfile();
+}
+async function checkFounder(){
+ isFounder=false;
+ try{
+  const {data,error}=await db.rpc("is_yaka99_founder");
+  if(!error)isFounder=data===true;
+  // Respaldo de lectura: el permiso debe estar protegido por RLS en el servidor.
+  if(!isFounder){
+   const {data:role}=await db.from("yaka99_user_roles").select("role").eq("user_id",currentUser.id).maybeSingle();
+   isFounder=role?.role==="founder";
+  }
+ }catch(e){console.warn("Verificación founder:",e);}
+ $("founderNav").classList.toggle("hidden",!isFounder);
+ $("sideRole").textContent=isFounder?"YAKA99 Founder":"Miembro";
+ $("profileBadge").textContent=isFounder?"YAKA99 FOUNDER":"MIEMBRO";
+ if(isFounder)loadFounderData();
+}
+function showSection(section){
+ if(!currentUser&&section!=="home"){showAuth();return;}
+ document.querySelectorAll("main section[id^='section-']").forEach(s=>s.classList.add("hidden"));
+ const target=$("section-"+section);if(target)target.classList.remove("hidden");
+ document.querySelectorAll(".nav button").forEach(b=>b.classList.toggle("active",b.dataset.section===section));
+ if(section==="feed")loadPosts();if(section==="founder"&&isFounder)loadFounderData();
+ window.scrollTo({top:0,behavior:"smooth"});
+}
+async function createPost(){
+ if(!currentUser){showAuth();return;}
+ const content=$("postText").value.trim();if(!content){alert("Escribí algo antes de publicar.");return;}
+ const {error}=await db.from("yaka99_posts").insert({user_id:currentUser.id,content});
+ if(error){alert("No se pudo publicar: "+error.message+"\\nVerificá que exista la tabla yaka99_posts y sus políticas RLS.");return;}
+ $("postText").value="";await loadPosts();
+}
+async function loadPosts(){
+ if(!currentUser)return;
+ const target=$("feedList"),home=$("homeFeed");
+ try{
+  const {data,error}=await db.from("yaka99_posts").select("id,user_id,content,created_at").order("created_at",{ascending:false}).limit(40);
+  if(error)throw error;
+  if(!data?.length){target.innerHTML='<div class="empty">Todavía no hay publicaciones. ¡Sé el primero en compartir algo!</div>';home.innerHTML="";return;}
+  const ids=[...new Set(data.map(p=>p.user_id))];
+  let profiles={};
+  if(ids.length){const {data:people}=await db.from("yaka99_profiles").select("id,display_name").in("id",ids);(people||[]).forEach(p=>profiles[p.id]=p.display_name);}
+  const html=data.map(p=>{
+   const author=profiles[p.user_id]||"Miembro YAKA99";
+   const date=p.created_at?new Date(p.created_at).toLocaleString("es-PY"):"";
+   return `<article class="post"><div class="post-head"><div class="avatar">${escapeHTML(author.slice(0,1).toUpperCase())}</div><div><b>${escapeHTML(author)}</b><div class="small muted">${escapeHTML(date)}</div></div></div><p>${escapeHTML(p.content)}</p><div class="post-actions"><span class="small muted">YAKA99 CONNECT · Comunidad</span></div></article>`;
+  }).join("");
+  target.innerHTML=html;home.innerHTML=html.split("</article>")[0]+"</article>";
+ }catch(err){
+  const text=escapeHTML(err.message||"Error al cargar publicaciones.");
+  target.innerHTML=`<div class="empty">No se pudieron cargar las publicaciones.<br><span class="small">${text}</span><br><br>Puede faltar la tabla yaka99_posts o una política RLS.</div>`;
+  home.innerHTML="";
+ }
+}
+async function loadFounderData(){
+ if(!isFounder||!currentUser)return;
+ const out=$("rolesOutput");out.textContent="Consultando permisos…";
+ const {data,error}=await db.from("yaka99_user_roles").select("user_id,role").order("role");
+ if(error){out.textContent="No se pudieron leer los roles: "+error.message;return;}
+ $("founderUsers").textContent=String(data?.length||0);
+ const {count}=await db.from("yaka99_posts").select("*",{count:"exact",head:true});$("founderPosts").textContent=count==null?"—":String(count);
+ if(!data?.length){out.textContent="No hay roles visibles para esta cuenta.";return;}
+ out.innerHTML='<table class="admin-table"><thead><tr><th>ID de usuario</th><th>Rol</th></tr></thead><tbody>'+data.map(r=>`<tr><td>${escapeHTML(r.user_id)}</td><td>${escapeHTML(r.role)}</td></tr>`).join("")+'</tbody></table>';
+}
+function escapeHTML(value){return String(value??"").replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));}
+async function signOut(){const {error}=await db.auth.signOut();if(error){alert(error.message);return;}currentUser=null;isFounder=false;$("app").classList.add("hidden");$("bottomNav").classList.add("hidden");$("topAuth").classList.remove("hidden");$("topProfile").classList.add("hidden");$("connection").textContent="● Sesión cerrada";$("authPanel").classList.remove("hidden");setAuthMode("login");}
+renderModules();setAuthMode("signup");
+(async()=>{
+ try{
+  const {data:{session},error}=await db.auth.getSession();if(error)throw error;
+  if(session?.user)await updateUI(session.user);
+  else{$("connection").textContent="● Listo para ingresar";$("systemStatus").textContent="● Esperando autenticación";}
+ }catch(e){$("connection").textContent="● Error de conexión";$("systemStatus").textContent="● Revisar configuración";console.error(e);}
+})();
+db.auth.onAuthStateChange((_event,session)=>{if(session?.user&&currentUser?.id!==session.user.id)setTimeout(()=>updateUI(session.user),0);});
+</script>
+</body>
+</html>
