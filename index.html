@@ -12,91 +12,1719 @@
 <body>
 <header class="topbar"><div class="brand">YAKA99 <span>CONNECT ●</span></div><div class="topright"><span class="online">● GLOBAL NETWORK</span><button id="headerLogin" class="btn secondary hidden">ACCEDER</button><button id="headerLogout" class="btn secondary hidden">SALIR</button></div></header>
 <div class="shell">
-<section class="hero"><span class="eyebrow">GLOBAL SOCIAL ECOSYSTEM · 1.0</span><h1>THE WORLD.<br>CONNECTED.</h1><p>Una comunidad digital para compartir, descubrir, conversar y construir conexiones reales. Todo dentro de YAKA99 CONNECT.</p></section>
-<div id="authPanel" class="card auth"><h2>Entrá a tu comunidad</h2><p class="small">Iniciá sesión o creá tu cuenta YAKA99.</p><label class="small" for="email">Correo electrónico</label><input class="field" id="email" type="email" autocomplete="email" placeholder="tu@email.com"><label class="small" for="password">Contraseña</label><input class="field" id="password" type="password" autocomplete="current-password" placeholder="Mínimo 8 caracteres"><button class="btn full" id="loginBtn">INICIAR SESIÓN</button><div class="actions"><button class="btn secondary" id="registerBtn">CREAR CUENTA</button><button class="btn ghost" id="resetBtn">RECUPERAR CONTRASEÑA</button></div><p class="small" style="margin-top:12px">Si es una cuenta nueva, confirmá tu correo cuando Supabase te lo solicite.</p></div>
+<section class="hero"><span class="eyebrow">GLOBAL SOCIAL ECOSYSTEM · 1.0</span><h1>THE WORLD.<br>CONNECTED.</h1><p>Una comunidad digital para compartir, descubrir, conversar y construir conexiones reales. Todo dentro de YAKA99 CONNECT.</p></section><div id="authPanel" class="card auth"><h2>Entrá a tu comunidad</h2><p class="small">Iniciá sesión o creá tu cuenta YAKA99.</p><label class="small" for="email">Correo electrónico</label><input class="field" id="email" type="email" autocomplete="email" placeholder="tu@email.com"><label class="small" for="password">Contraseña</label><input class="field" id="password" type="password" autocomplete="current-password" placeholder="Mínimo 8 caracteres"><button class="btn full" id="loginBtn">INICIAR SESIÓN</button><div class="actions"><button class="btn secondary" id="registerBtn">CREAR CUENTA</button><button class="btn ghost" id="resetBtn">RECUPERAR CONTRASEÑA</button></div><p class="small" style="margin-top:12px">Si es una cuenta nueva, confirmá tu correo cuando Supabase te lo solicite.</p></div>
 <div id="recoveryPanel" class="card auth hidden"><h2>Nueva contraseña</h2><input id="newPassword" class="field" type="password" placeholder="Nueva contraseña"><input id="confirmPassword" class="field" type="password" placeholder="Repetir contraseña"><button id="savePasswordBtn" class="btn full">GUARDAR CONTRASEÑA</button></div>
 <div id="appPanel" class="hidden">
 <div class="layout">
-<aside class="sidebar"><div class="card"><div class="profile" style="display:flex;align-items:center;gap:10px;margin-bottom:15px"><div class="avatar" id="miniAvatar">Y</div><div style="min-width:0"><strong id="miniName">Mi cuenta</strong><div id="roleLabel" class="pill">MIEMBRO</div></div></div><nav class="navlist" id="mainNav">
-<button class="navitem active" data-view="home"><span class="ico">⌂</span>Inicio</button><button class="navitem" data-view="feed"><span class="ico">▤</span>Publicaciones</button><button class="navitem" data-view="explore"><span class="ico">⌕</span>Explorar</button><button class="navitem" data-view="messages"><span class="ico">✉</span>Mensajes</button><button class="navitem" data-view="notifications"><span class="ico">♧</span>Notificaciones <span id="notificationCount"></span></button><button class="navitem" data-view="saved"><span class="ico">◇</span>Guardados</button><button class="navitem" data-view="profile"><span class="ico">◉</span>Mi perfil</button><button class="navitem hidden" id="founderNav" data-view="founder"><span class="ico">♛</span>Founder Center</button><button class="navitem hidden" id="adminNav" data-view="admin"><span class="ico">▣</span>Admin Center</button></nav><div class="actions"><button class="btn secondary full" id="refreshBtn">ACTUALIZAR</button><button class="btn danger full" id="logoutBtn">CERRAR SESIÓN</button></div></div></aside>
-<main class="maincol">
-<section id="view-home" class="view"><div class="view-title"><h2>Tu espacio global</h2><span class="badge">● CONECTADO</span></div><div class="grid2"><div class="card"><div class="small">TU CUENTA</div><div class="metric">ACTIVA</div></div><div class="card"><div class="small">COMUNIDAD</div><div class="metric">YAKA99</div></div></div><div class="card" style="margin-top:14px"><h2>Historias de la comunidad</h2><textarea id="storyText" class="field" maxlength="500" placeholder="Compartí una historia breve..."></textarea><div class="composer-bottom"><label class="btn secondary" for="storyImage">＋ Foto</label><input id="storyImage" type="file" accept="image/jpeg,image/png,image/webp" class="hidden"><span id="storyImageName" class="small">Visible durante 24 horas</span><button id="publishStoryBtn" class="btn secondary">PUBLICAR HISTORIA</button></div><div id="storiesStrip" class="stories-strip"><div class="empty">Cargando historias...</div></div></div><div class="card" style="margin-top:14px"><h2>Lo que está pasando</h2><div id="homeFeed" class="feed"><div class="empty">Cargando publicaciones...</div></div><button class="btn secondary full" style="margin-top:10px" data-goto="feed">VER TODAS LAS PUBLICACIONES</button></div></section><section id="view-feed" class="view hidden"><div class="view-title"><h2>Publicaciones</h2><button class="btn secondary" id="reloadFeedBtn">ACTUALIZAR</button></div><div class="card composer"><textarea id="postText" class="field" maxlength="5000" placeholder="¿Qué querés compartir con la comunidad?"></textarea><div class="composer-bottom"><label class="btn secondary" for="postImage">＋ Foto</label><input id="postImage" type="file" accept="image/jpeg,image/png,image/webp,image/gif" class="hidden"><span id="postImageName" class="small">Hasta 10 MB</span><button class="btn" id="publishPostBtn">PUBLICAR</button></div></div><div id="feedList" class="feed"><div class="empty">Cargando...</div></div></section>
-<section id="view-explore" class="view hidden"><div class="view-title"><h2>Explorar personas</h2></div><div class="card"><input id="searchPeople" class="field" placeholder="Buscar por nombre o @usuario..."><div id="searchResults"><div class="empty">Buscá miembros de YAKA99.</div></div></div><div class="card" style="margin-top:14px"><h3>Personas recientes</h3><div id="suggestedUsers"></div></div></section>
-<section id="view-messages" class="view hidden"><div class="view-title"><h2>Mensajes privados</h2></div><div class="card conversation"><div class="contact-list"><input id="contactSearch" class="field" placeholder="Buscar persona" style="padding:9px;font-size:11px"><div id="contactList"><p class="small">Buscá personas en Explorar para iniciar un chat.</p></div></div><div class="chatbox"><div id="chatTitle" class="small">Elegí una conversación</div><div id="messagesList" class="messages"><div class="empty">Tus conversaciones privadas aparecen acá.</div></div><div class="chat-send"><textarea id="messageText" class="field" placeholder="Escribí un mensaje..." maxlength="5000" disabled></textarea><button id="sendMessageBtn" class="btn" disabled>ENVIAR</button></div></div></div></section>
-<section id="view-notifications" class="view hidden"><div class="view-title"><h2>Notificaciones</h2><button id="markAllReadBtn" class="btn secondary">MARCAR LEÍDAS</button></div><div class="card" id="notificationsList"><div class="empty">Cargando notificaciones...</div></div></section>
-<section id="view-saved" class="view hidden"><div class="view-title"><h2>Publicaciones guardadas</h2></div><div id="savedFeed" class="feed"></div></section>
-<section id="view-profile" class="view hidden"><div class="card"><div class="profile-cover"></div><div class="profile-head"><div class="avatar" id="profileAvatar">Y</div><div><h2 id="profileHeading">Mi perfil</h2><span class="pill" id="profileRoleBadge">MIEMBRO</span></div></div><div id="profileStats" class="grid2"><div class="card"><div class="small">SEGUIDORES</div><div class="metric" id="followersCount">0</div></div><div class="card"><div class="small">SIGUIENDO</div><div class="metric" id="followingCount">0</div></div></div><div style="margin-top:16px"><label class="small" for="displayName">Nombre público</label><input id="displayName" class="field" maxlength="60"><label class="small" for="username">Nombre de usuario</label><input id="username" class="field" maxlength="30" placeholder="usuario_99"><label class="small" for="bio">Biografía</label><textarea id="bio" class="field" maxlength="240" placeholder="Contá algo sobre vos..."></textarea><label class="small" for="location">Ubicación (opcional)</label><input id="location" class="field" maxlength="80" placeholder="Ciudad, país"><label class="small" for="avatarFile">Foto de perfil</label><input id="avatarFile" class="field" type="file" accept="image/jpeg,image/png,image/webp"><button id="saveProfileBtn" class="btn">GUARDAR PERFIL</button><p id="profileStatus" class="small" style="margin-top:9px"></p><p id="profileEmail" class="small"></p><p id="profileId" class="small"></p></div></div></section>
-<section id="view-founder" class="view hidden"><div class="view-title"><h2>♛ Global Command Center</h2><span class="pill">FOUNDER</span></div><div class="card"><p class="small">Autoridad exclusiva del fundador. Los cambios de rol se validan en Supabase.</p><div class="grid2" id="founderStats" style="margin-top:14px"><div class="card"><span class="small">USUARIOS</span><div id="statUsers" class="metric">—</div></div><div class="card"><span class="small">ADMINISTRADORES</span><div id="statAdmins" class="metric">—</div></div><div class="card"><span class="small">PUBLICACIONES</span><div id="statPosts" class="metric">—</div></div><div class="card"><span class="small">REPORTES</span><div id="statReports" class="metric">—</div></div></div><button id="refreshFounderBtn" class="btn" style="margin-top:12px">ACTUALIZAR CENTRO</button><p id="founderStatus" class="small" style="margin-top:8px"></p></div><div class="card" style="margin-top:14px"><h3>Directorio de usuarios</h3><div class="table-wrap"><table><thead><tr><th>USUARIO</th><th>CORREO</th><th>ROL</th><th>ID</th></tr></thead><tbody id="founderUsers"><tr><td colspan="4">Cargando...</td></tr></tbody></table></div></div><div class="card" style="margin-top:14px"><h3>Administrar roles</h3><p class="small">Solo podés asignar USER o ADMIN. Founder no puede ser modificado desde esta función.</p><input id="targetUserId" class="field" placeholder="UUID del usuario"><select id="targetRole" class="field"><option value="user">USER</option><option value="admin">ADMIN</option></select><button id="assignRoleBtn" class="btn">APLICAR CAMBIO</button><p id="adminStatus" class="small"></p></div><div class="card" style="margin-top:14px"><h3>Reportes de comunidad</h3><div id="reportsList" class="small">Cargando...</div></div></section>
-<section id="view-admin" class="view hidden"><div class="card"><h2>YAKA99 ADMIN CENTER</h2><span class="pill">ADMINISTRADOR SUBORDINADO</span><p class="small" style="margin-top:12px">Podés colaborar con la comunidad. La autoridad Founder y la gestión de administradores permanecen reservadas al fundador.</p></div></section>
-</main>
-<aside class="rightcol"><div class="card right-card"><h3>Tu comunidad</h3><p class="small">Conectá con personas, compartí ideas y descubrí contenido nuevo.</p></div><div class="card right-card"><h3>Accesos rápidos</h3><button class="btn secondary full" data-goto="explore">EXPLORAR PERSONAS</button><button class="btn secondary full" style="margin-top:8px" data-goto="messages">ABRIR MENSAJES</button></div><div class="card right-card"><h3>Seguridad</h3><p class="small">Nunca compartas tu contraseña. YAKA99 nunca te la pedirá por mensaje.</p></div></aside>
-</div></div>
-<div class="footer">YAKA99 CONNECT © 2026 · GLOBAL SOCIAL ECOSYSTEM · BUILT FOR THE FUTURE ●</div>
-</div>
-<div id="toast" role="status" aria-live="polite"></div>
-<div id="userModal" class="modal hidden"><div class="modal-box"><div class="actions" style="justify-content:space-between"><strong>Perfil de miembro</strong><button id="closeUserModal" class="btn secondary">CERRAR</button></div><div id="userModalContent"></div></div></div>
-<div id="storyModal" class="modal hidden"><div class="modal-box"><div class="actions" style="justify-content:space-between"><strong id="storyModalTitle">Historia</strong><button id="closeStory" class="btn secondary">CERRAR</button></div><img id="storyModalImage" class="modal-image hidden"><p id="storyModalText" style="white-space:pre-wrap;line-height:1.6;margin-top:12px"></p></div></div>
-<script>
-'use strict';
-const SUPABASE_URL='https://znacqrungclknapgqnsk.supabase.co';
-const SUPABASE_PUBLISHABLE_KEY='sb_publishable_zrPEuGPG2eEIVjYBoKxMpw_Q72orPZa';
-const $=id=>document.getElementById(id);let db=null,user=null,role='user',activeView='home',activeContact=null,activeConversationKey=null,feedCache=[],toastTimer=null,liveChannel=null,recoveryMode=false;
-const esc=s=>String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
-function toast(msg,error=false){const el=$('toast');el.textContent=msg;el.style.borderColor=error?'var(--red)':'var(--cyan)';el.classList.add('show');clearTimeout(toastTimer);toastTimer=setTimeout(()=>el.classList.remove('show'),4200)}
-function busy(id,on,label){const b=$(id);if(!b)return;b.disabled=on;if(on){b.dataset.old=b.textContent;b.textContent=label||'PROCESANDO...'}else if(b.dataset.old){b.textContent=b.dataset.old;delete b.dataset.old}}
-function setHeader(){ $('headerLogin').classList.toggle('hidden',!!user);$('headerLogout').classList.toggle('hidden',!user); }
-function initials(s){return (String(s||'Y').trim()[0]||'Y').toUpperCase()}
-function avatarMarkup(url,name){return url?`<img src="${esc(url)}" alt="">`:esc(initials(name))}
-function pairKey(a,b){return [a,b].sort().join(':')}
-function showView(v){activeView=v;document.querySelectorAll('.view').forEach(x=>x.classList.add('hidden'));$('view-'+v)?.classList.remove('hidden');document.querySelectorAll('.navitem').forEach(x=>x.classList.toggle('active',x.dataset.view===v));if(v==='home'){loadStories();loadHomeFeed()}if(v==='feed')loadFeed();if(v==='explore')loadSuggestions();if(v==='notifications')loadNotifications();if(v==='saved')loadSaved();if(v==='profile')loadMyProfile();if(v==='founder')loadFounder();if(v==='messages')loadContacts();}
-function roleUI(){ $('roleLabel').textContent=role==='founder'?'YAKA99 FOUNDER':role==='admin'?'YAKA99 ADMIN':'MIEMBRO';$('founderNav').classList.toggle('hidden',role!=='founder');$('adminNav').classList.toggle('hidden',role!=='admin'); }
-async function resolveRole(){try{const f=await db.rpc('is_yaka99_founder');if(!f.error&&f.data===true)return 'founder'}catch(e){console.warn('Founder check:',e)}try{const {data,error}=await db.from('yaka99_user_roles').select('role').eq('user_id',user.id).maybeSingle();if(error)throw error;return data?.role==='admin'?'admin':data?.role==='founder'?'founder':'user'}catch(e){console.warn('Role lookup failed; using least-privilege member role:',e);toast('No se pudieron cargar los permisos elevados. Entraste como miembro hasta verificar los roles.',true);return 'user'}}
-async function enterApp(u){user=u;if(recoveryMode){$('authPanel').classList.add('hidden');$('appPanel').classList.add('hidden');$('recoveryPanel').classList.remove('hidden');setHeader();return}if(!u){if(liveChannel){db.removeChannel(liveChannel);liveChannel=null}$('authPanel').classList.remove('hidden');$('appPanel').classList.add('hidden');$('recoveryPanel').classList.add('hidden');setHeader();return}role=await resolveRole();$('authPanel').classList.add('hidden');$('recoveryPanel').classList.add('hidden');$('appPanel').classList.remove('hidden');setHeader();roleUI();await loadMyProfile();showView('home');await refreshNotificationCount();setupRealtime();}
-function setupRealtime(){if(liveChannel)db.removeChannel(liveChannel);liveChannel=db.channel('yaka99-live-'+user.id).on('postgres_changes',{event:'INSERT',schema:'public',table:'yaka99_notifications',filter:'user_id=eq.'+user.id},()=>{refreshNotificationCount();if(activeView==='notifications')loadNotifications()}).on('postgres_changes',{event:'INSERT',schema:'public',table:'yaka99_messages',filter:'recipient_id=eq.'+user.id},payload=>{if(activeView==='messages'&&activeContact&&payload.new.sender_id===activeContact.id)loadMessages()}).on('postgres_changes',{event:'INSERT',schema:'public',table:'yaka99_posts'},()=>{if(activeView==='feed')loadFeed();if(activeView==='home')loadHomeFeed()}).subscribe();}
-async function initialize(){if(!window.supabase?.createClient){toast('No se pudo cargar Supabase. Revisá tu conexión.',true);return}db=window.supabase.createClient(SUPABASE_URL,SUPABASE_PUBLISHABLE_KEY,{auth:{persistSession:true,autoRefreshToken:true,detectSessionInUrl:true}});const hashParams=new URLSearchParams(location.hash.replace(/^#/,'').replace(/^\?/,'&'));if(hashParams.get('type')==='recovery')recoveryMode=true;db.auth.onAuthStateChange((event,session)=>{if(event==='PASSWORD_RECOVERY'){recoveryMode=true;user=session?.user||null;$('authPanel').classList.add('hidden');$('appPanel').classList.add('hidden');$('recoveryPanel').classList.remove('hidden');setHeader();return}if(recoveryMode)return;setTimeout(async()=>{try{if(session?.user)await enterApp(session.user);else if(event==='SIGNED_OUT')await enterApp(null)}catch(e){toast('No se pudo abrir la cuenta: '+e.message,true)}},0)});const {data,error}=await db.auth.getSession();if(error){toast(error.message,true);return}if(recoveryMode){$('authPanel').classList.add('hidden');$('appPanel').classList.add('hidden');$('recoveryPanel').classList.remove('hidden');setHeader();return}if(data.session?.user){try{await enterApp(data.session.user)}catch(e){toast('No se pudo abrir la cuenta: '+e.message,true)}}else{setHeader()}}
-async function register(){const email=$('email').value.trim().toLowerCase(),password=$('password').value;if(!email||password.length<8)return toast('Ingresá correo y contraseña de al menos 8 caracteres.',true);busy('registerBtn',true);try{const {data,error}=await db.auth.signUp({email,password,options:{data:{display_name:email.split('@')[0],full_name:email.split('@')[0]},emailRedirectTo:new URL('./',location.href).toString()}});if(error)throw error;if(data.session)await enterApp(data.user);toast(data.session?'Cuenta creada. ¡Bienvenido!':'Registro enviado. Revisá tu correo para confirmar la cuenta.')}catch(e){toast(e.message,true)}finally{busy('registerBtn',false)}}async function resetPassword(){const email=$('email').value.trim().toLowerCase();if(!email)return toast('Escribí tu correo en el campo de acceso.',true);if(!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email))return toast('Ingresá un correo electrónico válido.',true);busy('resetBtn',true);try{const redirectTo=new URL('./',location.href).toString();const {error}=await db.auth.resetPasswordForEmail(email,{redirectTo});if(error)throw error;toast('Solicitud enviada. Revisá tu correo y también Spam. El enlace volverá a YAKA99 para elegir una contraseña nueva.')}catch(e){toast('No se pudo enviar el enlace: '+e.message,true)}finally{busy('resetBtn',false)}}
-async function savePassword(){const p=$('newPassword').value,c=$('confirmPassword').value;if(p.length<8||p!==c)return toast('Las contraseñas deben coincidir y tener al menos 8 caracteres.',true);busy('savePasswordBtn',true);try{const {error}=await db.auth.updateUser({password:p});if(error)throw error;recoveryMode=false;history.replaceState(null,document.title,location.pathname+location.search);$('newPassword').value='';$('confirmPassword').value='';$('recoveryPanel').classList.add('hidden');const {data}=await db.auth.getUser();if(data.user)await enterApp(data.user);else await enterApp(null);toast('Contraseña actualizada correctamente.')}catch(e){toast('No se pudo cambiar la contraseña: '+e.message,true)}finally{busy('savePasswordBtn',false)}}
-async function logout(){const {error}=await db.auth.signOut();if(error)return toast(error.message,true);user=null;role='user';await enterApp(null);toast('Sesión cerrada.')}
-async function uploadImage(file,folder){if(!file)return null;if(file.size>10*1024*1024)throw new Error('La imagen supera el límite de 10 MB.');if(!/^image\/(jpeg|png|webp|gif)$/.test(file.type))throw new Error('Formato de imagen no permitido.');const ext=(file.name.split('.').pop()||'jpg').toLowerCase().replace(/[^a-z0-9]/g,'');const path=`${user.id}/${folder}/${crypto.randomUUID()}.${ext}`;const {error}=await db.storage.from('yaka99-media').upload(path,file,{cacheControl:'3600',upsert:false,contentType:file.type});if(error)throw error;return db.storage.from('yaka99-media').getPublicUrl(path).data.publicUrl}
-async function profileMap(ids){if(!ids.length)return {};const {data}=await db.from('yaka99_profiles').select('id,display_name,username,avatar_url').in('id',[...new Set(ids)]);return Object.fromEntries((data||[]).map(p=>[p.id,p]))}
-function makePostCard(post,profile,likeCount=0,liked=false,saved=false){const card=document.createElement('article');card.className='card post';const name=profile?.display_name||'Miembro YAKA99';card.innerHTML=`<div class="post-head"><div class="avatar">${avatarMarkup(profile?.avatar_url,name)}</div><div class="post-meta"><strong>${esc(name)} ${profile?.username?`<span class="muted">@${esc(profile.username)}</span>`:''}</strong><span>${new Date(post.created_at).toLocaleString('es-PY')}</span></div><button class="btn ghost reportBtn">⋯</button></div>${post.content?`<p class="post-text">${esc(post.content)}</p>`:''}${post.image_url?`<img class="post-media" src="${esc(post.image_url)}" alt="Imagen compartida" loading="lazy">`:''}<div class="post-actions"><button class="btn secondary likeBtn">♥ ${liked?'Te gusta':'Me gusta'} · ${likeCount}</button><button class="btn secondary commentBtn">Comentar</button><button class="btn secondary saveBtn">${saved?'◆ Guardado':'◇ Guardar'}</button>${post.user_id===user.id?'<button class="btn danger deleteBtn">Eliminar</button>':''}</div><div class="comment-list hidden"></div>`;
-card.querySelector('.likeBtn').onclick=()=>toggleLike(post.id,card.querySelector('.likeBtn'));card.querySelector('.commentBtn').onclick=()=>commentPost(post.id,card.querySelector('.comment-list'));card.querySelector('.saveBtn').onclick=()=>toggleBookmark(post.id,card.querySelector('.saveBtn'));card.querySelector('.reportBtn').onclick=()=>reportTarget('post',post.id);const del=card.querySelector('.deleteBtn');if(del)del.onclick=()=>deletePost(post.id);return card}
-async function renderFeed(target,query){target.replaceChildren();let req=db.from('yaka99_posts').select('id,user_id,content,image_url,created_at').order('created_at',{ascending:false}).limit(40);if(query)req=req.eq('user_id',query);const {data,error}=await req;if(error){target.innerHTML=`<div class="empty">No se pudo cargar: ${esc(error.message)}</div>`;return}if(!data?.length){target.innerHTML='<div class="empty">Todavía no hay publicaciones. ¡Compartí la primera!</div>';return}const ids=data.map(x=>x.user_id),profiles=await profileMap(ids);const postIds=data.map(x=>x.id);const [{data:likes}, {data:myLikes},{data:saves}]=await Promise.all([db.from('yaka99_post_likes').select('post_id').in('post_id',postIds),db.from('yaka99_post_likes').select('post_id').eq('user_id',user.id).in('post_id',postIds),db.from('yaka99_bookmarks').select('post_id').eq('user_id',user.id).in('post_id',postIds)]);const counts={};(likes||[]).forEach(x=>counts[x.post_id]=(counts[x.post_id]||0)+1);const liked=new Set((myLikes||[]).map(x=>x.post_id)),saved=new Set((saves||[]).map(x=>x.post_id));data.forEach(p=>target.append(makePostCard(p,profiles[p.user_id],counts[p.id]||0,liked.has(p.id),saved.has(p.id))));}
-async function loadFeed(){await renderFeed($('feedList'))}async function loadHomeFeed(){await renderFeed($('homeFeed'))}
-async function publishPost(){const content=$('postText').value.trim(),file=$('postImage').files[0];if(!content&&!file)return toast('Escribí algo o elegí una foto.',true);busy('publishPostBtn',true);try{const image_url=await uploadImage(file,'posts');const {error}=await db.from('yaka99_posts').insert({user_id:user.id,content,image_url});if(error)throw error;$('postText').value='';$('postImage').value='';$('postImageName').textContent='Hasta 10 MB';toast('¡Publicación compartida!');await loadFeed()}catch(e){toast(e.message,true)}finally{busy('publishPostBtn',false)}}
-async function toggleLike(postId,button){try{const {data,error}=await db.from('yaka99_post_likes').select('post_id').eq('post_id',postId).eq('user_id',user.id).maybeSingle();if(error)throw error;if(data){const r=await db.from('yaka99_post_likes').delete().eq('post_id',postId).eq('user_id',user.id);if(r.error)throw r.error}else{const r=await db.from('yaka99_post_likes').insert({post_id:postId,user_id:user.id});if(r.error)throw r.error}toast(data?'Me gusta eliminado.':'¡Te gusta esta publicación!');await loadFeed()}catch(e){toast(e.message,true)}}
-async function commentPost(postId,box){const content=prompt('Escribí tu comentario:');if(content===null||!content.trim())return;const {error}=await db.from('yaka99_post_comments').insert({post_id:postId,user_id:user.id,content:content.trim()});if(error)return toast(error.message,true);toast('Comentario publicado.');box.classList.remove('hidden');await loadComments(postId,box)}
-async function loadComments(postId,box){box.replaceChildren();box.classList.remove('hidden');const {data,error}=await db.from('yaka99_post_comments').select('user_id,content,created_at').eq('post_id',postId).order('created_at',{ascending:true}).limit(30);if(error){box.textContent=error.message;return}const profiles=await profileMap((data||[]).map(x=>x.user_id));(data||[]).forEach(c=>{const p=document.createElement('p');p.className='comment-row';p.innerHTML=`<b>${esc(profiles[c.user_id]?.display_name||'Miembro')}:</b> ${esc(c.content)}`;box.append(p)})}
-async function deletePost(id){if(!confirm('¿Eliminar esta publicación?'))return;const {error}=await db.from('yaka99_posts').delete().eq('id',id).eq('user_id',user.id);if(error)return toast(error.message,true);toast('Publicación eliminada.');await loadFeed()}
-async function toggleBookmark(postId,button){const {data,error}=await db.from('yaka99_bookmarks').select('post_id').eq('user_id',user.id).eq('post_id',postId).maybeSingle();if(error)return toast(error.message,true);const r=data?await db.from('yaka99_bookmarks').delete().eq('user_id',user.id).eq('post_id',postId):await db.from('yaka99_bookmarks').insert({user_id:user.id,post_id:postId});if(r.error)return toast(r.error.message,true);button.textContent=data?'◇ Guardar':'◆ Guardado';toast(data?'Se quitó de guardados.':'Publicación guardada.')}
-async function loadSaved(){const box=$('savedFeed');box.replaceChildren();const {data,error}=await db.from('yaka99_bookmarks').select('post_id').eq('user_id',user.id).order('created_at',{ascending:false});if(error){box.textContent=error.message;return}if(!data?.length){box.innerHTML='<div class="empty">Todavía no guardaste publicaciones.</div>';return}const ids=data.map(x=>x.post_id);const {data:posts}=await db.from('yaka99_posts').select('id,user_id,content,image_url,created_at').in('id',ids);const profiles=await profileMap((posts||[]).map(x=>x.user_id));(posts||[]).forEach(p=>box.append(makePostCard(p,profiles[p.user_id],0,false,true)))}
-async function publishStory(){const text=$('storyText').value.trim(),file=$('storyImage').files[0];if(!text&&!file)return toast('Agregá texto o una imagen para tu historia.',true);busy('publishStoryBtn',true);try{const image_url=await uploadImage(file,'stories');const {error}=await db.from('yaka99_stories').insert({user_id:user.id,content:text||(file?'Imagen compartida':' '),image_url});if(error)throw error;$('storyText').value='';$('storyImage').value='';$('storyImageName').textContent='Visible durante 24 horas';toast('Historia publicada por 24 horas.');await loadStories()}catch(e){toast(e.message,true)}finally{busy('publishStoryBtn',false)}}
-async function loadStories(){const box=$('storiesStrip');if(!box)return;box.replaceChildren();const {data,error}=await db.from('yaka99_stories').select('id,user_id,content,image_url,created_at,expires_at').gt('expires_at',new Date().toISOString()).order('created_at',{ascending:false}).limit(25);if(error){box.textContent='No se pudieron cargar historias.';return}if(!data?.length){box.innerHTML='<div class="empty">Todavía no hay historias activas.</div>';return}const profiles=await profileMap(data.map(x=>x.user_id));data.forEach(s=>{const p=profiles[s.user_id]||{};const chip=document.createElement('div');chip.className='story-chip';chip.innerHTML=`<div class="story-ring"><div class="story-inner">${s.image_url?`<img src="${esc(s.image_url)}">`:esc(initials(p.display_name))}</div></div><small>${esc(p.display_name||'Miembro')}</small>`;chip.onclick=()=>openStory(s,p);box.append(chip)})}
-async function openStory(s,p){if(s.user_id!==user.id)await db.from('yaka99_story_views').upsert({story_id:s.id,viewer_id:user.id},{onConflict:'story_id,viewer_id'});$('storyModalTitle').textContent=p.display_name||'Historia';$('storyModalText').textContent=s.content||'';$('storyModalImage').classList.toggle('hidden',!s.image_url);if(s.image_url)$('storyModalImage').src=s.image_url;$('storyModal').classList.remove('hidden')}
-async function loadMyProfile(){if(!user)return;const {data,error}=await db.from('yaka99_profiles').select('*').eq('id',user.id).maybeSingle();if(error)console.warn(error.message);const p=data||{};const name=p.display_name||user.user_metadata?.display_name||'Usuario YAKA99';$('miniName').textContent=name;$('miniAvatar').innerHTML=avatarMarkup(p.avatar_url,name);$('profileAvatar').innerHTML=avatarMarkup(p.avatar_url,name);$('profileHeading').textContent=name;$('profileRoleBadge').textContent=role.toUpperCase();$('displayName').value=name;$('username').value=p.username||'';$('bio').value=p.bio||'';$('location').value=p.location||'';$('profileEmail').textContent='Correo: '+(user.email||'');$('profileId').textContent='ID: '+user.id;const [{count:followers},{count:following}]=await Promise.all([db.from('yaka99_follows').select('*',{count:'exact',head:true}).eq('following_id',user.id),db.from('yaka99_follows').select('*',{count:'exact',head:true}).eq('follower_id',user.id)]);$('followersCount').textContent=followers??0;$('followingCount').textContent=following??0}
-async function saveProfile(){const display_name=$('displayName').value.trim(),username=$('username').value.trim().toLowerCase(),bio=$('bio').value.trim(),location=$('location').value.trim();if(!display_name)return toast('El nombre público es obligatorio.',true);if(username&&!/^[a-z0-9_.]{3,30}$/.test(username))return toast('El usuario debe tener 3–30 caracteres: minúsculas, números, punto o guion bajo.',true);busy('saveProfileBtn',true);try{let avatar_url;const file=$('avatarFile').files[0];if(file)avatar_url=await uploadImage(file,'avatars');const row={id:user.id,display_name,username:username||null,bio,location,updated_at:new Date().toISOString()};if(avatar_url)row.avatar_url=avatar_url;const {error}=await db.from('yaka99_profiles').upsert(row,{onConflict:'id'});if(error)throw error;$('avatarFile').value='';await loadMyProfile();toast('Perfil actualizado.')}catch(e){toast(e.message,true)}finally{busy('saveProfileBtn',false)}}
-async function searchPeople(){const q=$('searchPeople').value.trim();const box=$('searchResults');if(q.length<2){box.innerHTML='<div class="empty">Escribí al menos 2 caracteres.</div>';return}const safe=q.replace(/[%,()]/g,' ').trim();const {data,error}=await db.from('yaka99_profiles').select('id,display_name,username,avatar_url,bio').or(`display_name.ilike.%${safe}%,username.ilike.%${safe}%`).neq('id',user.id).limit(20);if(error){box.textContent=error.message;return}renderUserResults(box,data||[])}
-function renderUserResults(box,rows){box.replaceChildren();if(!rows.length){box.innerHTML='<div class="empty">No encontramos miembros con ese nombre.</div>';return}rows.forEach(p=>{const row=document.createElement('div');row.className='user-result';row.innerHTML=`<div class="avatar">${avatarMarkup(p.avatar_url,p.display_name)}</div><div class="info"><strong>${esc(p.display_name)}</strong><div class="small">${p.username?'@'+esc(p.username):'Miembro YAKA99'}</div></div><button class="btn ghost viewProfileBtn">PERFIL</button><button class="btn secondary followBtn">SEGUIR</button><button class="btn ghost msgBtn">CHAT</button>`;row.querySelector('.viewProfileBtn').onclick=()=>openUserProfile(p);row.querySelector('.followBtn').onclick=()=>toggleFollow(p.id,row.querySelector('.followBtn'));row.querySelector('.msgBtn').onclick=()=>openConversation(p);box.append(row)})}
-  
-async function login(){const email=$('email').value.trim().toLowerCase(),password=$('password').value;if(!email||!password)return toast('Ingresá correo y contraseña.',true);busy('loginBtn',true);try{const {data,error}=await db.auth.signInWithPassword({email,password});if(error)throw error;await enterApp(data.user);toast('Bienvenido a YAKA99 CONNECT ●')}catch(e){toast(e.message,true)}finally{busy('loginBtn',false)}}async function openUserProfile(p){const [{count:followers},{count:following}]=await Promise.all([db.from('yaka99_follows').select('*',{count:'exact',head:true}).eq('following_id',p.id),db.from('yaka99_follows').select('*',{count:'exact',head:true}).eq('follower_id',p.id)]);$('userModalContent').innerHTML=`<div class="profile-head" style="margin-top:15px"><div class="avatar">${avatarMarkup(p.avatar_url,p.display_name)}</div><div><h2>${esc(p.display_name||'Miembro')}</h2><span class="small">${p.username?'@'+esc(p.username):''}</span></div></div><p style="margin:12px 0">${esc(p.bio||'Este miembro todavía no agregó una biografía.')}</p><div class="grid2"><div class="card"><span class="small">SEGUIDORES</span><div class="metric">${followers||0}</div></div><div class="card"><span class="small">SIGUIENDO</span><div class="metric">${following||0}</div></div></div><div class="actions"><button id="modalFollow" class="btn secondary">SEGUIR</button><button id="modalMessage" class="btn">ENVIAR MENSAJE</button><button id="modalReport" class="btn danger">DENUNCIAR</button><button id="modalBlock" class="btn danger">BLOQUEAR</button></div>`;$('modalFollow').onclick=()=>toggleFollow(p.id,$('modalFollow'));$('modalMessage').onclick=()=>{$('userModal').classList.add('hidden');openConversation(p)};$('modalReport').onclick=()=>reportTarget('user',p.id);$('modalBlock').onclick=()=>blockUser(p.id);$('userModal').classList.remove('hidden')}
-async function blockUser(target){if(!confirm('¿Bloquear a esta persona? No podrá enviarte mensajes nuevos.'))return;const {error}=await db.from('yaka99_blocks').insert({blocker_id:user.id,blocked_id:target});if(error){toast(error.message,true);return}$('userModal').classList.add('hidden');toast('Usuario bloqueado.');}
-async function loadSuggestions(){const {data,error}=await db.from('yaka99_profiles').select('id,display_name,username,avatar_url,bio').neq('id',user.id).order('created_at',{ascending:false}).limit(8);const box=$('suggestedUsers');if(error){box.textContent=error.message;return}renderUserResults(box,data||[])}
-async function toggleFollow(target,button){const {data,error}=await db.from('yaka99_follows').select('follower_id').eq('follower_id',user.id).eq('following_id',target).maybeSingle();if(error)return toast(error.message,true);const r=data?await db.from('yaka99_follows').delete().eq('follower_id',user.id).eq('following_id',target):await db.from('yaka99_follows').insert({follower_id:user.id,following_id:target});if(r.error)return toast(r.error.message,true);button.textContent=data?'SEGUIR':'SIGUIENDO';toast(data?'Dejaste de seguir.':'Ahora seguís a esta persona.')}
-async function reportTarget(type,id){const reason=prompt('Contanos brevemente por qué querés denunciar este contenido:');if(!reason||reason.trim().length<3)return;const {error}=await db.from('yaka99_reports').insert({reporter_id:user.id,target_type:type,target_id:id,reason:reason.trim()});if(error)return toast(error.message,true);toast('Reporte enviado al equipo de seguridad.')}
-async function loadContacts(){const {data:messages,error}=await db.from('yaka99_messages').select('sender_id,recipient_id,created_at').or(`sender_id.eq.${user.id},recipient_id.eq.${user.id}`).order('created_at',{ascending:false}).limit(150);if(error){$('contactList').textContent=error.message;return}const ids=[...new Set((messages||[]).map(m=>m.sender_id===user.id?m.recipient_id:m.sender_id).filter(id=>id!==user.id))];if(!ids.length){const {data:follows}=await db.from('yaka99_follows').select('following_id').eq('follower_id',user.id).limit(100);ids.push(...(follows||[]).map(x=>x.following_id))}if(!ids.length){$('contactList').innerHTML='<p class="small">Buscá personas en Explorar y tocá CHAT.</p>';return}const {data:profiles}=await db.from('yaka99_profiles').select('id,display_name,username,avatar_url').in('id',[...new Set(ids)]);const box=$('contactList');box.replaceChildren();(profiles||[]).forEach(p=>{const d=document.createElement('div');d.className='contact';d.textContent=p.display_name||p.username||'Miembro';d.onclick=()=>openConversation(p);box.append(d)})}
-async function openConversation(p){activeContact=p;activeConversationKey=pairKey(user.id,p.id);$('chatTitle').textContent='Conversación con '+(p.display_name||p.username||'Miembro');$('messageText').disabled=false;$('sendMessageBtn').disabled=false;showView('messages');await loadMessages();}
-async function loadMessages(){if(!activeConversationKey)return;const box=$('messagesList');box.replaceChildren();const {data,error}=await db.from('yaka99_messages').select('id,sender_id,recipient_id,body,created_at,read_at').eq('conversation_key',activeConversationKey).order('created_at',{ascending:true}).limit(100);if(error){box.textContent=error.message;return}if(!data?.length){box.innerHTML='<div class="empty">Iniciá la conversación.</div>';return}data.forEach(m=>{const b=document.createElement('div');b.className='bubble'+(m.sender_id===user.id?' mine':'');b.textContent=m.body;const small=document.createElement('small');small.textContent=new Date(m.created_at).toLocaleString('es-PY');b.append(small);box.append(b);if(m.recipient_id===user.id&&!m.read_at)db.from('yaka99_messages').update({read_at:new Date().toISOString()}).eq('id',m.id).then(()=>{});});box.scrollTop=box.scrollHeight}
-async function sendMessage(){if(!activeContact)return toast('Elegí una persona para conversar.',true);const body=$('messageText').value.trim();if(!body)return;const {error}=await db.from('yaka99_messages').insert({conversation_key:activeConversationKey,sender_id:user.id,recipient_id:activeContact.id,body});if(error)return toast(error.message,true);$('messageText').value='';await loadMessages()}
-async function loadNotifications(){const box=$('notificationsList');box.replaceChildren();const {data,error}=await db.from('yaka99_notifications').select('id,actor_id,kind,body,created_at,read_at').order('created_at',{ascending:false}).limit(60);if(error){box.textContent=error.message;return}if(!data?.length){box.innerHTML='<div class="empty">Todavía no tenés notificaciones.</div>';return}const profiles=await profileMap((data||[]).map(x=>x.actor_id).filter(Boolean));data.forEach(n=>{const row=document.createElement('div');row.className='notification'+(!n.read_at?' unread':'');row.innerHTML=`<span class="dot"></span><div><strong>${esc(profiles[n.actor_id]?.display_name||'YAKA99')}</strong> ${esc(n.body)}<div class="small">${new Date(n.created_at).toLocaleString('es-PY')}</div></div>`;box.append(row)})}
-async function refreshNotificationCount(){const {count,error}=await db.from('yaka99_notifications').select('id',{count:'exact',head:true}).is('read_at',null);if(!error)$('notificationCount').innerHTML=count?`<span class="unread-count">${count}</span>`:''}
-async function markAllRead(){const {error}=await db.rpc('yaka99_mark_notifications_read');if(error)return toast(error.message,true);await loadNotifications();await refreshNotificationCount();toast('Notificaciones marcadas como leídas.')}
-async function loadFounder(){if(role!=='founder')return;const {data,error}=await db.rpc('yaka99_founder_overview');if(error){$('founderStatus').textContent=error.message;return}const s=data.stats||{};$('statUsers').textContent=s.users??0;$('statAdmins').textContent=s.admins??0;$('statPosts').textContent=s.posts??0;const {count}=await db.from('yaka99_reports').select('id',{count:'exact',head:true});$('statReports').textContent=count??0;const body=$('founderUsers');body.replaceChildren();(data.users||[]).forEach(u=>{const r=body.insertRow();[u.display_name,u.email,u.role,u.id].forEach(v=>r.insertCell().textContent=v||'—')});if(!body.rows.length)body.innerHTML='<tr><td colspan="4">Sin usuarios.</td></tr>';$('founderStatus').textContent='Datos actualizados desde Supabase: '+new Date().toLocaleString('es-PY');await loadReports()}
-async function loadReports(){if(role!=='founder')return;const {data,error}=await db.from('yaka99_reports').select('id,reporter_id,target_type,target_id,reason,status,created_at').order('created_at',{ascending:false}).limit(40);const box=$('reportsList');box.replaceChildren();if(error){box.textContent=error.message;return}if(!data?.length){box.textContent='No hay reportes pendientes.';return}data.forEach(x=>{const p=document.createElement('p');p.style.padding='9px 0';p.style.borderBottom='1px solid var(--line)';p.textContent=`${x.target_type} · ${x.reason} · ${x.status} · ${new Date(x.created_at).toLocaleString('es-PY')}`;const btn=document.createElement('button');btn.className='btn secondary';btn.textContent=x.status==='resolved'?'RESUELTO':'MARCAR RESUELTO';btn.disabled=x.status==='resolved';btn.style.margin='6px 0';btn.onclick=async()=>{const r=await db.rpc('yaka99_set_report_status',{p_report_id:x.id,p_status:'resolved'});if(r.error)return toast(r.error.message,true);toast('Reporte resuelto.');loadReports()};box.append(p,btn)})}
-async function assignRole(){if(role!=='founder')return;const id=$('targetUserId').value.trim(),new_role=$('targetRole').value;if(!/^[0-9a-f-]{36}$/i.test(id))return toast('Ingresá un UUID válido.',true);busy('assignRoleBtn',true);try{const {error}=await db.rpc('yaka99_set_user_role',{target_user_id:id,new_role});if(error)throw error;$('targetUserId').value='';toast('Rol actualizado.');await loadFounder()}catch(e){toast(e.message,true)}finally{busy('assignRoleBtn',false)}}
-function bind(){ $('loginBtn').onclick=login;$('registerBtn').onclick=register;$('resetBtn').onclick=resetPassword;$('savePasswordBtn').onclick=savePassword;$('logoutBtn').onclick=logout;$('headerLogout').onclick=logout;$('headerLogin').onclick=()=>$('email').focus();$('refreshBtn').onclick=()=>showView(activeView);$('publishPostBtn').onclick=publishPost;$('reloadFeedBtn').onclick=loadFeed;$('saveProfileBtn').onclick=saveProfile;$('sendMessageBtn').onclick=sendMessage;$('markAllReadBtn').onclick=markAllRead;$('refreshFounderBtn').onclick=loadFounder;$('assignRoleBtn').onclick=assignRole;$('closeStory').onclick=()=>$('storyModal').classList.add('hidden');$('closeUserModal').onclick=()=>$('userModal').classList.add('hidden');$('userModal').onclick=e=>{if(e.target.id==='userModal')$('userModal').classList.add('hidden')};$('storyImage').onchange=()=>$('storyImageName').textContent=$('storyImage').files[0]?.name||'Visible durante 24 horas';$('publishStoryBtn').onclick=publishStory;$('storyModal').onclick=e=>{if(e.target.id==='storyModal')$('storyModal').classList.add('hidden')};$('postImage').onchange=()=>$('postImageName').textContent=$('postImage').files[0]?.name||'Hasta 10 MB';$('searchPeople').oninput=debounce(searchPeople,350);$('contactSearch').oninput=debounce(()=>{const q=$('contactSearch').value.toLowerCase();document.querySelectorAll('.contact').forEach(x=>x.classList.toggle('hidden',!x.textContent.toLowerCase().includes(q)))},200);$('messageText').onkeydown=e=>{if(e.key==='Enter'&&!e.shiftKey){e.preventDefault();sendMessage()}};document.querySelectorAll('.navitem').forEach(b=>b.onclick=()=>showView(b.dataset.view));document.querySelectorAll('[data-goto]').forEach(b=>b.onclick=()=>showView(b.dataset.goto));$('password').onkeydown=e=>{if(e.key==='Enter')login()};}
-function debounce(fn,wait){let t;return(...args)=>{clearTimeout(t);t=setTimeout(()=>fn(...args),wait)}}
-bind();initialize().catch(e=>{console.error('YAKA99 initialization error:',e);toast('No se pudo iniciar YAKA99: '+(e?.message||'error inesperado'),true)});
-</script>
-</body></html>
+<aside class="sidebar"><div class="card"><div class="profile" style="display:flex;align-items:center;gap:10px;margin-bottom:15px"><div class="avatar" id="miniAvatar">Y</div><div><strong id="miniName">Usuario</strong><div class="small">Miembro YAKA99</div></div></div><section id="view-profile" class="view hidden">
+  <div class="view-title">
+    <div>
+      <h2>Mi perfil</h2>
+      <p>Tu identidad dentro de YAKA99 CONNECT.</p>
+    </div>
+  </div>
 
-  
+  <div class="panel">
+    <div class="profile-header">
+      <img id="profileAvatarPreview" class="avatar avatar-xl" src="" alt="Foto de perfil">
+      <div>
+        <h3 id="profileDisplayName">Mi perfil</h3>
+        <p id="profileUsername">@usuario</p>
+        <div class="profile-stats">
+          <span><strong id="profilePostsCount">0</strong> publicaciones</span>
+          <span><strong id="profileFollowersCount">0</strong> seguidores</span>
+          <span><strong id="profileFollowingCount">0</strong> siguiendo</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="form-grid">
+      <label class="field">Nombre público
+        <input id="profileNameInput" maxlength="60" placeholder="Tu nombre">
+      </label>
+      <label class="field">Nombre de usuario
+        <input id="profileUsernameInput" maxlength="24" placeholder="usuario">
+      </label>
+      <label class="field">Ubicación
+        <input id="profileLocationInput" maxlength="80" placeholder="Ciudad, país">
+      </label>
+      <label class="field">Foto de perfil
+        <input id="profileAvatarInput" type="file" accept="image/*">
+      </label>
+      <label class="field full">Presentación
+        <textarea id="profileBioInput" maxlength="300" rows="4" placeholder="Contá algo sobre vos..."></textarea>
+      </label>
+    </div>
+    <button id="saveProfileBtn" class="btn btn-primary" type="button">Guardar perfil</button>
+  </div>
+
+  <div class="panel">
+    <h3>Mis publicaciones</h3>
+    <div id="myPostsList" class="feed"></div>
+  </div>
+</section>
+
+<section id="view-founder" class="view hidden">
+  <div class="view-title">
+    <div>
+      <h2>Founder Center</h2>
+      <p>Centro de control y gobierno de YAKA99 CONNECT.</p>
+    </div>
+    <span class="role-badge">FOUNDER</span>
+  </div>
+
+  <div class="stats-grid">
+    <div class="stat-card"><span>Usuarios</span><strong id="founderUsersCount">0</strong></div>
+    <div class="stat-card"><span>Publicaciones</span><strong id="founderPostsCount">0</strong></div>
+    <div class="stat-card"><span>Reportes pendientes</span><strong id="founderReportsCount">0</strong></div>
+    <div class="stat-card"><span>Administradores</span><strong id="founderAdminsCount">0</strong></div>
+  </div>
+
+  <div class="panel">
+    <div class="section-heading">
+      <div>
+        <h3>Gobierno de usuarios</h3>
+        <p>Administración de roles y permisos.</p>
+      </div>
+      <button id="reloadFounderBtn" class="btn btn-secondary" type="button">Actualizar</button>
+    </div>
+
+    <div class="field">
+      <input id="founderUserSearch" type="search" placeholder="Buscar usuario por nombre o correo">
+    </div>
+
+    <div class="table-wrap">
+      <table class="data-table">
+        <thead><tr><th>Usuario</th><th>Rol</th><th>Acción</th></tr></thead>
+        <tbody id="founderUsersTable">
+          <tr><td colspan="3">Cargando usuarios...</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <div class="panel">
+    <h3>Centro de reportes</h3>
+    <p>Revisión de denuncias recibidas por la plataforma.</p>
+    <div id="founderReportsList"></div>
+  </div>
+
+  <div class="panel">
+    <h3>Seguridad del fundador</h3>
+    <p>La autoridad Founder debe protegerse desde Supabase. Ningún administrador puede modificar, revocar ni reemplazar este rol.</p>
+    <div id="founderSecurityStatus" class="status-message">
+      La protección debe verificarse mediante las políticas y funciones del servidor.
+    </div>
+  </div>
+</section>
+
+<section id="view-admin" class="view hidden">
+  <div class="view-title">
+    <div>
+      <h2>Admin Center</h2>
+      <p>Herramientas de administración subordinadas al Founder.</p>
+    </div>
+    <span class="role-badge">ADMIN</span>
+  </div>
+
+  <div class="panel">
+    <h3>Panel administrativo</h3>
+    <p>Las herramientas de moderación estarán limitadas por los permisos que autorice Supabase.</p>
+    <div id="adminStatus" class="status-message">Verificando permisos...</div>
+  </div>
+
+  <div class="panel">
+    <h3>Reportes para revisión</h3>
+    <div id="adminReportsList"></div>
+  </div>
+</section>
+
+</main>
+</div>
+</div>
+
+<footer class="site-footer">
+  <div class="brand-mark">YAKA99 CONNECT <span>●</span></div>
+  <p>Conectando personas. Construyendo el futuro.</p>
+  <small>© <span id="currentYear"></span> YAKA99 CONNECT. Todos los derechos reservados.</small>
+</footer>
+</div>
+
+<div id="storyModal" class="modal hidden" role="dialog" aria-modal="true" aria-labelledby="storyModalTitle">
+  <div class="modal-card">
+    <div class="modal-header">
+      <h3 id="storyModalTitle">Historia</h3>
+      <button id="closeStoryModalBtn" class="icon-btn" type="button" aria-label="Cerrar">✕</button>
+    </div>
+    <div id="storyModalContent"></div>
+  </div>
+</div>
+
+<div id="userModal" class="modal hidden" role="dialog" aria-modal="true" aria-labelledby="userModalTitle">
+  <div class="modal-card">
+    <div class="modal-header">
+      <h3 id="userModalTitle">Perfil de usuario</h3>
+      <button id="closeUserModalBtn" class="icon-btn" type="button" aria-label="Cerrar">✕</button>
+    </div>
+    <div id="userModalContent"></div>
+  </div>
+</div>
+
+<div id="toastContainer" class="toast-container" aria-live="polite"></div>
+
+<script>
+"use strict";
+
+const SUPABASE_URL = "https://znacqrungclknapgqnsk.supabase.co";
+const SUPABASE_ANON_KEY = "sb_publishable_zrPEuGPG2eEIVjYBoKxMpw_Q72orPZa";
+
+const supabaseClient = window.supabase.createClient(
+  SUPABASE_URL,
+  SUPABASE_ANON_KEY,
+  {
+    auth: {
+      persistSession: true,
+      autoRefreshToken: true,
+      detectSessionInUrl: true
+    }
+  }
+);
+
+const state = {
+  user: null,
+  session: null,
+  profile: null,
+  role: "user",
+  currentView: "home",
+  activeConversation: null,
+  activeProfileId: null,
+  founderUsers: [],
+  founderReports: [],
+  posts: [],
+  contacts: [],
+  realtimeChannels: [],
+  initialized: false,
+  entering: false,
+  busy: new Set()
+};
+
+const $ = (id) => document.getElementById(id);
+
+const showElement = (id) => {
+  const el = $(id);
+  if (el) el.classList.remove("hidden");
+};
+
+const hideElement = (id) => {
+  const el = $(id);
+  if (el) el.classList.add("hidden");
+};
+
+const setText = (id, value) => {
+  const el = $(id);
+  if (el) el.textContent = value ?? "";
+};
+
+const escapeHTML = (value) => String(value ?? "").replace(/[&<>"']/g, char => ({
+  "&": "&amp;",
+  "<": "&lt;",
+  ">": "&gt;",
+  '"': "&quot;",
+  "'": "&#039;"
+}[char]));
+
+const formatDate = (value) => {
+  if (!value) return "";
+  const date = new Date(value);
+  if (Number.isNaN(date.getTime())) return "";
+  return date.toLocaleString();
+};
+
+const getInitials = (value) => {
+  const words = String(value || "YAKA99").trim().split(/\s+/);
+  return words.slice(0, 2).map(word => word[0]?.toUpperCase() || "").join("");
+};
+
+function toast(message, type = "info") {
+  const container = $("toastContainer");
+  if (!container) return;
+
+  const item = document.createElement("div");
+  item.className = `toast toast-${type}`;
+  item.textContent = message;
+  container.appendChild(item);
+
+  window.setTimeout(() => item.remove(), 4000);
+}
+
+function setBusy(id, busy) {
+  const element = $(id);
+  if (!element) return;
+
+  element.disabled = Boolean(busy);
+  element.dataset.busy = busy ? "true" : "false";
+}
+
+async function runBusy(id, action) {
+  if (state.busy.has(id)) return;
+
+  state.busy.add(id);
+  setBusy(id, true);
+
+  try {
+    return await action();
+  } catch (error) {
+    console.error(error);
+    toast(error.message || "Ocurrió un error.", "error");
+  } finally {
+    state.busy.delete(id);
+    setBusy(id, false);
+  }
+}
+
+function showView(name) {
+  document.querySelectorAll(".view").forEach(view => {
+    view.classList.add("hidden");
+  });
+
+  const target = $(`view-${name}`);
+  if (!target) return;
+
+  target.classList.remove("hidden");
+  state.currentView = name;
+
+  document.querySelectorAll("[data-view]").forEach(button => {
+    button.classList.toggle("active", button.dataset.view === name);
+  });
+}
+
+function closeModal(id) {
+  const modal = $(id);
+  if (modal) modal.classList.add("hidden");
+}
+
+function openModal(id) {
+  const modal = $(id);
+  if (modal) modal.classList.remove("hidden");
+}
+
+function requireUser() {
+  if (!state.user) {
+    toast("Iniciá sesión para continuar.", "warning");
+    return false;
+  }
+  return true;
+}
+
+/* La Parte 4 continúa con autenticación,
+   perfiles, publicaciones e historias. */
+</script>
+<nav class="navlist">
+<button class="navitem active" data-view="home"><span class="ico">⌂</span>Inicio</button>
+<button class="navitem" data-view="feed"><span class="ico">▤</span>Publicaciones</button>
+<button class="navitem" data-view="explore"><span class="ico">⌕</span>Explorar</button>
+<button class="navitem" data-view="messages"><span class="ico">✉</span>Mensajes</button>
+<button class="navitem" data-view="notifications"><span class="ico">♢</span>Notificaciones <span id="notificationCount"></span></button>
+<button class="navitem" data-view="saved"><span class="ico">◇</span>Guardados</button>
+<button class="navitem" data-view="profile"><span class="ico">◎</span>Mi perfil</button>
+<button class="navitem hidden" id="founderNav" data-view="founder"><span class="ico">♛</span>Founder Center</button>
+<button class="navitem hidden" id="adminNav" data-view="admin"><span class="ico">⬡</span>Admin Center</button>
+</nav><button class="btn secondary full" id="logoutBtn" style="margin-top:15px">CERRAR SESIÓN</button></div></aside>
+<main class="maincol">
+<section id="view-home" class="view">
+<div class="view-title"><h2>Tu comunidad</h2><span class="badge">● CONECTADO</span></div>
+<div class="card"><h3>Historias</h3><div id="storiesStrip" class="stories-strip"><div class="empty">Cargando historias...</div></div>
+<div class="actions"><input id="storyText" class="field" style="flex:1;min-width:140px;margin:0" placeholder="Contá algo breve..."><label class="btn secondary">FOTO <input id="storyImage" type="file" accept="image/*" hidden></label><span id="storyImageName" class="small">Visible durante 24 horas</span><button id="publishStoryBtn" class="btn">PUBLICAR</button></div></div>
+<div class="card composer" style="margin-top:14px"><h3>¿Qué estás pensando?</h3><textarea id="postText" class="field" placeholder="Compartí algo con el mundo..."></textarea><div class="composer-bottom"><label class="btn secondary">ADJUNTAR FOTO <input id="postImage" type="file" accept="image/*" hidden></label><span id="postImageName" class="small">Hasta 10 MB</span><button id="publishPostBtn" class="btn">PUBLICAR</button></div></div>
+<div id="homeFeed" class="feed"></div>
+</section>
+<section id="view-feed" class="view hidden"><div class="view-title"><h2>Publicaciones</h2><button id="reloadFeedBtn" class="btn secondary">ACTUALIZAR</button></div><div id="feedList" class="feed"></div></section>
+<section id="view-explore" class="view hidden"><div class="view-title"><h2>Explorar personas</h2></div><div class="card"><input id="searchPeople" class="field" placeholder="Buscar por nombre o usuario..."><div id="searchResults"><div class="empty">Escribí para encontrar miembros.</div></div></div><div class="card" style="margin-top:14px"><h3>Personas que podrías conocer</h3><div id="suggestedUsers"></div></div></section>
+<section id="view-messages" class="view hidden"><div class="view-title"><h2>Mensajes privados</h2></div><div class="card conversation"><div class="contact-list"><input id="contactSearch" class="field" placeholder="Buscar..." style="padding:9px"><div id="contactList"></div></div><div class="chatbox"><h3 id="chatTitle">Elegí una conversación</h3><div id="messagesList" class="messages"><div class="empty">Tus conversaciones aparecerán acá.</div></div><div class="chat-send"><textarea id="messageText" class="field" placeholder="Escribí un mensaje..." disabled></textarea><button id="sendMessageBtn" class="btn" disabled>ENVIAR</button></div></div></div></section>
+<section id="view-notifications" class="view hidden"><div class="view-title"><h2>Notificaciones</h2><button id="markAllReadBtn" class="btn secondary">MARCAR LEÍDAS</button></div><div class="card" id="notificationsList"></div></section>
+<section id="view-saved" class="view hidden"><div class="view-title"><h2>Publicaciones guardadas</h2></div><div id="savedFeed" class="feed"></div></section><script>
+/* ==========================================
+   YAKA99 CONNECT - AUTENTICACIÓN Y CONTENIDO
+   ========================================== */
+
+/* ---------- AUTENTICACIÓN ---------- */
+
+async function signUp() {
+  return runBusy("signUpBtn", async () => {
+    const email = $("registerEmail")?.value.trim();
+    const password = $("registerPassword")?.value;
+    const username = $("registerUsername")?.value.trim().toLowerCase();
+
+    if (!email || !password || !username) {
+      throw new Error("Completá todos los campos.");
+    }
+
+    if (!/^[a-z0-9_]{3,24}$/.test(username)) {
+      throw new Error("El usuario debe tener entre 3 y 24 caracteres.");
+    }
+
+    if (password.length < 8) {
+      throw new Error("La contraseña debe tener al menos 8 caracteres.");
+    }
+
+    const { data, error } = await supabaseClient.auth.signUp({
+      email,
+      password,
+      options: {
+        data: { username }
+      }
+    });
+
+    if (error) throw error;
+
+    if (data.session) {
+      await enterApp(data.session);
+    } else {
+      toast("Registro realizado. Revisá tu correo para confirmar la cuenta.", "success");
+    }
+  });
+}
+
+async function signIn() {
+  return runBusy("loginBtn", async () => {
+    const email = $("loginEmail")?.value.trim();
+    const password = $("loginPassword")?.value;
+
+    if (!email || !password) {
+      throw new Error("Ingresá tu correo y contraseña.");
+    }
+
+    const { data, error } = await supabaseClient.auth.signInWithPassword({
+      email,
+      password
+    });
+
+    if (error) throw error;
+    await enterApp(data.session);
+  });
+}
+
+async function signOut() {
+  const { error } = await supabaseClient.auth.signOut();
+  if (error) throw error;
+
+  state.user = null;
+  state.session = null;
+  state.profile = null;
+  state.role = "user";
+
+  await clearRealtime();
+
+  hideElement("appPanel");
+  showElement("authPanel");
+  hideElement("recoveryPanel");
+
+  toast("Sesión cerrada.");
+}
+
+async function sendPasswordRecovery() {
+  return runBusy("recoveryBtn", async () => {
+    const email = $("recoveryEmail")?.value.trim();
+
+    if (!email) throw new Error("Ingresá tu correo.");
+
+    const redirectTo = new URL("./", location.href).href;
+
+    const { error } = await supabaseClient.auth.resetPasswordForEmail(
+      email,
+      { redirectTo }
+    );
+
+    if (error) throw error;
+
+    toast("Si el correo está registrado, recibirás instrucciones.", "success");
+  });
+}
+
+async function updateRecoveredPassword() {
+  return runBusy("updatePasswordBtn", async () => {
+    const password = $("newPassword")?.value;
+
+    if (!password || password.length < 8) {
+      throw new Error("La contraseña debe tener al menos 8 caracteres.");
+    }
+
+    const { error } = await supabaseClient.auth.updateUser({ password });
+    if (error) throw error;
+
+    toast("Contraseña actualizada.", "success");
+    await supabaseClient.auth.signOut();
+    location.hash = "";
+    showElement("authPanel");
+    hideElement("recoveryPanel");
+  });
+}
+
+/* ---------- ENTRADA A LA PLATAFORMA ---------- */
+
+async function enterApp(session) {
+  if (!session?.user || state.entering) return;
+
+  state.entering = true;
+
+  try {
+    state.session = session;
+    state.user = session.user;
+
+    hideElement("authPanel");
+    hideElement("recoveryPanel");
+    showElement("appPanel");
+
+    await loadMyProfile();
+    await resolveRole();
+
+    updateAccountUI();
+    applyRoleUI();
+
+    await Promise.allSettled([
+      loadHome(),
+      loadFeed(),
+      loadStories(),
+      loadNotifications(),
+      loadContacts()
+    ]);
+
+    await setupRealtime();
+
+    if (!state.initialized) {
+      state.initialized = true;
+      showView("home");
+    }
+
+  } catch (error) {
+    console.error("Error al ingresar:", error);
+    toast("No se pudo cargar completamente tu cuenta.", "error");
+  } finally {
+    state.entering = false;
+  }
+}
+
+function updateAccountUI() {
+  const name = state.profile?.display_name ||
+    state.profile?.username ||
+    state.user?.email ||
+    "Usuario";
+
+  setText("accountName", name);
+  setText("accountUsername", state.profile?.username ? "@" + state.profile.username : "");
+
+  const avatar = $("accountAvatar");
+  if (avatar) {
+    avatar.src = state.profile?.avatar_url || "";
+  }
+}
+
+/* ---------- PERMISOS ---------- */
+
+async function resolveRole() {
+  state.role = "user";
+
+  if (!state.user) return;
+
+  const { data: isFounder, error: founderError } =
+    await supabaseClient.rpc("is_yaka99_founder");
+
+  if (!founderError && isFounder === true) {
+    state.role = "founder";
+    return;
+  }
+
+  const { data, error } = await supabaseClient
+    .from("yaka99_user_roles")
+    .select("role")
+    .eq("user_id", state.user.id)
+    .maybeSingle();
+
+  if (!error && data?.role === "admin") {
+    state.role = "admin";
+  }
+}
+
+function applyRoleUI() {
+  const founder = state.role === "founder";
+  const admin = state.role === "admin";
+
+  document.querySelectorAll('[data-role="founder"]').forEach(el => {
+    el.classList.toggle("hidden", !founder);
+  });
+
+  document.querySelectorAll('[data-role="admin"]').forEach(el => {
+    el.classList.toggle("hidden", !founder && !admin);
+  });
+
+  setText("accountRole", founder ? "YAKA99 Founder" : admin ? "Administrador" : "Miembro");
+}
+
+/* ---------- PERFILES ---------- */
+
+async function loadMyProfile() {
+  if (!state.user) return;
+
+  const { data, error } = await supabaseClient
+    .from("yaka99_profiles")
+    .select("*")
+    .eq("id", state.user.id)
+    .maybeSingle();
+
+  if (error) throw error;
+
+  state.profile = data || {
+    id: state.user.id,
+    username: state.user.user_metadata?.username || "",
+    display_name: "",
+    bio: "",
+    location: "",
+    avatar_url: ""
+  };
+
+  fillProfileForm();
+  updateAccountUI();
+}
+
+function fillProfileForm() {
+  const profile = state.profile;
+  if (!profile) return;
+
+  setText("profileDisplayName", profile.display_name || profile.username || "Mi perfil");
+  setText("profileUsername", profile.username ? "@" + profile.username : "@usuario");
+
+  if ($("profileNameInput")) $("profileNameInput").value = profile.display_name || "";
+  if ($("profileUsernameInput")) $("profileUsernameInput").value = profile.username || "";
+  if ($("profileLocationInput")) $("profileLocationInput").value = profile.location || "";
+  if ($("profileBioInput")) $("profileBioInput").value = profile.bio || "";
+
+  if ($("profileAvatarPreview")) {
+    $("profileAvatarPreview").src = profile.avatar_url || "";
+  }
+}
+
+async function uploadImage(file, folder) {
+  if (!file || !state.user) return null;
+
+  if (!file.type.startsWith("image/")) {
+    throw new Error("El archivo debe ser una imagen.");
+  }
+
+  if (file.size > 5 * 1024 * 1024) {
+    throw new Error("La imagen no puede superar 5 MB.");
+  }
+
+  const extension = file.name.split(".").pop().toLowerCase();
+  const safeExtension = /^[a-z0-9]{1,5}$/.test(extension) ? extension : "jpg";
+  const path = `${state.user.id}/${folder}/${crypto.randomUUID()}.${safeExtension}`;
+
+  const { error } = await supabaseClient.storage
+    .from("yaka99-media")
+    .upload(path, file, {
+      contentType: file.type,
+      upsert: false
+    });
+
+  if (error) throw error;
+
+  const { data } = supabaseClient.storage
+    .from("yaka99-media")
+    .getPublicUrl(path);
+
+  return data.publicUrl;
+}
+
+async function saveProfile() {
+  return runBusy("saveProfileBtn", async () => {
+    if (!requireUser()) return;
+
+    const username = $("profileUsernameInput")?.value.trim().toLowerCase();
+    const displayName = $("profileNameInput")?.value.trim();
+    const location = $("profileLocationInput")?.value.trim();
+    const bio = $("profileBioInput")?.value.trim();
+
+    if (!/^[a-z0-9_]{3,24}$/.test(username || "")) {
+      throw new Error("Nombre de usuario inválido.");
+    }
+
+    let avatarUrl = state.profile?.avatar_url || "";
+    const file = $("profileAvatarInput")?.files?.[0];
+
+    if (file) {
+      avatarUrl = await uploadImage(file, "avatars");
+    }
+
+    const profileData = {
+      id: state.user.id,
+      username,
+      display_name: displayName,
+      location,
+      bio,
+      avatar_url: avatarUrl,
+      updated_at: new Date().toISOString()
+    };
+
+    const { data, error } = await supabaseClient
+      .from("yaka99_profiles")
+      .upsert(profileData, { onConflict: "id" })
+      .select()
+      .single();
+
+    if (error) throw error;
+
+    state.profile = data;
+    fillProfileForm();
+    updateAccountUI();
+
+    toast("Perfil actualizado.", "success");
+  });
+}
+
+/* ---------- PUBLICACIONES ---------- */
+
+function renderPost(post) {
+  const author = post.yaka99_profiles || {};
+  const name = author.display_name || author.username || "Usuario";
+  const avatar = author.avatar_url || "";
+  const image = post.image_url || "";
+
+  return `
+    <article class="post-card" data-post-id="${escapeHTML(post.id)}">
+      <div class="post-author">
+        <img class="avatar" src="${escapeHTML(avatar)}" alt="">
+        <div>
+          <strong>${escapeHTML(name)}</strong>
+          <small>${escapeHTML(formatDate(post.created_at))}</small>
+        </div>
+      </div>
+      <p class="post-content">${escapeHTML(post.content || "")}</p>
+      ${image ? `<img class="post-image" src="${escapeHTML(image)}" alt="Imagen de publicación">` : ""}
+      <div class="post-actions">
+        <button type="button" data-action="like" data-id="${escapeHTML(post.id)}">♥ Me gusta</button>
+        <button type="button" data-action="comment" data-id="${escapeHTML(post.id)}">Comentar</button>
+        <button type="button" data-action="save" data-id="${escapeHTML(post.id)}">Guardar</button>
+        ${post.user_id === state.user?.id
+          ? `<button type="button" data-action="delete" data-id="${escapeHTML(post.id)}">Eliminar</button>`
+          : ""}
+      </div>
+      <div class="comment-area" id="comments-${escapeHTML(post.id)}"></div>
+    </article>
+  `;
+}
+
+async function loadFeed() {
+  if (!state.user) return;
+
+  const { data, error } = await supabaseClient
+    .from("yaka99_posts")
+    .select("*, yaka99_profiles(display_name,username,avatar_url)")
+    .order("created_at", { ascending: false })
+    .limit(40);
+
+  if (error) throw error;
+
+  state.posts = data || [];
+
+  const html = state.posts.map(renderPost).join("") ||
+    '<p class="empty-state">Todavía no hay publicaciones.</p>';
+
+  ["feedList", "homeFeed"].forEach(id => {
+    const element = $(id);
+    if (element) element.innerHTML = html;
+  });
+}
+
+async function loadHome() {
+  await loadFeed();
+}
+
+async function publishPost() {
+  return runBusy("publishPostBtn", async () => {
+    if (!requireUser()) return;
+
+    const content = $("postText")?.value.trim() || "";
+    const file = $("postImage")?.files?.[0];
+
+    if (!content && !file) {
+      throw new Error("Escribí algo o seleccioná una imagen.");
+    }
+
+    let imageUrl = null;
+    if (file) imageUrl = await uploadImage(file, "posts");
+
+    const { error } = await supabaseClient
+      .from("yaka99_posts")
+      .insert({
+        user_id: state.user.id,
+        content,
+        image_url: imageUrl
+      });
+
+    if (error) throw error;
+
+    if ($("postText")) $("postText").value = "";
+    if ($("postImage")) $("postImage").value = "";
+    setText("postImageName", "");
+
+    await loadFeed();
+    toast("Publicación compartida.", "success");
+  });
+}
+
+async function toggleLike(postId) {
+  if (!requireUser()) return;
+
+  const { data: existing, error: findError } = await supabaseClient
+    .from("yaka99_post_likes")
+    .select("id")
+    .eq("post_id", postId)
+    .eq("user_id", state.user.id)
+    .maybeSingle();
+
+  if (findError) throw findError;
+
+  if (existing) {
+    const { error } = await supabaseClient
+      .from("yaka99_post_likes")
+      .delete()
+      .eq("id", existing.id);
+
+    if (error) throw error;
+  } else {
+    const { error } = await supabaseClient
+      .from("yaka99_post_likes")
+      .insert({ post_id: postId, user_id: state.user.id });
+
+    if (error) throw error;
+  }
+
+  toast(existing ? "Me gusta eliminado." : "Te gusta esta publicación.");
+}
+
+async function deletePost(postId) {
+  if (!requireUser()) return;
+  if (!confirm("¿Eliminar esta publicación?")) return;
+
+  const { error } = await supabaseClient
+    .from("yaka99_posts")
+    .delete()
+    .eq("id", postId)
+    .eq("user_id", state.user.id);
+
+  if (error) throw error;
+
+  await loadFeed();
+  toast("Publicación eliminada.", "success");
+}
+
+async function toggleBookmark(postId) {
+  if (!requireUser()) return;
+
+  const { data: existing, error: findError } = await supabaseClient
+    .from("yaka99_bookmarks")
+    .select("id")
+    .eq("post_id", postId)
+    .eq("user_id", state.user.id)
+    .maybeSingle();
+
+  if (findError) throw findError;
+
+  if (existing) {
+    const { error } = await supabaseClient
+      .from("yaka99_bookmarks")
+      .delete()
+      .eq("id", existing.id);
+
+    if (error) throw error;
+  } else {
+    const { error } = await supabaseClient
+      .from("yaka99_bookmarks")
+      .insert({ post_id: postId, user_id: state.user.id });
+
+    if (error) throw error;
+  }
+
+  toast(existing ? "Quitado de guardados." : "Publicación guardada.");
+}
+
+async function addComment(postId) {
+  if (!requireUser()) return;
+
+  const content = prompt("Escribí tu comentario:");
+  if (!content?.trim()) return;
+
+  const { error } = await supabaseClient
+    .from("yaka99_post_comments")
+    .insert({
+      post_id: postId,
+      user_id: state.user.id,
+      content: content.trim()
+    });
+
+  if (error) throw error;
+
+  toast("Comentario publicado.", "success");
+}
+
+/* ---------- HISTORIAS ---------- */
+
+async function loadStories() {
+  if (!state.user) return;
+
+  const { data, error } = await supabaseClient
+    .from("yaka99_stories")
+    .select("*, yaka99_profiles(display_name,username,avatar_url)")
+    .gt("expires_at", new Date().toISOString())
+    .order("created_at", { ascending: false })
+    .limit(60);
+
+  if (error) throw error;
+
+  const container = $("storiesStrip");
+  if (!container) return;
+
+  container.innerHTML = (data || []).map(story => {
+    const profile = story.yaka99_profiles || {};
+    const name = profile.display_name || profile.username || "Usuario";
+
+    return `
+      <button class="story-item" type="button" data-story-id="${escapeHTML(story.id)}">
+        <img src="${escapeHTML(profile.avatar_url || "")}" alt="">
+        <span>${escapeHTML(name)}</span>
+      </button>
+    `;
+  }).join("") || '<p class="empty-state">Todavía no hay historias.</p>';
+}
+
+async function publishStory() {
+  return runBusy("publishStoryBtn", async () => {
+    if (!requireUser()) return;
+
+    const file = $("storyImage")?.files?.[0];
+    const text = $("storyText")?.value.trim() || "";
+
+    if (!file && !text) {
+      throw new Error("Agregá texto o una imagen.");
+    }
+
+    let imageUrl = null;
+    if (file) imageUrl = await uploadImage(file, "stories");
+
+    const expiresAt = new Date(Date.now() + 24 * 60 * 60 * 1000).toISOString();
+
+    const { error } = await supabaseClient
+      .from("yaka99_stories")
+      .insert({
+        user_id: state.user.id,
+        content: text,
+        image_url: imageUrl,
+        expires_at: expiresAt
+      });
+
+    if (error) throw error;
+
+    if ($("storyText")) $("storyText").value = "";
+    if ($("storyImage")) $("storyImage").value = "";
+    setText("storyImageName", "");
+
+    await loadStories();
+    toast("Historia publicada.", "success");
+  });
+}
+
+async function openStory(storyId) {
+  const { data, error } = await supabaseClient
+    .from("yaka99_stories")
+    .select("*, yaka99_profiles(display_name,username,avatar_url)")
+    .eq("id", storyId)
+    .single();
+
+  if (error) throw error;
+
+  const profile = data.yaka99_profiles || {};
+  const content = $("storyModalContent");
+
+  if (content) {
+    content.innerHTML = `
+      <h3>${escapeHTML(profile.display_name || profile.username || "Usuario")}</h3>
+      <p>${escapeHTML(data.content || "")}</p>
+      ${data.image_url ? `<img class="story-image" src="${escapeHTML(data.image_url)}" alt="Historia">` : ""}
+      <small>${escapeHTML(formatDate(data.created_at))}</small>
+    `;
+  }
+
+  openModal("storyModal");
+
+  if (data.user_id !== state.user.id) {
+    await supabaseClient.from("yaka99_story_views").upsert({
+      story_id: storyId,
+      user_id: state.user.id
+    });
+  }
+}
+
+/* ---------- EXPLORAR PERSONAS ---------- */
+
+async function searchPeople() {
+  if (!state.user) return;
+
+  const term = $("searchPeople")?.value.trim();
+  if (!term) return;
+
+  const safeTerm = term.replace(/[,%()]/g, "");
+
+  const { data, error } = await supabaseClient
+    .from("yaka99_profiles")
+    .select("id,username,display_name,avatar_url,bio")
+    .neq("id", state.user.id)
+    .ilike("username", `%${safeTerm}%`)
+    .limit(30);
+
+  if (error) throw error;
+
+  const container = $("searchResults");
+  if (!container) return;
+
+  container.innerHTML = (data || []).map(person => `
+    <div class="user-result">
+      <img class="avatar" src="${escapeHTML(person.avatar_url || "")}" alt="">
+      <div>
+        <strong>${escapeHTML(person.display_name || person.username)}</strong>
+        <small>@${escapeHTML(person.username || "")}</small>
+      </div>
+      <button type="button" data-action="profile" data-id="${escapeHTML(person.id)}">Ver perfil</button>
+    </div>
+  `).join("") || '<p>No se encontraron usuarios.</p>';
+}
+
+async function openUserProfile(userId) {
+  const { data, error } = await supabaseClient
+    .from("yaka99_profiles")
+    .select("*")
+    .eq("id", userId)
+    .single();
+
+  if (error) throw error;
+
+  state.activeProfileId = userId;
+
+  const container = $("userModalContent");
+  if (container) {
+    container.innerHTML = `
+      <div class="profile-header">
+        <img class="avatar avatar-xl" src="${escapeHTML(data.avatar_url || "")}" alt="">
+        <div>
+          <h3>${escapeHTML(data.display_name || data.username || "Usuario")}</h3>
+          <p>@${escapeHTML(data.username || "")}</p>
+        </div>
+      </div>
+      <p>${escapeHTML(data.bio || "")}</p>
+      <p>${escapeHTML(data.location || "")}</p>
+      <button type="button" data-action="follow" data-id="${escapeHTML(userId)}">Seguir / Dejar de seguir</button>
+      <button type="button" data-action="block" data-id="${escapeHTML(userId)}">Bloquear usuario</button>
+      <button type="button" data-action="report-user" data-id="${escapeHTML(userId)}">Reportar usuario</button>
+    `;
+  }
+
+  openModal("userModal");
+}
+
+/* La Parte 5 continúa con mensajes, notificaciones,
+   Founder Center, moderación, eventos e inicialización. */
+</script><script>
+/* ==========================================
+   YAKA99 CONNECT - MENSAJES Y NOTIFICACIONES
+   ========================================== */
+
+/* ---------- MENSAJES ---------- */
+
+function conversationKey(a, b) {
+  return [a, b].sort().join("_");
+}
+
+async function loadContacts() {
+  if (!state.user) return;
+
+  const { data, error } = await supabaseClient
+    .from("yaka99_messages")
+    .select("sender_id,recipient_id,body,created_at")
+    .or(`sender_id.eq.${state.user.id},recipient_id.eq.${state.user.id}`)
+    .order("created_at", { ascending: false })
+    .limit(100);
+
+  if (error) throw error;
+
+  const ids = new Set();
+
+  (data || []).forEach(message => {
+    const other = message.sender_id === state.user.id
+      ? message.recipient_id
+      : message.sender_id;
+
+    if (other && other !== state.user.id) ids.add(other);
+  });
+
+  if (!ids.size) {
+    state.contacts = [];
+    renderContacts([]);
+    return;
+  }
+
+  const { data: profiles, error: profileError } = await supabaseClient
+    .from("yaka99_profiles")
+    .select("id,username,display_name,avatar_url")
+    .in("id", [...ids]);
+
+  if (profileError) throw profileError;
+
+  state.contacts = profiles || [];
+  renderContacts(state.contacts);
+}
+
+function renderContacts(contacts) {
+  const container = $("contactList");
+  if (!container) return;
+
+  container.innerHTML = contacts.map(person => `
+    <button class="contact-item" type="button"
+      data-action="conversation" data-id="${escapeHTML(person.id)}">
+      <img class="avatar" src="${escapeHTML(person.avatar_url || "")}" alt="">
+      <span>${escapeHTML(person.display_name || person.username || "Usuario")}</span>
+    </button>
+  `).join("") || '<p class="empty-state">Todavía no tenés conversaciones.</p>';
+}
+
+async function openConversation(userId) {
+  if (!requireUser() || userId === state.user.id) return;
+
+  state.activeConversation = userId;
+
+  const person = state.contacts.find(item => item.id === userId);
+
+  setText(
+    "chatTitle",
+    person?.display_name || person?.username || "Conversación"
+  );
+
+  showView("messages");
+  await loadMessages();
+}
+
+async function loadMessages() {
+  if (!state.user || !state.activeConversation) return;
+
+  const otherId = state.activeConversation;
+
+  const { data, error } = await supabaseClient
+    .from("yaka99_messages")
+    .select("*")
+    .or(
+      `and(sender_id.eq.${state.user.id},recipient_id.eq.${otherId}),and(sender_id.eq.${otherId},recipient_id.eq.${state.user.id})`
+    )
+    .order("created_at", { ascending: true })
+    .limit(100);
+
+  if (error) throw error;
+
+  const container = $("messagesList");
+  if (!container) return;
+
+  container.innerHTML = (data || []).map(message => `
+    <div class="message ${message.sender_id === state.user.id ? "message-own" : "message-other"}">
+      <p>${escapeHTML(message.body || "")}</p>
+      <small>${escapeHTML(formatDate(message.created_at))}</small>
+    </div>
+  `).join("") || '<p class="empty-state">Iniciá la conversación.</p>';
+
+  container.scrollTop = container.scrollHeight;
+
+  await supabaseClient
+    .from("yaka99_messages")
+    .update({ read_at: new Date().toISOString() })
+    .eq("sender_id", otherId)
+    .eq("recipient_id", state.user.id)
+    .is("read_at", null);
+}
+
+async function sendMessage() {
+  return runBusy("sendMessageBtn", async () => {
+    if (!requireUser()) return;
+
+    const recipient = state.activeConversation;
+    const body = $("messageText")?.value.trim();
+
+    if (!recipient) throw new Error("Elegí una conversación.");
+    if (!body) return;
+
+    const { error } = await supabaseClient
+      .from("yaka99_messages")
+      .insert({
+        conversation_key: conversationKey(state.user.id, recipient),
+        sender_id: state.user.id,
+        recipient_id: recipient,
+        body
+      });
+
+    if (error) throw error;
+
+    $("messageText").value = "";
+    await loadMessages();
+  });
+}
+
+/* ---------- NOTIFICACIONES ---------- */
+
+async function loadNotifications() {
+  if (!state.user) return;
+
+  const { data, error } = await supabaseClient
+    .from("yaka99_notifications")
+    .select("*")
+    .eq("user_id", state.user.id)
+    .order("created_at", { ascending: false })
+    .limit(60);
+
+  if (error) throw error;
+
+  const container = $("notificationsList");
+  if (container) {
+    container.innerHTML = (data || []).map(notification => `
+      <div class="notification-item ${notification.read_at ? "" : "unread"}">
+        <p>${escapeHTML(notification.content || notification.message || "Nueva notificación")}</p>
+        <small>${escapeHTML(formatDate(notification.created_at))}</small>
+      </div>
+    `).join("") || '<p class="empty-state">No tenés notificaciones.</p>';
+  }
+
+  const unread = (data || []).filter(item => !item.read_at).length;
+  setText("notificationCount", unread ? String(unread) : "");
+}
+
+async function markAllNotificationsRead() {
+  if (!requireUser()) return;
+
+  const { error } = await supabaseClient
+    .from("yaka99_notifications")
+    .update({ read_at: new Date().toISOString() })
+    .eq("user_id", state.user.id)
+    .is("read_at", null);
+
+  if (error) throw error;
+
+  await loadNotifications();
+  toast("Notificaciones marcadas como leídas.");
+}
+
+/* ---------- PUBLICACIONES GUARDADAS ---------- */
+
+async function loadSaved() {
+  if (!state.user) return;
+
+  const { data, error } = await supabaseClient
+    .from("yaka99_bookmarks")
+    .select("post_id")
+    .eq("user_id", state.user.id)
+    .order("created_at", { ascending: false });
+
+  if (error) throw error;
+
+  const ids = (data || []).map(item => item.post_id);
+  const container = $("savedFeed");
+  if (!container) return;
+
+  if (!ids.length) {
+    container.innerHTML = '<p class="empty-state">Todavía no guardaste publicaciones.</p>';
+    return;
+  }
+
+  const { data: posts, error: postsError } = await supabaseClient
+    .from("yaka99_posts")
+    .select("*, yaka99_profiles(display_name,username,avatar_url)")
+    .in("id", ids);
+
+  if (postsError) throw postsError;
+
+  const order = new Map(ids.map((id, index) => [id, index]));
+  const sorted = (posts || []).sort(
+    (a, b) => (order.get(a.id) ?? 999) - (order.get(b.id) ?? 999)
+  );
+
+  container.innerHTML = sorted.map(renderPost).join("") ||
+    '<p class="empty-state">No hay publicaciones disponibles.</p>';
+}
+
+/* ---------- PERFIL Y SEGUIDORES ---------- */
+
+async function loadMyPosts() {
+  if (!state.user) return;
+
+  const { data, error } = await supabaseClient
+    .from("yaka99_posts")
+    .select("*, yaka99_profiles(display_name,username,avatar_url)")
+    .eq("user_id", state.user.id)
+    .order("created_at", { ascending: false })
+    .limit(40);
+
+  if (error) throw error;
+
+  const container = $("myPostsList");
+  if (container) {
+    container.innerHTML = (data || []).map(renderPost).join("") ||
+      '<p class="empty-state">Todavía no publicaste nada.</p>';
+  }
+
+  setText("profilePostsCount", String(data?.length || 0));
+}
+
+async function loadProfileStats() {
+  if (!state.user) return;
+
+  const [followers, following] = await Promise.all([
+    supabaseClient.from("yaka99_follows")
+      .select("id", { count: "exact", head: true })
+      .eq("following_id", state.user.id),
+
+    supabaseClient.from("yaka99_follows")
+      .select("id", { count: "exact", head: true })
+      .eq("follower_id", state.user.id)
+  ]);
+
+  if (followers.error) throw followers.error;
+  if (following.error) throw following.error;
+
+  setText("profileFollowersCount", String(followers.count || 0));
+  setText("profileFollowingCount", String(following.count || 0));
+}
+
+async function toggleFollow(userId) {
+  if (!requireUser() || userId === state.user.id) return;
+
+  const { data: existing, error: findError } = await supabaseClient
+    .from("yaka99_follows")
+    .select("id")
+    .eq("follower_id", state.user.id)
+    .eq("following_id", userId)
+    .maybeSingle();
+
+  if (findError) throw findError;
+
+  if (existing) {
+    const { error } = await supabaseClient
+      .from("yaka99_follows")
+      .delete()
+      .eq("id", existing.id);
+
+    if (error) throw error;
+    toast("Dejaste de seguir a este usuario.");
+  } else {
+    const { error } = await supabaseClient
+      .from("yaka99_follows")
+      .insert({
+        follower_id: state.user.id,
+        following_id: userId
+      });
+
+    if (error) throw error;
+    toast("Ahora seguís a este usuario.");
+  }
+
+  await loadProfileStats();
+}
+
+async function blockUser(userId) {
+  if (!requireUser() || userId === state.user.id) return;
+  if (!confirm("¿Bloquear a este usuario?")) return;
+
+  const { error } = await supabaseClient
+    .from("yaka99_blocks")
+    .upsert({
+      blocker_id: state.user.id,
+      blocked_id: userId
+    }, {
+      onConflict: "blocker_id,blocked_id"
+    });
+
+  if (error) throw error;
+
+  closeModal("userModal");
+  toast("Usuario bloqueado.");
+}
+
+async function reportTarget(targetType, targetId) {
+  if (!requireUser()) return;
+
+  const reason = prompt("¿Cuál es el motivo del reporte?");
+  if (!reason?.trim()) return;
+
+  const { error } = await supabaseClient
+    .from("yaka99_reports")
+    .insert({
+      reporter_id: state.user.id,
+      target_type: targetType,
+      target_id: targetId,
+      reason: reason.trim(),
+      status: "pending"
+    });
+
+  if (error) throw error;
+
+  toast("Reporte enviado. Gracias por informar.", "success");
+}
+
+/* ---------- FOUNDER CENTER ---------- */
+
+async function loadFounder() {
+  if (state.role !== "founder") {
+    throw new Error("Acceso exclusivo del Founder.");
+  }
+
+  const { data: overview, error: overviewError } =
+    await supabaseClient.rpc("yaka99_founder_overview");
+
+  if (overviewError) throw overviewError;
+
+  const stats = Array.isArray(overview) ? overview[0] : overview || {};
+
+  setText("founderUsersCount", stats.users_count ?? stats.total_users ?? 0);
+  setText("founderPostsCount", stats.posts_count ?? stats.total_posts ?? 0);
+  setText("founderReportsCount", stats.pending_reports ?? 0);
+  setText("founderAdminsCount", stats.admins_count ?? 0);
+
+  const { data: roles, error: rolesError } = await supabaseClient
+    .from("yaka99_user_roles")
+    .select("user_id,role")
+    .order("role");
+
+  if (rolesError) throw rolesError;
+
+  const { data: profiles, error: profilesError } = await supabaseClient
+    .from("yaka99_profiles")
+    .select("id,username,display_name");
+
+  if (profilesError) throw profilesError;
+
+  state.founderUsers = (profiles || []).map(profile => ({
+    ...profile,
+    role: roles?.find(role => role.user_id === profile.id)?.role || "user"
+  }));
+
+  renderFounderUsers();
+  await loadFounderReports();
+
+  setText("founderSecurityStatus", "Sesión Founder verificada. La protección definitiva depende de las reglas SQL del servidor.");
+}
+
+function renderFounderUsers() {
+  const container = $("founderUsersTable");
+  if (!container) return;
+
+  const term = $("founderUserSearch")?.value.trim().toLowerCase() || "";
+
+  const users = state.founderUsers.filter(user =>
+    `${user.username || ""} ${user.display_name || ""}`.toLowerCase().includes(term)
+  );
+
+  container.innerHTML = users.map(user => {
+    const isProtected = user.role === "founder";
+
+    return `
+      <tr>
+        <td>
+          <strong>${escapeHTML(user.display_name || user.username || "Usuario")}</strong>
+          <small>@${escapeHTML(user.username || "")}</small>
+        </td>
+        <td>${escapeHTML(user.role)}</td>
+        <td>
+          ${isProtected
+            ? '<span>Protegido</span>'
+            : `<select data-role-select="${escapeHTML(user.id)}">
+                <option value="user" ${user.role === "user" ? "selected" : ""}>Usuario</option>
+                <option value="admin" ${user.role === "admin" ? "selected" : ""}>Administrador</option>
+              </select>
+              <button type="button" data-action="change-role" data-id="${escapeHTML(user.id)}">Guardar</button>`
+          }
+        </td>
+      </tr>
+    `;
+  }).join("") || '<tr><td colspan="3">No hay usuarios.</td></tr>';
+}
+
+async function assignRole(userId, newRole) {
+  if (state.role !== "founder") {
+    throw new Error("Solo el Founder puede cambiar roles.");
+  }
+
+  if (!["user", "admin"].includes(newRole)) {
+    throw new Error("Rol no permitido.");
+  }
+
+  const target = state.founderUsers.find(user => user.id === userId);
+
+  if (!target || target.role === "founder") {
+    throw new Error("No se puede modificar la cuenta Founder.");
+  }
+
+  if (!confirm(`¿Asignar el rol ${newRole} a este usuario?`)) return;
+
+  const { error } = await supabaseClient.rpc("yaka99_set_user_role", {
+    target_user_id: userId,
+    new_role: newRole
+  });
+
+  if (error) throw error;
+
+  toast("Rol actualizado.", "success");
+  await loadFounder();
+}
+
+async function loadFounderReports() {
+  if (state.role !== "founder") return;
+
+  const { data, error } = await supabaseClient
+    .from("yaka99_reports")
+    .select("*")
+    .order("created_at", { ascending: false })
+    .limit(40);
+
+  if (error) throw error;
+
+  state.founderReports = data || [];
+  renderReports("founderReportsList", state.founderReports, true);
+  renderReports("adminReportsList", state.founderReports, false);
+}
+
+function renderReports(containerId, reports, canManage) {
+  const container = $(containerId);
+  if (!container) return;
+
+  container.innerHTML = reports.map(report => `
+    <div class="report-item">
+      <strong>${escapeHTML(report.target_type || "Reporte")}</strong>
+      <p>${escapeHTML(report.reason || "")}</p>
+      <small>Estado: ${escapeHTML(report.status || "pending")}</small>
+      ${canManage && report.status === "pending"
+        ? `<button type="button" data-action="resolve-report" data-id="${escapeHTML(report.id)}">Resolver</button>`
+        : ""}
+    </div>
+  `).join("") || '<p class="empty-state">No hay reportes.</p>';
+}
+
+async function setReportStatus(reportId, status) {
+  if (state.role !== "founder") {
+    throw new Error("Solo el Founder puede gestionar reportes.");
+  }
+
+  const { error } = await supabaseClient.rpc("yaka99_set_report_status", {
+    target_report_id: reportId,
+    new_status: status
+  });
+
+  if (error) throw error;
+
+  toast("Reporte actualizado.");
+  await loadFounderReports();
+}
+
+/* ---------- ADMIN CENTER ---------- */
+
+async function loadAdmin() {
+  if (!["admin", "founder"].includes(state.role)) {
+    throw new Error("No tenés permisos administrativos.");
+  }
+
+  setText("adminStatus", "Permisos de administrador verificados.");
+
+  if (state.role === "founder") {
+    await loadFounderReports();
+  } else {
+    const { data, error } = await supabaseClient
+      .from("yaka99_reports")
+      .select("*")
+      .order("created_at", { ascending: false })
+      .limit(40);
+
+    if (error) throw error;
+
+    renderReports("adminReportsList", data || [], false);
+  }
+}
+
+/* ---------- REALTIME ---------- */
+
+async function clearRealtime() {
+  const channels = [...state.realtimeChannels];
+  state.realtimeChannels = [];
+
+  await Promise.allSettled(
+    channels.map(channel => supabaseClient.removeChannel(channel))
+  );
+}
+
+async function setupRealtime() {
+  if (!state.user) return;
+
+  await clearRealtime();
+
+  const userId = state.user.id;
+
+  const notificationsChannel = supabaseClient
+    .channel("yaka99-notifications-" + userId)
+    .on("postgres_changes", {
+      event: "*",
+      schema: "public",
+      table: "yaka99_notifications",
+      filter: `user_id=eq.${userId}`
+    }, () => {
+      loadNotifications().catch(console.error);
+    })
+    .subscribe();
+
+  const messagesChannel = supabaseClient
+    .channel("yaka99-messages-" + userId)
+    .on("postgres_changes", {
+      event: "INSERT",
+      schema: "public",
+      table: "yaka99_messages",
+      filter: `recipient_id=eq.${userId}`
+    }, () => {
+      loadContacts().catch(console.error);
+
+      if (state.activeConversation) {
+        loadMessages().catch(console.error);
+      }
+    })
+    .subscribe();
+
+  const postsChannel = supabaseClient
+    .channel("yaka99-posts-" + userId)
+    .on("postgres_changes", {
+      event: "INSERT",
+      schema: "public",
+      table: "yaka99_posts"
+    }, () => {
+      if (["home", "feed"].includes(state.currentView)) {
+        loadFeed().catch(console.error);
+      }
+    })
+    .subscribe();
+
+  state.realtimeChannels = [
+    notificationsChannel,
+    messagesChannel,
+    postsChannel
+  ];
+}
+
+/* ---------- EVENTOS DE LA INTERFAZ ---------- */
+
+function bindClick(id, callback) {
+  const element = $(id);
+  if (element) {
+    element.addEventListener("click", () => {
+      Promise.resolve(callback()).catch(error => {
+        console.error(error);
+        toast(error.message || "No se pudo completar la operación.", "error");
+      });
+    });
+  }
+}
+
+function bindEvents() {
+  bindClick("registerBtn", signUp);
+  bindClick("signUpBtn", signUp);
+  bindClick("loginBtn", signIn);
+  bindClick("logoutBtn", signOut);
+  bindClick("signOutBtn", signOut);
+  bindClick("recoveryBtn", sendPasswordRecovery);
+  bindClick("updatePasswordBtn", updateRecoveredPassword);
+  bindClick("saveProfileBtn", saveProfile);
+  bindClick("publishPostBtn", publishPost);
+  bindClick("publishStoryBtn", publishStory);
+  bindClick("sendMessageBtn", sendMessage);
+  bindClick("markAllReadBtn", markAllNotificationsRead);
+  bindClick("reloadFounderBtn", loadFounder);
+
+  bindClick("closeStoryModalBtn", () => closeModal("storyModal"));
+  bindClick("closeUserModalBtn", () => closeModal("userModal"));
+
+  document.querySelectorAll("[data-view]").forEach(button => {
+    button.addEventListener("click", async () => {
+      const view = button.dataset.view;
+      showView(view);
+
+      try {
+        if (view === "saved") await loadSaved();
+        if (view === "profile") {
+          await Promise.all([loadMyPosts(), loadProfileStats()]);
+        }
+        if (view === "founder") await loadFounder();
+        if (view === "admin") await loadAdmin();
+        if (view === "messages") await loadContacts();
+      } catch (error) {
+        console.error(error);
+        toast(error.message || "No se pudo cargar esta sección.", "error");
+      }
+    });
+  });
+
+  document.addEventListener("click", async event => {
+    const button = event.target.closest("[data-action]");
+    if (!button) return;
+
+    const action = button.dataset.action;
+    const id = button.dataset.id;
+
+    try {
+      if (action === "like") await toggleLike(id);
+      if (action === "comment") await addComment(id);
+      if (action === "save") await toggleBookmark(id);
+      if (action === "delete") await deletePost(id);
+      if (action === "profile") await openUserProfile(id);
+      if (action === "follow") await toggleFollow(id);
+      if (action === "block") await blockUser(id);
+      if (action === "report-user") await reportTarget("user", id);
+      if (action === "conversation") await openConversation(id);
+      if (action === "story") await openStory(id);
+
+      if (action === "change-role") {
+        const select = document.querySelector(`[data-role-select="${CSS.escape(id)}"]`);
+        if (select) await assignRole(id, select.value);
+      }
+
+      if (action === "resolve-report") {
+        await setReportStatus(id, "resolved");
+      }
+
+    } catch (error) {
+      console.error(error);
+      toast(error.message || "No se pudo completar la acción.", "error");
+    }
+  });
+
+  const search = $("searchPeople");
+  if (search) {
+    search.addEventListener("keydown", event => {
+      if (event.key === "Enter") {
+        searchPeople().catch(error => toast(error.message, "error"));
+      }
+    });
+  }
+
+  const founderSearch = $("founderUserSearch");
+  if (founderSearch) {
+    founderSearch.addEventListener("input", renderFounderUsers);
+  }
+
+  const contactSearch = $("contactSearch");
+  if (contactSearch) {
+    contactSearch.addEventListener("input", () => {
+      const term = contactSearch.value.trim().toLowerCase();
+      renderContacts(state.contacts.filter(person =>
+        `${person.username || ""} ${person.display_name || ""}`.toLowerCase().includes(term)
+      ));
+    });
+  }
+
+  const postImage = $("postImage");
+  if (postImage) {
+    postImage.addEven
