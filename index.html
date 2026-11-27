@@ -1,31 +1,1498 @@
+
 <!doctype html>
 <html lang="es">
 <head>
-<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"><meta name="theme-color" content="#060914">
-<meta name="description" content="YAKA99 CONNECT — comunidad digital global"><title>YAKA99 CONNECT ● | Global Social</title>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#060914">
+<meta name="description" content="YAKA99 CONNECT — comunidad digital global">
+<title>YAKA99 CONNECT ● | Global Social</title>
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
 <style>
-:root{--bg:#060914;--panel:#0d1729;--panel2:#101f35;--cyan:#00e5ff;--blue:#4675ff;--purple:#a56bff;--green:#27e0a3;--red:#ff5578;--text:#f1f6ff;--muted:#91a4bf;--line:rgba(0,229,255,.17);--shadow:0 18px 55px #0006}*{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;min-height:100vh;background:radial-gradient(ellipse at 8% 0%,#10234a 0,transparent 38%),radial-gradient(ellipse at 100% 85%,#20103c 0,transparent 35%),var(--bg);color:var(--text);font-family:Inter,system-ui,Arial,sans-serif}button,input,textarea,select{font:inherit}button{cursor:pointer}.hidden{display:none!important}a{color:var(--cyan)}.topbar{position:sticky;top:0;z-index:50;display:flex;align-items:center;justify-content:space-between;gap:14px;padding:13px max(4%,calc((100% - 1280px)/2));background:#060914ed;backdrop-filter:blur(18px);border-bottom:1px solid var(--line)}.brand{font-weight:950;letter-spacing:1.8px;color:var(--cyan);font-size:20px;text-shadow:0 0 20px #00e5ff66}.brand span{color:#fff}.topright{display:flex;align-items:center;gap:12px}.online{font-size:10px;color:var(--green);letter-spacing:1px}.shell{width:min(1280px,94%);margin:auto;padding:22px 0 60px}.hero{text-align:center;padding:34px 12px 24px}.eyebrow{display:inline-block;color:var(--cyan);border:1px solid var(--line);border-radius:99px;padding:7px 13px;font-size:10px;letter-spacing:2px}.hero h1{font-size:clamp(32px,6vw,62px);line-height:1.02;margin:17px 0;background:linear-gradient(90deg,#fff,var(--cyan),var(--purple));color:transparent;background-clip:text}.hero p{max-width:700px;margin:0 auto;color:var(--muted);line-height:1.65}.card{background:linear-gradient(145deg,#111f35ed,#0a1222ed);border:1px solid var(--line);border-radius:18px;padding:19px;box-shadow:var(--shadow);min-width:0}.card h2,.card h3{margin:0 0 12px}.muted{color:var(--muted)}.small{font-size:12px;color:var(--muted);line-height:1.5}.auth{max-width:470px;margin:22px auto}.field{display:block;width:100%;background:#050b17;border:1px solid #2a405e;border-radius:10px;color:#fff;padding:13px 14px;margin:7px 0 13px;outline:none}.field:focus{border-color:var(--cyan);box-shadow:0 0 0 3px #00e5ff17}textarea.field{min-height:95px;resize:vertical}.btn{border:0;border-radius:10px;padding:11px 15px;background:linear-gradient(100deg,var(--cyan),#7b9cff);color:#03111b;font-weight:850;transition:.18s}.btn:hover{transform:translateY(-1px);filter:brightness(1.07)}.btn:disabled{opacity:.55;cursor:wait;transform:none}.btn.secondary{background:#172941;border:1px solid var(--line);color:var(--text)}.btn.danger{background:#421a2a;color:#ffb5c5}.btn.ghost{background:transparent;color:var(--cyan);border:1px solid var(--line)}.btn.full{width:100%}.actions{display:flex;gap:9px;flex-wrap:wrap;margin-top:10px}.notice{padding:12px 14px;border:1px solid var(--line);background:#10263a;border-radius:11px;margin:12px 0;font-size:13px;line-height:1.5}.notice.error{border-color:#a63858;background:#301522;color:#ffdce5}#toast{position:fixed;bottom:18px;left:50%;transform:translateX(-50%);z-index:100;max-width:min(92vw,520px);padding:12px 17px;border-radius:12px;background:#132943;border:1px solid var(--cyan);box-shadow:var(--shadow);font-size:13px;display:none}#toast.show{display:block}.layout{display:grid;grid-template-columns:230px minmax(0,1fr) 260px;gap:18px;align-items:start}.sidebar{position:sticky;top:78px}.navlist{display:grid;gap:7px}.navitem{width:100%;text-align:left;border:1px solid transparent;border-radius:11px;padding:12px;background:transparent;color:var(--muted);font-weight:700}.navitem:hover,.navitem.active{background:#10253c;border-color:var(--line);color:var(--cyan)}.navitem .ico{display:inline-block;width:27px}.maincol{min-width:0}.rightcol{display:grid;gap:14px}.view-title{display:flex;align-items:center;justify-content:space-between;gap:12px;margin:0 0 14px}.view-title h2{margin:0;font-size:23px}.composer{margin-bottom:15px}.composer textarea{min-height:86px}.composer-bottom{display:flex;align-items:center;justify-content:space-between;gap:9px;flex-wrap:wrap}.feed{display:grid;gap:13px}.post{overflow:hidden}.post-head{display:flex;align-items:center;gap:11px}.avatar{width:43px;height:43px;flex:none;border-radius:50%;display:grid;place-items:center;background:linear-gradient(135deg,var(--blue),var(--purple));border:2px solid var(--cyan);font-weight:900;overflow:hidden}.avatar img{width:100%;height:100%;object-fit:cover}.post-meta{min-width:0;flex:1}.post-meta strong{display:block;overflow-wrap:anywhere}.post-meta span{font-size:11px;color:var(--muted)}.post-text{white-space:pre-wrap;overflow-wrap:anywhere;line-height:1.65;margin:14px 0}.post-media{display:block;width:100%;max-height:560px;object-fit:contain;background:#050a13;border-radius:12px;margin:10px 0}.post-actions{display:flex;gap:8px;flex-wrap:wrap;border-top:1px solid var(--line);padding-top:12px}.post-actions .btn{font-size:12px;padding:8px 11px}.comment-list{border-top:1px solid var(--line);margin-top:12px;padding-top:8px}.comment-row{padding:7px 0;font-size:12px;line-height:1.5}.comment-row b{color:#fff}.stories-strip{display:flex;gap:11px;overflow-x:auto;padding:6px 2px 13px}.story-chip{min-width:83px;max-width:83px;text-align:center;cursor:pointer}.story-ring{width:66px;height:66px;margin:0 auto 6px;border-radius:50%;padding:3px;background:linear-gradient(135deg,var(--cyan),var(--purple),#ff4ca1)}.story-inner{width:100%;height:100%;border-radius:50%;display:grid;place-items:center;background:#14243b;border:3px solid #0c1527;overflow:hidden}.story-inner img{width:100%;height:100%;object-fit:cover}.story-chip small{display:block;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;color:var(--muted)}.grid2{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}.metric{font-size:25px;font-weight:900;color:var(--cyan);margin-top:7px}.user-result{display:flex;align-items:center;gap:10px;padding:11px 0;border-bottom:1px solid var(--line)}.user-result:last-child{border:0}.user-result .info{flex:1;min-width:0}.user-result strong{display:block;overflow-wrap:anywhere}.user-result .small{font-size:11px}.profile-cover{height:125px;border-radius:13px;background:linear-gradient(110deg,#123e66,#33205c,#0d5660);margin-bottom:-38px}.profile-head{display:flex;align-items:end;gap:13px;margin:0 0 15px;padding:0 10px}.profile-head .avatar{width:82px;height:82px}.profile-head h2{margin:0 0 4px}.pill{display:inline-block;border:1px solid var(--line);border-radius:99px;padding:4px 9px;color:var(--cyan);font-size:10px}.tabs{display:flex;gap:7px;flex-wrap:wrap;margin:13px 0}.tabs button{padding:8px 11px}.conversation{display:grid;grid-template-columns:210px minmax(0,1fr);gap:12px;min-height:420px}.contact-list{border-right:1px solid var(--line);padding-right:10px;max-height:560px;overflow:auto}.contact{padding:10px;border-radius:9px;cursor:pointer;font-size:12px}.contact.active,.contact:hover{background:#132944}.chatbox{display:flex;flex-direction:column;min-width:0}.messages{flex:1;min-height:280px;max-height:470px;overflow:auto;display:flex;flex-direction:column;gap:9px;padding:8px}.bubble{max-width:82%;padding:10px 12px;border-radius:13px;background:#172941;align-self:flex-start;overflow-wrap:anywhere;font-size:13px;line-height:1.5}.bubble.mine{align-self:flex-end;background:#123c50;border:1px solid #00e5ff44}.bubble small{display:block;color:#9db0c7;font-size:10px;margin-top:4px}.chat-send{display:flex;gap:8px;align-items:end}.chat-send textarea{min-height:45px;max-height:100px;margin:0}.notification{display:flex;gap:10px;align-items:start;padding:12px 0;border-bottom:1px solid var(--line)}.notification.unread{background:#0d2033}.notification .dot{width:9px;height:9px;background:var(--cyan);border-radius:50%;margin-top:5px;flex:none}.table-wrap{overflow:auto}table{border-collapse:collapse;width:100%;font-size:12px}td,th{text-align:left;padding:9px;border-bottom:1px solid var(--line);overflow-wrap:anywhere}th{color:var(--cyan)}.footer{text-align:center;color:#647991;padding:30px 12px;border-top:1px solid var(--line);font-size:11px;margin-top:30px}.empty{text-align:center;padding:25px;color:var(--muted);font-size:13px}.badge{color:var(--green);font-size:10px;letter-spacing:1px}.right-card{padding:15px}.right-card h3{font-size:14px}.modal{position:fixed;inset:0;background:#000b;z-index:90;display:grid;place-items:center;padding:16px}.modal-box{width:min(620px,100%);max-height:90vh;overflow:auto;background:#0c1729;border:1px solid var(--line);border-radius:17px;padding:16px}.modal-image{width:100%;max-height:75vh;object-fit:contain}.unread-count{background:var(--red);color:white;border-radius:99px;padding:2px 6px;font-size:10px;margin-left:5px}
-@media(max-width:1000px){.layout{grid-template-columns:190px minmax(0,1fr)}.rightcol{display:none}}@media(max-width:700px){.shell{width:94%;padding-top:10px}.hero{padding:23px 6px 16px}.hero h1{font-size:35px}.layout{display:block}.sidebar{position:static;margin-bottom:12px}.navlist{display:flex;overflow:auto;padding-bottom:5px}.navitem{width:auto;white-space:nowrap;padding:10px 12px;font-size:12px}.navitem .ico{width:auto;margin-right:5px}.conversation{grid-template-columns:115px minmax(0,1fr)}.contact-list{padding-right:5px}.card{padding:15px}.topbar{padding:12px 4%}.brand{font-size:16px}.online{display:none}.grid2{gap:8px}.metric{font-size:21px}}
+:root{
+--bg:#060914;--panel:#0d1729;--panel2:#101f35;
+--cyan:#00e5ff;--blue:#4675ff;--purple:#a56bff;
+--green:#27e0a3;--red:#ff5578;--text:#f1f6ff;
+--muted:#91a4bf;--line:rgba(0,229,255,.17);
+--shadow:0 18px 55px #0006
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+margin:0;min-height:100vh;
+background:radial-gradient(ellipse at 8% 0%,#10234a 0,transparent 38%),
+radial-gradient(ellipse at 100% 85%,#20103c 0,transparent 35%),var(--bg);
+color:var(--text);font-family:Inter,system-ui,Arial,sans-serif
+}
+button,input,textarea,select{font:inherit}
+button{cursor:pointer}
+.hidden{display:none!important}
+a{color:var(--cyan)}
+.topbar{
+position:sticky;top:0;z-index:50;display:flex;
+align-items:center;justify-content:space-between;gap:14px;
+padding:13px max(4%,calc((100% - 1280px)/2));
+background:#060914ed;backdrop-filter:blur(18px);
+border-bottom:1px solid var(--line)
+}
+.brand{font-weight:950;letter-spacing:1.8px;color:var(--cyan);font-size:20px;text-shadow:0 0 20px #00e5ff66}
+.brand span{color:#fff}
+.topright{display:flex;align-items:center;gap:12px}
+.online{font-size:10px;color:var(--green);letter-spacing:1px}
+.shell{width:min(1280px,94%);margin:auto;padding:22px 0 60px}
+.hero{text-align:center;padding:34px 12px 24px}
+.eyebrow{display:inline-block;color:var(--cyan);border:1px solid var(--line);border-radius:99px;padding:7px 13px;font-size:10px;letter-spacing:2px}
+.hero h1{font-size:clamp(32px,6vw,62px);line-height:1.02;margin:17px 0;background:linear-gradient(90deg,#fff,var(--cyan),var(--purple));color:transparent;background-clip:text}
+.hero p{max-width:700px;margin:0 auto;color:var(--muted);line-height:1.65}
+.card{background:linear-gradient(145deg,#111f35ed,#0a1222ed);border:1px solid var(--line);border-radius:18px;padding:19px;box-shadow:var(--shadow);min-width:0}
+.card h2,.card h3{margin:0 0 12px}
+.muted{color:var(--muted)}
+.small{font-size:12px;color:var(--muted);line-height:1.5}
+.auth{max-width:470px;margin:22px auto}
+.field{display:block;width:100%;background:#050b17;border:1px solid #2a405e;border-radius:10px;color:#fff;padding:13px 14px;margin:7px 0 13px;outline:none}
+.field:focus{border-color:var(--cyan);box-shadow:0 0 0 3px #00e5ff17}
+textarea.field{min-height:95px;resize:vertical}
+.btn{border:0;border-radius:10px;padding:11px 15px;background:linear-gradient(100deg,var(--cyan),#7b9cff);color:#03111b;font-weight:850;transition:.18s}
+.btn:hover{transform:translateY(-1px);filter:brightness(1.07)}
+.btn:disabled{opacity:.55;cursor:wait;transform:none}
+.btn.secondary{background:#172941;border:1px solid var(--line);color:var(--text)}
+.btn.danger{background:#421a2a;color:#ffb5c5}
+.btn.ghost{background:transparent;color:var(--cyan);border:1px solid var(--line)}
+.btn.full{width:100%}
+.actions{display:flex;gap:9px;flex-wrap:wrap;margin-top:10px}
+.notice{padding:12px 14px;border:1px solid var(--line);background:#10263a;border-radius:11px;margin:12px 0;font-size:13px;line-height:1.5}
+.notice.error{border-color:#a63858;background:#301522;color:#ffdce5}
+#toast{position:fixed;bottom:18px;left:50%;transform:translateX(-50%);z-index:100;max-width:min(92vw,520px);padding:12px 17px;border-radius:12px;background:#132943;border:1px solid var(--cyan);box-shadow:var(--shadow);font-size:13px;display:none}
+#toast.show{display:block}
+.layout{display:grid;grid-template-columns:230px minmax(0,1fr) 260px;gap:18px;align-items:start}
+.sidebar{position:sticky;top:78px}
+.navlist{display:grid;gap:7px}
+.navitem{width:100%;text-align:left;border:1px solid transparent;border-radius:11px;padding:12px;background:transparent;color:var(--muted);font-weight:700}
+.navitem:hover,.navitem.active{background:#10253c;border-color:var(--line);color:var(--cyan)}
+.navitem .ico{display:inline-block;width:27px}
+.maincol{min-width:0}
+.rightcol{display:grid;gap:14px}
+.view-title{display:flex;align-items:center;justify-content:space-between;gap:12px;margin:0 0 14px}
+.view-title h2{margin:0;font-size:23px}
+.composer{margin-bottom:15px}
+.composer textarea{min-height:86px}
+.composer-bottom{display:flex;align-items:center;justify-content:space-between;gap:9px;flex-wrap:wrap}
+.feed{display:grid;gap:13px}
+.post{overflow:hidden}
+.post-head{display:flex;align-items:center;gap:11px}
+.avatar{width:43px;height:43px;flex:none;border-radius:50%;display:grid;place-items:center;background:linear-gradient(135deg,var(--blue),var(--purple));border:2px solid var(--cyan);font-weight:900;overflow:hidden}
+.avatar img{width:100%;height:100%;object-fit:cover}
+.post-meta{min-width:0;flex:1}
+.post-meta strong{display:block;overflow-wrap:anywhere}
+.post-meta span{font-size:11px;color:var(--muted)}
+.post-text{white-space:pre-wrap;overflow-wrap:anywhere;line-height:1.65;margin:14px 0}
+.post-media{display:block;width:100%;max-height:560px;object-fit:contain;background:#050a13;border-radius:12px;margin:10px 0}
+.post-actions{display:flex;gap:8px;flex-wrap:wrap;border-top:1px solid var(--line);padding-top:12px}
+.post-actions .btn{font-size:12px;padding:8px 11px}
+.comment-list{border-top:1px solid var(--line);margin-top:12px;padding-top:8px}
+.comment-row{padding:7px 0;font-size:12px;line-height:1.5}
+.stories-strip{display:flex;gap:11px;overflow-x:auto;padding:6px 2px 13px}
+.story-chip{min-width:83px;max-width:83px;text-align:center;cursor:pointer}
+.story-ring{width:66px;height:66px;margin:0 auto 6px;border-radius:50%;padding:3px;background:linear-gradient(135deg,var(--cyan),var(--purple),#ff4ca1)}
+.story-inner{width:100%;height:100%;border-radius:50%;display:grid;place-items:center;background:#14243b;border:3px solid #0c1527;overflow:hidden}
+.story-inner img{width:100%;height:100%;object-fit:cover}
+.story-chip small{display:block;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;color:var(--muted)}
+.grid2{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}
+.metric{font-size:25px;font-weight:900;color:var(--cyan);margin-top:7px}
+.user-result{display:flex;align-items:center;gap:10px;padding:11px 0;border-bottom:1px solid var(--line)}
+.user-result .info{flex:1;min-width:0}
+.user-result strong{display:block;overflow-wrap:anywhere}
+.profile-cover{height:125px;border-radius:13px;background:linear-gradient(110deg,#123e66,#33205c,#0d5660);margin-bottom:-38px}
+.profile-head{display:flex;align-items:end;gap:13px;margin:0 0 15px;padding:0 10px}
+.profile-head .avatar{width:82px;height:82px}
+.profile-head h2{margin:0 0 4px}
+.pill{display:inline-block;border:1px solid var(--line);border-radius:99px;padding:4px 9px;color:var(--cyan);font-size:10px}
+.tabs{display:flex;gap:7px;flex-wrap:wrap;margin:13px 0}
+.conversation{display:grid;grid-template-columns:210px minmax(0,1fr);gap:12px;min-height:420px}
+.contact-list{border-right:1px solid var(--line);padding-right:10px;max-height:560px;overflow:auto}
+.contact{padding:10px;border-radius:9px;cursor:pointer;font-size:12px}
+.contact.active,.contact:hover{background:#132944}
+.chatbox{display:flex;flex-direction:column;min-width:0}
+.messages{flex:1;min-height:280px;max-height:470px;overflow:auto;display:flex;flex-direction:column;gap:9px;padding:8px}
+.bubble{max-width:82%;padding:10px 12px;border-radius:13px;background:#172941;align-self:flex-start;overflow-wrap:anywhere;font-size:13px;line-height:1.5}
+.bubble.mine{align-self:flex-end;background:#123c50;border:1px solid #00e5ff44}
+.bubble small{display:block;color:#9db0c7;font-size:10px;margin-top:4px}
+.chat-send{display:flex;gap:8px;align-items:end}
+.chat-send textarea{min-height:45px;max-height:100px;margin:0}
+.notification{display:flex;gap:10px;align-items:start;padding:12px 0;border-bottom:1px solid var(--line)}
+.notification.unread{background:#0d2033}
+.notification .dot{width:9px;height:9px;background:var(--cyan);border-radius:50%;margin-top:5px;flex:none}
+.table-wrap{overflow:auto}
+table{border-collapse:collapse;width:100%;font-size:12px}
+td,th{text-align:left;padding:9px;border-bottom:1px solid var(--line);overflow-wrap:anywhere}
+th{color:var(--cyan)}
+.footer{text-align:center;color:#647991;padding:30px 12px;border-top:1px solid var(--line);font-size:11px;margin-top:30px}
+.empty{text-align:center;padding:25px;color:var(--muted);font-size:13px}
+.badge{color:var(--green);font-size:10px;letter-spacing:1px}
+.right-card{padding:15px}
+.right-card h3{font-size:14px}
+.modal{position:fixed;inset:0;background:#000b;z-index:90;display:grid;place-items:center;padding:16px}
+.modal-box{width:min(620px,100%);max-height:90vh;overflow:auto;background:#0c1729;border:1px solid var(--line);border-radius:17px;padding:16px}
+.modal-image{width:100%;max-height:75vh;object-fit:contain}
+.unread-count{background:var(--red);color:white;border-radius:99px;padding:2px 6px;font-size:10px;margin-left:5px}
+@media(max-width:1000px){.layout{grid-template-columns:190px minmax(0,1fr)}.rightcol{display:none}}
+@media(max-width:700px){
+.shell{width:94%;padding-top:10px}.hero{padding:23px 6px 16px}
+.hero h1{font-size:35px}.layout{display:block}
+.sidebar{position:static;margin-bottom:12px}
+.navlist{display:flex;overflow:auto;padding-bottom:5px}
+.navitem{width:auto;white-space:nowrap;padding:10px 12px;font-size:12px}
+.navitem .ico{width:auto;margin-right:5px}
+.conversation{grid-template-columns:115px minmax(0,1fr)}
+.contact-list{padding-right:5px}.card{padding:15px}
+.topbar{padding:12px 4%}.brand{font-size:16px}
+.online{display:none}.grid2{gap:8px}.metric{font-size:21px}
+}
 </style>
 </head>
+
 <body>
-<header class="topbar"><div class="brand">YAKA99 <span>CONNECT ●</span></div><div class="topright"><span class="online">● GLOBAL NETWORK</span><button id="headerLogin" class="btn secondary hidden">ACCEDER</button><button id="headerLogout" class="btn secondary hidden">SALIR</button></div></header>
+<header class="topbar">
+<div class="brand">YAKA99 <span>CONNECT ●</span></div>
+<div class="topright">
+<span class="online">● GLOBAL NETWORK</span>
+<button id="headerLogin" class="btn secondary hidden">ACCEDER</button>
+<button id="headerLogout" class="btn secondary hidden">SALIR</button>
+</div>
+</header>
+
 <div class="shell">
-<section class="hero"><span class="eyebrow">GLOBAL SOCIAL ECOSYSTEM · 1.0</span><h1>THE WORLD.<br>CONNECTED.</h1><p>Una comunidad digital para compartir, descubrir, conversar y construir conexiones reales. Todo dentro de YAKA99 CONNECT.</p></section>
-<div id="authPanel" class="card auth"><h2>Entrá a tu comunidad</h2><p class="small">Iniciá sesión o creá tu cuenta YAKA99.</p><label class="small" for="email">Correo electrónico</label><input class="field" id="email" type="email" autocomplete="email" placeholder="tu@email.com"><label class="small" for="password">Contraseña</label><input class="field" id="password" type="password" autocomplete="current-password" placeholder="Mínimo 8 caracteres"><button class="btn full" id="loginBtn">INICIAR SESIÓN</button><div class="actions"><button class="btn secondary" id="registerBtn">CREAR CUENTA</button><button class="btn ghost" id="resetBtn">RECUPERAR CONTRASEÑA</button></div><p class="small" style="margin-top:12px">Si es una cuenta nueva, confirmá tu correo cuando Supabase te lo solicite.</p></div>
-<div id="recoveryPanel" class="card auth hidden"><h2>Nueva contraseña</h2><input id="newPassword" class="field" type="password" placeholder="Nueva contraseña"><input id="confirmPassword" class="field" type="password" placeholder="Repetir contraseña"><button id="savePasswordBtn" class="btn full">GUARDAR CONTRASEÑA</button></div>
+<section class="hero">
+<span class="eyebrow">GLOBAL SOCIAL ECOSYSTEM · 1.0</span>
+<h1>THE WORLD.<br>CONNECTED.</h1>
+<p>Una comunidad digital para compartir, descubrir, conversar y construir conexiones reales. Todo dentro de YAKA99 CONNECT.</p>
+</section>
+
+<div id="toast" role="status" aria-live="polite"></div>
+
+<div id="authPanel" class="card auth">
+<h2>Entrá a tu comunidad</h2>
+<p class="small">Iniciá sesión o creá tu cuenta YAKA99.</p>
+<label class="small" for="email">Correo electrónico</label>
+<input class="field" id="email" type="email" autocomplete="email" placeholder="tu@email.com">
+<label class="small" for="password">Contraseña</label>
+<input class="field" id="password" type="password" autocomplete="current-password" placeholder="Mínimo 8 caracteres">
+<button class="btn full" id="loginBtn" type="button">INICIAR SESIÓN</button>
+<div class="actions">
+<button class="btn secondary" id="registerBtn" type="button">CREAR CUENTA</button>
+<button class="btn ghost" id="resetBtn" type="button">RECUPERAR CONTRASEÑA</button>
+</div>
+<p class="small" style="margin-top:12px">Si es una cuenta nueva, confirmá tu correo cuando Supabase te lo solicite.</p>
+</div>
+
+<div id="recoveryPanel" class="card auth hidden">
+<h2>Nueva contraseña</h2>
+<input id="newPassword" class="field" type="password" placeholder="Nueva contraseña">
+<input id="confirmPassword" class="field" type="password" placeholder="Repetir contraseña">
+<button id="savePasswordBtn" class="btn full" type="button">GUARDAR CONTRASEÑA</button>
+</div>
+
 <div id="appPanel" class="hidden">
 <div class="layout">
-<aside class="sidebar"><div class="card"><div class="profile" style="display:flex;align-items:center;gap:10px;margin-bottom:15px"><div class="avatar" id="miniAvatar">Y</div><div style="min-width:0"><strong id="miniName">Mi cuenta</strong><div id="roleLabel" class="pill">MIEMBRO</div></div></div><nav class="navlist" id="mainNav">
-<button class="navitem active" data-view="home"><span class="ico">⌂</span>Inicio</button><button class="navitem" data-view="feed"><span class="ico">▤</span>Publicaciones</button><button class="navitem" data-view="explore"><span class="ico">⌕</span>Explorar</button><button class="navitem" data-view="messages"><span class="ico">✉</span>Mensajes</button><button class="navitem" data-view="notifications"><span class="ico">♧</span>Notificaciones <span id="notificationCount"></span></button><button class="navitem" data-view="saved"><span class="ico">◇</span>Guardados</button><button class="navitem" data-view="profile"><span class="ico">◉</span>Mi perfil</button><button class="navitem hidden" id="founderNav" data-view="founder"><span class="ico">♛</span>Founder Center</button><button class="navitem hidden" id="adminNav" data-view="admin"><span class="ico">▣</span>Admin Center</button></nav><div class="actions"><button class="btn secondary full" id="refreshBtn">ACTUALIZAR</button><button class="btn danger full" id="logoutBtn">CERRAR SESIÓN</button></div></div></aside>
+
+<aside class="sidebar">
+<div class="card">
+<div style="display:flex;align-items:center;gap:10px;margin-bottom:15px">
+<div class="avatar" id="miniAvatar">Y</div>
+<div style="min-width:0">
+<strong id="miniName">Mi cuenta</strong>
+<div id="roleLabel" class="pill">MIEMBRO</div>
+</div>
+</div>
+
+<nav class="navlist" id="mainNav">
+<button class="navitem active" data-view="home"><span class="ico">⌂</span>Inicio</button>
+<button class="navitem" data-view="feed"><span class="ico">▤</span>Publicaciones</button>
+<button class="navitem" data-view="explore"><span class="ico">⌕</span>Explorar</button>
+<button class="navitem" data-view="messages"><span class="ico">✉</span>Mensajes</button>
+<button class="navitem" data-view="notifications"><span class="ico">♧</span>Notificaciones <span id="notificationCount"></span></button>
+<button class="navitem" data-view="saved"><span class="ico">◇</span>Guardados</button>
+<button class="navitem" data-view="profile"><span class="ico">◉</span>Mi perfil</button>
+<button class="navitem hidden" id="founderNav" data-view="founder"><span class="ico">♛</span>Founder Center</button>
+<button class="navitem hidden" id="adminNav" data-view="admin"><span class="ico">▣</span>Admin Center</button>
+</nav>
+
+<div class="actions">
+<button class="btn secondary full" id="refreshBtn" type="button">ACTUALIZAR</button>
+<button class="btn danger full" id="logoutBtn" type="button">CERRAR SESIÓN</button>
+</div>
+</div>
+</aside>
+
 <main class="maincol">
-<section id="view-home" class="view"><div class="view-title"><h2>Tu espacio global</h2><span class="badge">● CONECTADO</span></div><div class="grid2"><div class="card"><div class="small">TU CUENTA</div><div class="metric">ACTIVA</div></div><div class="card"><div class="small">COMUNIDAD</div><div class="metric">YAKA99</div></div></div><div class="card" style="margin-top:14px"><h2>Historias de la comunidad</h2><textarea id="storyText" class="field" maxlength="500" placeholder="Compartí una historia breve..."></textarea><div class="composer-bottom"><label class="btn secondary" for="storyImage">＋ Foto</label><input id="storyImage" type="file" accept="image/jpeg,image/png,image/webp" class="hidden"><span id="storyImageName" class="small">Visible durante 24 horas</span><button id="publishStoryBtn" class="btn secondary">PUBLICAR HISTORIA</button></div><div id="storiesStrip" class="stories-strip"><div class="empty">Cargando historias...</div></div></div><div class="card" style="margin-top:14px"><h2>Lo que está pasando</h2><div id="homeFeed" class="feed"><div class="empty">Cargando publicaciones...</div></div><button class="btn secondary full" style="margin-top:10px" data-goto="feed">VER TODAS LAS PUBLICACIONES</button></div></section>
-<section id="view-feed" class="view hidden"><div class="view-title"><h2>Publicaciones</h2><button class="btn secondary" id="reloadFeedBtn">ACTUALIZAR</button></div><div class="card composer"><textarea id="postText" class="field" maxlength="5000" placeholder="¿Qué querés compartir con la comunidad?"></textarea><div class="composer-bottom"><label class="btn secondary" for="postImage">＋ Foto</label><input id="postImage" type="file" accept="image/jpeg,image/png,image/webp,image/gif" class="hidden"><span id="postImageName" class="small">Hasta 10 MB</span><button class="btn" id="publishPostBtn">PUBLICAR</button></div></div><div id="feedList" class="feed"><div class="empty">Cargando...</div></div></section>
-<section id="view-explore" class="view hidden"><div class="view-title"><h2>Explorar personas</h2></div><div class="card"><input id="searchPeople" class="field" placeholder="Buscar por nombre o @usuario..."><div id="searchResults"><div class="empty">Buscá miembros de YAKA99.</div></div></div><div class="card" style="margin-top:14px"><h3>Personas recientes</h3><div id="suggestedUsers"></div></div></section>
-<section id="view-messages" class="view hidden"><div class="view-title"><h2>Mensajes privados</h2></div><div class="card conversation"><div class="contact-list"><input id="contactSearch" class="field" placeholder="Buscar persona" style="padding:9px;font-size:11px"><div id="contactList"><p class="small">Buscá personas en Explorar para iniciar un chat.</p></div></div><div class="chatbox"><div id="chatTitle" class="small">Elegí una conversación</div><div id="messagesList" class="messages"><div class="empty">Tus conversaciones privadas aparecen acá.</div></div><div class="chat-send"><textarea id="messageText" class="field" placeholder="Escribí un mensaje..." maxlength="5000" disabled></textarea><button id="sendMessageBtn" class="btn" disabled>ENVIAR</button></div></div></div></section>
-<section id="view-notifications" class="view hidden"><div class="view-title"><h2>Notificaciones</h2><button id="markAllReadBtn" class="btn secondary">MARCAR LEÍDAS</button></div><div class="card" id="notificationsList"><div class="empty">Cargando notificaciones...</div></div></section>
-<section id="view-saved" class="view hidden"><div class="view-title"><h2>Publicaciones guardadas</h2></div><div id="savedFeed" class="feed"></div></section>
-<section id="view-profile" class="view hidden"><div class="card"><div class="profile-cover"></div><div class="profile-head"><div class="avatar" id="profileAvatar">Y</div><div><h2 id="profileHeading">Mi perfil</h2><span class="pill" id="profileRoleBadge">MIEMBRO</span></div></div><div id="profileStats" class="grid2"><div class="card"><div class="small">SEGUIDORES</div><div class="metric" id="followersCount">0</div></div><div class="card"><div class="small">SIGUIENDO</div><div class="metric" id="followingCount">0</div></div></div><div style="margin-top:16px"><label class="small" for="displayName">Nombre público</label><input id="displayName" class="field" maxlength="60"><label class="small" for="username">Nombre de usuario</label><input id="username" class="field" maxlength="30" placeholder="usuario_99"><label class="small" for="bio">Biografía</label><textarea id="bio" class="field" maxlength="240" placeholder="Contá algo sobre vos..."></textarea><label class="small" for="location">Ubicación (opcional)</label><input id="location" class="field" maxlength="80" placeholder="Ciudad, país"><label class="small" for="avatarFile">Foto de perfil</label><input id="avatarFile" class="field" type="file" accept="image/jpeg,image/png,image/webp"><button id="saveProfileBtn" class="btn">GUARDAR PERFIL</button><p id="profileStatus" class="small" style="margin-top:9px"></p><p id="profileEmail" class="small"></p><p id="profileId" class="small"></p></div></div></section>
-<section id="view-founder" class="view hidden"><div class="view-title"><h2>♛ Global Command Center</h2><span class="pill">FOUNDER</span></div><div class="card"><p class="small">Autoridad exclusiva del fundador. Los cambios de rol se validan en Supabase.</p><div class="grid2" id="founderStats" style="margin-top:14px"><div class="card"><span class="small">USUARIOS</span><div id="statUsers" class="metric">—</div></div><div class="card"><span class="small">ADMINISTRADORES</span><div id="statAdmins" class="metric">—</div></div><div class="card"><span class="small">PUBLICACIONES</span><div id="statPosts" class="metric">—</div></div><div class="card"><span class="small">REPORTES</span><div id="statReports" class="metric">—</div></div></div><button id="refreshFounderBtn" class="btn" style="margin-top:12px">ACTUALIZAR CENTRO</button><p id="founderStatus" class="small" style="margin-top:8px"></p></div><div class="card" style="margin-top:14px"><h3>Directorio de usuarios</h3><div class="table-wrap"><table><thead><tr><th>USUARIO</th><th>CORREO</th><th>ROL</th><th>ID</th></tr></thead><tbody id="founderUsers"><tr><td colspan="4">Cargando...</td></tr></tbody></table></div></div><div class="card" style="margin-top:14px"><h3>Administrar roles</h3><p class="small">Solo podés asignar USER o ADMIN. Founder no puede ser modificado desde esta función.</p><input id="targetUserId" class="field" placeholder="UUID del usuario"><select id="targetRole" class="field"><option value="user">USER</option><option value="admin">ADMIN</option></select><button id="assignRoleBtn" class="btn">APLICAR CAMBIO</button><p id="adminStatus" class="small"></p></div><div class="card" style="margin-top:14px"><h3>Reportes de comunidad</h3><div id="reportsList" class="small">Cargando...</div></div></section>
-<section id="view-admin" class="view hidden"><div class="card"><h2>YAKA99 ADMIN CENTER</h2><span class="pill">ADMINISTRADOR SUBORDINADO</span><p class="small" style="margin-top:12px">Podés cola
+
+<section id="view-home" class="view">
+<div class="view-title"><h2>Tu espacio global</h2><span class="badge">● CONECTADO</span></div>
+<div class="grid2">
+<div class="card"><div class="small">TU CUENTA</div><div class="metric">ACTIVA</div></div>
+<div class="card"><div class="small">COMUNIDAD</div><div class="metric">YAKA99</div></div>
+</div>
+
+<div class="card" style="margin-top:14px">
+<h2>Historias de la comunidad</h2>
+<textarea id="storyText" class="field" maxlength="500" placeholder="Compartí una historia breve..."></textarea>
+<div class="composer-bottom">
+<label class="btn secondary" for="storyImage">＋ Foto</label>
+<input id="storyImage" type="file" accept="image/jpeg,image/png,image/webp" class="hidden">
+<span id="storyImageName" class="small">Visible durante 24 horas</span>
+<button id="publishStoryBtn" class="btn secondary" type="button">PUBLICAR HISTORIA</button>
+</div>
+<div id="storiesStrip" class="stories-strip"><div class="empty">Cargando historias...</div></div>
+</div>
+
+<div class="card" style="margin-top:14px">
+<h2>Lo que está pasando</h2>
+<div id="homeFeed" class="feed"><div class="empty">Cargando publicaciones...</div></div>
+<button class="btn secondary full" style="margin-top:10px" data-goto="feed" type="button">VER TODAS LAS PUBLICACIONES</button>
+</div>
+</section>
+
+<section id="view-feed" class="view hidden">
+<div class="view-title"><h2>Publicaciones</h2><button class="btn secondary" id="reloadFeedBtn" type="button">ACTUALIZAR</button></div>
+<div class="card composer">
+<textarea id="postText" class="field" maxlength="5000" placeholder="¿Qué querés compartir con la comunidad?"></textarea>
+<div class="composer-bottom">
+<label class="btn secondary" for="postImage">＋ Foto</label>
+<input id="postImage" type="file" accept="image/jpeg,image/png,image/webp,image/gif" class="hidden">
+<span id="postImageName" class="small">Hasta 10 MB</span>
+<button class="btn" id="publishPostBtn" type="button">PUBLICAR</button>
+</div>
+</div>
+<div id="feedList" class="feed"><div class="empty">Cargando...</div></div>
+</section>
+
+<section id="view-explore" class="view hidden">
+<div class="view-title"><h2>Explorar personas</h2></div>
+<div class="card">
+<input id="searchPeople" class="field" placeholder="Buscar por nombre o @usuario...">
+<div id="searchResults"><div class="empty">Buscá miembros de YAKA99.</div></div>
+</div>
+<div class="card" style="margin-top:14px">
+<h3>Personas recientes</h3>
+<div id="suggestedUsers"></div>
+</div>
+</section>
+
+<section id="view-messages" class="view hidden">
+<div class="view-title"><h2>Mensajes privados</h2></div>
+<div class="card conversation">
+<div class="contact-list">
+<input id="contactSearch" class="field" placeholder="Buscar persona" style="padding:9px;font-size:11px">
+<div id="contactList"><p class="small">Buscá personas en Explorar para iniciar un chat.</p></div>
+</div>
+<div class="chatbox">
+<div id="chatTitle" class="small">Elegí una conversación</div>
+<div id="messagesList" class="messages"><div class="empty">Tus conversaciones privadas aparecen acá.</div></div>
+<div class="chat-send">
+<textarea id="messageText" class="field" placeholder="Escribí un mensaje..." maxlength="5000" disabled></textarea>
+<button id="sendMessageBtn" class="btn" disabled type="button">ENVIAR</button>
+</div>
+</div>
+</div>
+</section>
+
+<section id="view-notifications" class="view hidden">
+<div class="view-title"><h2>Notificaciones</h2><button id="markAllReadBtn" class="btn secondary" type="button">MARCAR LEÍDAS</button></div>
+<div class="card" id="notificationsList"><div class="empty">Cargando notificaciones...</div></div>
+</section>
+
+<section id="view-saved" class="view hidden">
+<div class="view-title"><h2>Publicaciones guardadas</h2></div>
+<div id="savedFeed" class="feed"></div>
+</section>
+
+<section id="view-profile" class="view hidden">
+<div class="card">
+<div class="profile-cover"></div>
+<div class="profile-head">
+<div class="avatar" id="profileAvatar">Y</div>
+<div><h2 id="profileHeading">Mi perfil</h2><span class="pill" id="profileRoleBadge">MIEMBRO</span></div>
+</div>
+<div id="profileStats" class="grid2">
+<div class="card"><div class="small">SEGUIDORES</div><div class="metric" id="followersCount">0</div></div>
+<div class="card"><div class="small">SIGUIENDO</div><div class="metric" id="followingCount">0</div></div>
+</div>
+<div style="margin-top:16px">
+<label class="small" for="displayName">Nombre público</label>
+<input id="displayName" class="field" maxlength="60">
+<label class="small" for="username">Nombre de usuario</label>
+<input id="username" class="field" maxlength="30" placeholder="usuario_99">
+<label class="small" for="bio">Biografía</label>
+<textarea id="bio" class="field" maxlength="240" placeholder="Contá algo sobre vos..."></textarea>
+<label class="small" for="location">Ubicación (opcional)</label>
+<input id="location" class="field" maxlength="80" placeholder="Ciudad, país">
+<label class="small" for="avatarFile">Foto de perfil</label>
+<input id="avatarFile" class="field" type="file" accept="image/jpeg,image/png,image/webp">
+<button id="saveProfileBtn" class="btn" type="button">GUARDAR PERFIL</button>
+<p id="profileStatus" class="small" style="margin-top:9px"></p>
+<p id="profileEmail" class="small"></p>
+<p id="profileId" class="small"></p>
+</div>
+</div>
+</section>
+
+<section id="view-founder" class="view hidden">
+<div class="view-title"><h2>♛ Global Command Center</h2><span class="pill">FOUNDER</span></div>
+<div class="card">
+<p class="small">Autoridad exclusiva del fundador. Los cambios de rol se validan en Supabase.</p>
+<div class="grid2" id="founderStats" style="margin-top:14px">
+<div class="card"><span class="small">USUARIOS</span><div id="statUsers" class="metric">—</div></div>
+<div class="card"><span class="small">ADMINISTRADORES</span><div id="statAdmins" class="metric">—</div></div>
+<div class="card"><span class="small">PUBLICACIONES</span><div id="statPosts" class="metric">—</div></div>
+<div class="card"><span class="small">REPORTES</span><div id="statReports" class="metric">—</div></div>
+</div>
+<button id="refreshFounderBtn" class="btn" style="margin-top:12px" type="button">ACTUALIZAR CENTRO</button>
+<p id="founderStatus" class="small" style="margin-top:8px"></p>
+</div>
+
+<div class="card" style="margin-top:14px">
+<h3>Directorio de usuarios</h3>
+<div class="table-wrap">
+<table>
+<thead><tr><th>USUARIO</th><th>CORREO</th><th>ROL</th><th>ID</th></tr></thead>
+<tbody id="founderUsers"><tr><td colspan="4">Cargando...</td></tr></tbody>
+</table>
+</div>
+</div>
+
+<div class="card" style="margin-top:14px">
+<h3>Administrar roles</h3>
+<p class="small">Solo podés asignar USER o ADMIN. Founder no puede ser modificado desde esta función.</p>
+<input id="targetUserId" class="field" placeholder="UUID del usuario">
+<select id="targetRole" class="field">
+<option value="user">USER</option>
+<option value="admin">ADMIN</option>
+</select>
+<button id="assignRoleBtn" class="btn" type="button">APLICAR CAMBIO</button>
+<p id="adminStatus" class="small"></p>
+</div>
+
+<div class="card" style="margin-top:14px">
+<h3>Reportes de comunidad</h3>
+<div id="reportsList" class="small">Cargando...</div>
+</div>
+</section>
+
+<section id="view-admin" class="view hidden">
+<div class="card">
+<h2>YAKA99 ADMIN CENTER</h2>
+<span class="pill">ADMINISTRADOR SUBORDINADO</span>
+<p class="small" style="margin-top:12px">Podés colaborar con la moderación de la comunidad dentro de los permisos asignados por el Founder. No podés modificar, revocar ni superar la autoridad del Founder.</p>
+<div id="adminStatusPanel" class="notice">Panel administrativo. Las operaciones se validarán en el servidor.</div>
+</div>
+</section>
+
+</main>
+
+<aside class="rightcol">
+<div class="card right-card">
+<h3>YAKA99 CONNECT ●</h3>
+<p class="small">Una comunidad. Conexiones globales.</p>
+</div>
+<div class="card right-card">
+<h3>Estado de la plataforma</h3>
+<p class="small">Conectá, compartí y descubrí.</p>
+<span class="badge">● GLOBAL NETWORK</span>
+</div>
+</aside>
+
+</div>
+</div>
+
+<div id="imageModal" class="modal hidden">
+<div class="modal-box">
+<button id="closeImageModal" class="btn secondary" type="button">CERRAR</button>
+<img id="modalImage" class="modal-image" alt="Imagen ampliada">
+</div>
+</div>
+
+<footer class="footer">YAKA99 CONNECT © 2026 · GLOBAL SOCIAL ECOSYSTEM</footer>
+
+<!-- PARTE 2: EL MOTOR JAVASCRIPT SE PEGA AQUÍ -->
+<script>
+
+"use strict";
+
+/* ==========================================
+   YAKA99 CONNECT — GLOBAL ENGINE 1.0
+   Supabase Authentication + Social Core
+========================================== */
+
+const SUPABASE_URL = "https://znacqrungclknapgqnsk.supabase.co";
+const SUPABASE_KEY = "sb_publishable_zrPEuGPG2eEIVjYBoKxMpw_Q72orPZa";
+
+const $ = id => document.getElementById(id);
+
+let db = null;
+let currentUser = null;
+let currentRole = "user";
+let activeView = "home";
+let activeChatUser = null;
+let currentProfile = null;
+let isInitializing = false;
+
+const FOUNDER_ID = "34eeb219-20da-4e0b-afab-ddaa4b6d321b";
+
+function toast(message, error = false) {
+  const box = $("toast");
+  if (!box) return;
+  box.textContent = message;
+  box.classList.toggle("error", error);
+  box.classList.add("show");
+  clearTimeout(toast.timer);
+  toast.timer = setTimeout(() => box.classList.remove("show"), 5000);
+}
+
+function setBusy(button, state, label = "PROCESANDO...") {
+  if (!button) return;
+  button.disabled = state;
+  if (state) {
+    button.dataset.oldText = button.textContent;
+    button.textContent = label;
+  } else if (button.dataset.oldText) {
+    button.textContent = button.dataset.oldText;
+    delete button.dataset.oldText;
+  }
+}
+
+function safe(value) {
+  return String(value ?? "");
+}
+
+function makeElement(tag, className, content) {
+  const element = document.createElement(tag);
+  if (className) element.className = className;
+  if (content !== undefined) element.textContent = safe(content);
+  return element;
+}
+
+function formatDate(value) {
+  if (!value) return "";
+  const date = new Date(value);
+  return Number.isNaN(date.getTime()) ? "" :
+    date.toLocaleString("es-PY");
+}
+
+function requireLogin() {
+  if (!currentUser) {
+    toast("Iniciá sesión para utilizar esta función.", true);
+    return false;
+  }
+  return true;
+}
+
+/* ==========================================
+   AUTHENTICATION
+========================================== */
+
+async function registerUser() {
+  if (!db) return toast("La conexión todavía no está lista.", true);
+
+  const email = $("email").value.trim().toLowerCase();
+  const password = $("password").value;
+
+  if (!email || !password) {
+    return toast("Ingresá tu correo y contraseña.", true);
+  }
+
+  if (password.length < 8) {
+    return toast("La contraseña debe tener al menos 8 caracteres.", true);
+  }
+
+  const button = $("registerBtn");
+  setBusy(button, true);
+
+  try {
+    const { data, error } = await db.auth.signUp({
+      email,
+      password,
+      options: {
+        data: { display_name: email.split("@")[0] },
+        emailRedirectTo: location.origin + location.pathname
+      }
+    });
+
+    if (error) throw error;
+
+    if (data.session) {
+      await updateInterface(data.session.user);
+      toast("¡Tu cuenta YAKA99 fue creada!");
+    } else {
+      toast("Registro enviado. Revisá tu correo para confirmar la cuenta.");
+    }
+  } catch (error) {
+    console.error(error);
+    toast("Error al crear la cuenta: " + error.message, true);
+  } finally {
+    setBusy(button, false);
+  }
+}
+
+async function loginUser() {
+  if (!db) return toast("La conexión todavía no está lista.", true);
+
+  const email = $("email").value.trim().toLowerCase();
+  const password = $("password").value;
+
+  if (!email || !password) {
+    return toast("Ingresá tu correo y contraseña.", true);
+  }
+
+  const button = $("loginBtn");
+  setBusy(button, true);
+
+  try {
+    const { data, error } = await db.auth.signInWithPassword({
+      email,
+      password
+    });
+
+    if (error) throw error;
+
+    await updateInterface(data.user);
+    toast("¡Bienvenido a YAKA99 CONNECT!");
+  } catch (error) {
+    console.error(error);
+    toast("No se pudo iniciar sesión: " + error.message, true);
+  } finally {
+    setBusy(button, false);
+  }
+}
+
+async function resetPassword() {
+  const email = $("email").value.trim().toLowerCase();
+
+  if (!email) return toast("Ingresá tu correo electrónico.", true);
+
+  const button = $("resetBtn");
+  setBusy(button, true);
+
+  try {
+    const { error } = await db.auth.resetPasswordForEmail(email, {
+      redirectTo: location.origin + location.pathname
+    });
+
+    if (error) throw error;
+
+    toast("Si el correo está registrado, recibirás un enlace de recuperación.");
+  } catch (error) {
+    toast(error.message, true);
+  } finally {
+    setBusy(button, false);
+  }
+}
+
+async function saveNewPassword() {
+  const password = $("newPassword").value;
+  const confirmation = $("confirmPassword").value;
+
+  if (password.length < 8) {
+    return toast("Usá al menos 8 caracteres.", true);
+  }
+
+  if (password !== confirmation) {
+    return toast("Las contraseñas no coinciden.", true);
+  }
+
+  const button = $("savePasswordBtn");
+  setBusy(button, true);
+
+  try {
+    const { error } = await db.auth.updateUser({ password });
+    if (error) throw error;
+
+    $("newPassword").value = "";
+    $("confirmPassword").value = "";
+
+    toast("Contraseña actualizada correctamente.");
+    await updateInterface(currentUser);
+  } catch (error) {
+    toast("No se pudo actualizar la contraseña: " + error.message, true);
+  } finally {
+    setBusy(button, false);
+  }
+}
+
+async function logoutUser() {
+  if (!db) return;
+
+  try {
+    const { error } = await db.auth.signOut();
+    if (error) throw error;
+
+    currentUser = null;
+    currentRole = "user";
+    activeChatUser = null;
+
+    await updateInterface(null);
+    toast("Sesión cerrada correctamente.");
+  } catch (error) {
+    toast(error.message, true);
+  }
+}
+
+/* ==========================================
+   USER ROLES AND SESSION
+========================================== */
+
+async function getUserRole(userId) {
+  const { data: founder, error: founderError } =
+    await db.rpc("is_yaka99_founder");
+
+  if (!founderError && founder === true) {
+    return "founder";
+  }
+
+  const { data, error } = await db
+    .from("yaka99_user_roles")
+    .select("role")
+    .eq("user_id", userId)
+    .maybeSingle();
+
+  if (error) {
+    console.error("Role verification:", error);
+    throw new Error("No se pudieron verificar los permisos de tu cuenta.");
+  }
+
+  const role = data?.role || "user";
+
+  return ["founder", "admin", "user"].includes(role)
+    ? role : "user";
+}
+
+async function updateInterface(user) {
+  currentUser = user || null;
+
+  $("authPanel").classList.toggle("hidden", !!user);
+  $("appPanel").classList.toggle("hidden", !user);
+  $("headerLogin").classList.toggle("hidden", !!user);
+  $("headerLogout").classList.toggle("hidden", !user);
+
+  if (!user) {
+    $("founderNav").classList.add("hidden");
+    $("adminNav").classList.add("hidden");
+    return;
+  }
+
+  $("miniName").textContent =
+    user.user_metadata?.display_name || "Miembro YAKA99";
+
+  $("profileEmail").textContent = user.email || "";
+  $("profileId").textContent = "ID: " + user.id;
+
+  currentRole = await getUserRole(user.id);
+
+  const roleNames = {
+    founder: "YAKA99 FOUNDER",
+    admin: "YAKA99 ADMIN",
+    user: "MIEMBRO"
+  };
+
+  $("roleLabel").textContent = roleNames[currentRole];
+  $("profileRoleBadge").textContent = roleNames[currentRole];
+
+  $("founderNav").classList.toggle("hidden", currentRole !== "founder");
+  $("adminNav").classList.toggle("hidden", currentRole !== "admin");
+
+  await loadProfile();
+
+  await showView("home");
+}
+
+/* ==========================================
+   PROFILE
+========================================== */
+
+async function loadProfile() {
+  if (!currentUser) return;
+
+  const { data, error } = await db
+    .from("yaka99_profiles")
+    .select("*")
+    .eq("id", currentUser.id)
+    .maybeSingle();
+
+  if (error) {
+    console.warn("Profile:", error.message);
+    return;
+  }
+
+  currentProfile = data || {};
+
+  $("displayName").value =
+    data?.display_name ||
+    currentUser.user_metadata?.display_name || "";
+
+  $("username").value = data?.username || "";
+  $("bio").value = data?.bio || "";
+
+  if (data?.location !== undefined) {
+    $("location").value = data.location || "";
+  }
+
+  const name = data?.display_name || "YAKA99";
+  $("profileHeading").textContent = name;
+  $("miniName").textContent = name;
+
+  const initial = name.charAt(0).toUpperCase() || "Y";
+  $("miniAvatar").textContent = initial;
+  $("profileAvatar").textContent = initial;
+}
+
+async function saveProfile() {
+  if (!requireLogin()) return;
+
+  const name = $("displayName").value.trim();
+  const username = $("username").value.trim().toLowerCase();
+  const bio = $("bio").value.trim();
+
+  if (!name) return toast("Ingresá tu nombre público.", true);
+
+  if (username && !/^[a-z0-9_.]{3,30}$/.test(username)) {
+    return toast("El nombre de usuario debe tener entre 3 y 30 caracteres.", true);
+  }
+
+  const button = $("saveProfileBtn");
+  setBusy(button, true);
+
+  try {
+    const record = {
+      id: currentUser.id,
+      display_name: name,
+      username: username || null,
+      bio
+    };
+
+    const { error } = await db
+      .from("yaka99_profiles")
+      .upsert(record, { onConflict: "id" });
+
+    if (error) throw error;
+
+    $("profileStatus").textContent = "Perfil actualizado correctamente.";
+    $("profileHeading").textContent = name;
+    $("miniName").textContent = name;
+
+    toast("Perfil guardado.");
+  } catch (error) {
+    console.error(error);
+    toast("No se pudo guardar el perfil: " + error.message, true);
+  } finally {
+    setBusy(button, false);
+  }
+}
+
+/* ==========================================
+   NAVIGATION
+========================================== */
+
+async function showView(view) {
+  activeView = view;
+
+  document.querySelectorAll(".view").forEach(section => {
+    section.classList.toggle("hidden", section.id !== "view-" + view);
+  });
+
+  document.querySelectorAll(".navitem").forEach(button => {
+    button.classList.toggle("active", button.dataset.view === view);
+  });
+
+  if (view === "home" || view === "feed") {
+    await loadFeed(view === "home" ? "homeFeed" : "feedList");
+    await loadStories();
+  }
+
+  if (view === "profile") await loadProfile();
+
+  if (view === "explore") await loadSuggestions();
+
+  if (view === "founder" && currentRole === "founder") {
+    await loadFounderCenter();
+  }
+}
+
+/* ==========================================
+   POSTS AND COMMUNITY FEED
+========================================== */
+
+async function publishPost() {
+  if (!requireLogin()) return;
+
+  const content = $("postText").value.trim();
+
+  if (!content) {
+    return toast("Escribí algo antes de publicar.", true);
+  }
+
+  const button = $("publishPostBtn");
+  setBusy(button, true);
+
+  try {
+    const { error } = await db.from("yaka99_posts").insert({
+      user_id: currentUser.id,
+      content
+    });
+
+    if (error) throw error;
+
+    $("postText").value = "";
+
+    toast("¡Publicación compartida!");
+    await loadFeed("feedList");
+    await loadFeed("homeFeed");
+  } catch (error) {
+    toast("Error al publicar: " + error.message, true);
+  } finally {
+    setBusy(button, false);
+  }
+}
+
+async function loadFeed(containerId) {
+  if (!currentUser) return;
+
+  const container = $(containerId);
+  if (!container) return;
+
+  container.replaceChildren();
+
+  const { data, error } = await db
+    .from("yaka99_posts")
+    .select("id,user_id,content,created_at")
+    .order("created_at", { ascending: false })
+    .limit(50);
+
+  if (error) {
+    container.textContent = "No se pudo cargar el feed: " + error.message;
+    return;
+  }
+
+  if (!data?.length) {
+    container.append(makeElement("div", "empty",
+      "Todavía no hay publicaciones. ¡Compartí la primera!"));
+    return;
+  }
+
+  for (const post of data) {
+    const card = makeElement("article", "card post");
+    const head = makeElement("div", "post-head");
+
+    const avatar = makeElement("div", "avatar",
+      post.user_id === currentUser.id ? "Y" : "●");
+
+    const meta = makeElement("div", "post-meta");
+    const author = makeElement("strong",
+      "", post.user_id === currentUser.id ? "Vos" : "Miembro YAKA99");
+    const date = makeElement("span", "", formatDate(post.created_at));
+
+    meta.append(author, date);
+    head.append(avatar, meta);
+
+    const content = makeElement("p", "post-text", post.content);
+
+    const actions = makeElement("div", "post-actions");
+
+    const like = makeElement("button", "btn secondary", "♥ Me gusta");
+    like.type = "button";
+    like.addEventListener("click", () => toggleLike(post.id, like));
+
+    const comment = makeElement("button", "btn secondary", "COMENTAR");
+    comment.type = "button";
+    comment.addEventListener("click", () => addComment(post.id, card));
+
+    const save = makeElement("button", "btn secondary", "GUARDAR");
+    save.type = "button";
+    save.addEventListener("click", () => {
+      toast("La función de guardados necesita su tabla y políticas en Supabase.");
+    });
+
+    actions.append(like, comment, save);
+
+    if (post.user_id === currentUser.id) {
+      const remove = makeElement("button", "btn danger", "ELIMINAR");
+      remove.type = "button";
+      remove.addEventListener("click", () => deletePost(post.id));
+      actions.append(remove);
+    }
+
+    const comments = makeElement("div", "comment-list");
+
+    card.append(head, content, actions, comments);
+    container.append(card);
+
+    loadComments(post.id, comments);
+  }
+}
+
+async function toggleLike(postId, button) {
+  try {
+    const { data, error } = await db
+      .from("yaka99_post_likes")
+      .select("post_id")
+      .eq("post_id", postId)
+      .eq("user_id", currentUser.id)
+      .maybeSingle();
+
+    if (error) throw error;
+
+    if (data) {
+      const result = await db
+        .from("yaka99_post_likes")
+        .delete()
+        .eq("post_id", postId)
+        .eq("user_id", currentUser.id);
+
+      if (result.error) throw result.error;
+
+      button.textContent = "♥ Me gusta";
+    } else {
+      const result = await db
+        .from("yaka99_post_likes")
+        .insert({
+          post_id: postId,
+          user_id: currentUser.id
+        });
+
+      if (result.error) throw result.error;
+
+      button.textContent = "♥ Te gusta";
+    }
+  } catch (error) {
+    toast("No se pudo actualizar el me gusta: " + error.message, true);
+  }
+}
+
+async function loadComments(postId, container) {
+  const { data, error } = await db
+    .from("yaka99_post_comments")
+    .select("id,user_id,content,created_at")
+    .eq("post_id", postId)
+    .order("created_at", { ascending: true })
+    .limit(30);
+
+  if (error) {
+    console.warn("Comments:", error.message);
+    return;
+  }
+
+  container.replaceChildren();
+
+  for (const item of data || []) {
+    const line = makeElement("div", "comment-row");
+    line.textContent =
+      (item.user_id === currentUser.id ? "Vos: " : "Miembro: ") +
+      item.content;
+
+    container.append(line);
+  }
+}
+
+async function addComment(postId, card) {
+  const content = prompt("Escribí tu comentario:");
+
+  if (content === null) return;
+
+  if (!content.trim()) {
+    return toast("El comentario no puede estar vacío.", true);
+  }
+
+  try {
+    const { error } = await db
+      .from("yaka99_post_comments")
+      .insert({
+        post_id: postId,
+        user_id: currentUser.id,
+        content: content.trim()
+      });
+
+    if (error) throw error;
+
+    const container = card.querySelector(".comment-list");
+    await loadComments(postId, container);
+
+    toast("Comentario publicado.");
+  } catch (error) {
+    toast("Error al comentar: " + error.message, true);
+  }
+}
+
+async function deletePost(postId) {
+  if (!confirm("¿Querés eliminar esta publicación?")) return;
+
+  try {
+    const { error } = await db
+      .from("yaka99_posts")
+      .delete()
+      .eq("id", postId)
+      .eq("user_id", currentUser.id);
+
+    if (error) throw error;
+
+    toast("Publicación eliminada.");
+
+    await loadFeed("feedList");
+    await loadFeed("homeFeed");
+  } catch (error) {
+    toast("No se pudo eliminar: " + error.message, true);
+  }
+}
+
+/* ==========================================
+   STORIES
+========================================== */
+
+async function publishStory() {
+  if (!requireLogin()) return;
+
+  const content = $("storyText").value.trim();
+
+  if (!content) {
+    return toast("Escribí algo para tu historia.", true);
+  }
+
+  const button = $("publishStoryBtn");
+  setBusy(button, true);
+
+  try {
+    const { error } = await db
+      .from("yaka99_stories")
+      .insert({
+        user_id: currentUser.id,
+        content
+      });
+
+    if (error) throw error;
+
+    $("storyText").value = "";
+
+    toast("Historia publicada.");
+    await loadStories();
+  } catch (error) {
+    toast("No se pudo publicar la historia: " + error.message, true);
+  } finally {
+    setBusy(button, false);
+  }
+}
+
+async function loadStories() {
+  const container = $("storiesStrip");
+  if (!container || !currentUser) return;
+
+  container.replaceChildren();
+
+  const { data, error } = await db
+    .from("yaka99_stories")
+    .select("id,user_id,content,created_at,expires_at")
+    .order("created_at", { ascending: false })
+    .limit(30);
+
+  if (error) {
+    container.textContent = "No se pudieron cargar historias: " + error.message;
+    return;
+  }
+
+  const active = (data || []).filter(story =>
+    !story.expires_at || new Date(story.expires_at) > new Date()
+  );
+
+  if (!active.length) {
+    container.append(makeElement("div", "empty", "Todavía no hay historias."));
+    return;
+  }
+
+  for (const story of active) {
+    const chip = makeElement("div", "story-chip");
+    const ring = makeElement("div", "story-ring");
+    const inner = makeElement("div", "story-inner", "Y");
+    const label = makeElement("small", "",
+      story.user_id === currentUser.id ? "Tu historia" : "Miembro");
+
+    ring.append(inner);
+    chip.append(ring, label);
+
+    chip.addEventListener("click", () => {
+      alert(story.content || "Historia de YAKA99");
+    });
+
+    container.append(chip);
+  }
+}
+
+/* ==========================================
+   PEOPLE SEARCH
+========================================== */
+
+async function loadSuggestions() {
+  const box = $("suggestedUsers");
+  if (!box) return;
+
+  box.replaceChildren();
+
+  const { data, error } = await db
+    .from("yaka99_profiles")
+    .select("id,display_name,username,bio")
+    .limit(20);
+
+  if (error) {
+    box.textContent = "No se pudieron cargar personas: " + error.message;
+    return;
+  }
+
+  const users = (data || []).filter(user =>
+    user.id !== currentUser.id
+  );
+
+  if (!users.length) {
+    box.textContent = "Todavía no hay otros perfiles para mostrar.";
+    return;
+  }
+
+  users.forEach(user => {
+    const row = makeElement("div", "user-result");
+    const avatar = makeElement("div", "avatar", "Y");
+    const info = makeElement("div", "info");
+    const name = makeElement("strong", "",
+      user.display_name || "Miembro YAKA99");
+    const handle = makeElement("span", "small",
+      user.username ? "@" + user.username : "");
+
+    info.append(name, handle);
+
+    const button = makeElement("button", "btn secondary", "VER");
+    button.type = "button";
+    button.addEventListener("click", () => {
+      toast("El perfil público detallado será habilitado con el módulo de perfiles.");
+    });
+
+    row.append(avatar, info, button);
+    box.append(row);
+  });
+}
+
+let searchTimer = null;
+
+async function searchPeople() {
+  const term = $("searchPeople").value.trim();
+
+  const box = $("searchResults");
+  box.replaceChildren();
+
+  if (term.length < 2) {
+    box.textContent = "Escribí al menos dos caracteres.";
+    return;
+  }
+
+  const { data, error } = await db
+    .from("yaka99_profiles")
+    .select("id,display_name,username")
+    .ilike("display_name", "%" + term + "%")
+    .limit(20);
+
+  if (error) {
+    box.textContent = "Error de búsqueda: " + error.message;
+    return;
+  }
+
+  if (!data?.length) {
+    box.textContent = "No encontramos perfiles con ese nombre.";
+    return;
+  }
+
+  data.filter(user => user.id !== currentUser.id).forEach(user => {
+    const row = makeElement("div", "user-result");
+    const info = makeElement("div", "info");
+    info.append(makeElement("strong", "",
+      user.display_name || "Miembro"));
+    info.append(makeElement("span", "small",
+      user.username || ""));
+
+    row.append(makeElement("div", "avatar", "Y"), info);
+    box.append(row);
+  });
+}
+
+/* ==========================================
+   MESSAGES AND OPTIONAL MODULES
+========================================== */
+
+function showModuleNotice(name) {
+  toast(name + ": el diseño está preparado, pero falta conectar su tabla, permisos y operaciones en Supabase.", true);
+}
+
+function openMessages() {
+  showModuleNotice("Mensajes privados");
+}
+
+function openNotifications() {
+  showModuleNotice("Notificaciones");
+}
+
+function openSaved() {
+  showModuleNotice("Publicaciones guardadas");
+}
+
+/* ==========================================
+   FOUNDER COMMAND CENTER
+========================================== */
+
+async function loadFounderCenter() {
+  if (currentRole !== "founder") {
+    return toast("Acceso exclusivo del Founder.", true);
+  }
+
+  const status = $("founderStatus");
+  status.textContent = "Consultando datos del sistema...";
+
+  try {
+    const { data, error } = await db.rpc("yaka99_founder_overview");
+
+    if (error) throw error;
+
+    const stats = data?.stats || data || {};
+
+    $("statUsers").textContent = stats.users ?? "—";
+    $("statAdmins").textContent = stats.admins ?? "—";
+    $("statPosts").textContent = stats.posts ?? "—";
+    $("statReports").textContent = stats.reports ?? "—";
+
+    const table = $("founderUsers");
+    table.replaceChildren();
+
+    const users = data?.users || [];
+
+    if (!users.length) {
+      const row = table.insertRow();
+      row.insertCell().colSpan = 4;
+      row.cells[0].textContent = "Sin datos de usuarios disponibles.";
+    }
+
+    users.forEach(user => {
+      const row = table.insertRow();
+      row.insertCell().textContent = user.display_name || "Miembro";
+      row.insertCell().textContent = user.email || "—";
+      row.insertCell().textContent = user.role || "user";
+      row.insertCell().textContent = user.id || user.user_id || "—";
+    });
+
+    status.textContent = "Consulta finalizada: " + formatDate(new Date());
+
+    await loadFounderRoles();
+
+  } catch (error) {
+    console.error("Founder overview:", error);
+    status.textContent =
+      "No se pudo consultar el resumen: " + error.message;
+  }
+}
+
+async function loadFounderRoles() {
+  if (currentRole !== "founder") return;
+
+  const { data, error } = await db
+    .from("yaka99_user_roles")
+    .select("user_id,role")
+    .order("role");
+
+  if (error) {
+    $("adminStatus").textContent =
+      "No se pudieron cargar los roles: " + error.message;
+    return;
+  }
+
+  $("adminStatus").textContent =
+    "Roles consultados desde Supabase: " + (data?.length || 0);
+}
+
+async function assignFounderRole() {
+  if (currentRole !== "founder") {
+    return toast("Solo el Founder puede administrar roles.", true);
+  }
+
+  const userId = $("targetUserId").value.trim();
+  const role = $("targetRole").value;
+
+  const uuid =
+    /^[0-9a-f]{8}-[0-9a-f]{4}-[1-8][0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/i;
+
+  if (!uuid.test(userId)) {
+    return toast("Ingresá un UUID válido.", true);
+  }
+
+  if (userId === FOUNDER_ID) {
+    return toast("La cuenta Founder está protegida.", true);
+  }
+
+  if (!["user", "admin"].includes(role)) {
+    return toast("Rol no permitido.", true);
+  }
+
+  if (!confirm("¿Confirmás asignar el rol " + role.toUpperCase() + "?")) {
+    return;
+  }
+
+  const button = $("assignRoleBtn");
+  setBusy(button, true);
+
+  try {
+    const { error } = await db.rpc("yaka99_set_user_role", {
+      target_user_id: userId,
+      new_role: role
+    });
+
+    if (error) throw error;
+
+    $("targetUserId").value = "";
+
+    toast("Solicitud de cambio de rol ejecutada.");
+    await loadFounderCenter();
+
+  } catch (error) {
+    toast("No se pudo modificar el rol: " + error.message, true);
+  } finally {
+    setBusy(button, false);
+  }
+}
+
+/* ==========================================
+   REFRESH
+========================================== */
+
+async function refreshEverything() {
+  if (!requireLogin()) return;
+
+  try {
+    const { data, error } = await db.auth.getUser();
+    if (error) throw error;
+
+    if (!data.user) {
+      await updateInterface(null);
+      return;
+    }
+
+    await updateInterface(data.user);
+    toast("YAKA99 CONNECT actualizado.");
+
+  } catch (error) {
+    toast(error.message, true);
+  }
+}
+
+/* ==========================================
+   EVENT CONNECTIONS
+========================================== */
+
+function connectEvents() {
+
+  $("loginBtn").addEventListener("click", loginUser);
+  $("registerBtn").addEventListener("click", registerUser);
+  $("resetBtn").addEventListener("click", resetPassword);
+  $("savePasswordBtn").addEventListener("click", saveNewPassword);
+
+  $("logoutBtn").addEventListener("click", logoutUser);
+  $("headerLogout").addEventListener("click", logoutUser);
+  $("headerLogin").addEventListener("click", () => {
+    $("authPanel").scrollIntoView({ behavior: "smooth" });
+  });
+
+  $("refreshBtn").addEventListener("click", refreshEverything);
+  $("saveProfileBtn").addEventListener("click", saveProfile);
+
+  $("publishPostBtn").addEventListener("click", publishPost);
+  $("reloadFeedBtn").addEventListener("click", () => loadFeed("feedList"));
+  $("publishStoryBtn").addEventListener("click", publishStory);
+
+  $("refreshFounderBtn").addEventListener("click", loadFounderCenter);
+  $("assignRoleBtn").addEventListener("click", assignFounderRole);
+
+  $("mainNav").querySelectorAll("[data-view]").forEach(button => {
+    button.addEventListener("click", () => {
+      const view = button.dataset.view;
+
+      if (view === "messages") return openMessages();
+      if (view === "notifications") return openNotifications();
+      if (view === "saved") return openSaved();
+
+      showView(view);
+    });
+  });
+
+  document.querySelectorAll("[data-goto]").forEach(button => {
+    button.addEventListener("click", () => showView(button.dataset.goto));
+  });
+
+  $("searchPeople").addEventListener("input", () => {
+    clearTimeout(searchTimer);
+    searchTimer = setTimeout(searchPeople, 350);
+  });
+
+  $("password").addEventListener("keydown", event => {
+    if (event.key === "Enter") loginUser();
+  });
+
+  $("closeImageModal").addEventListener("click", () => {
+    $("imageModal").classList.add("hidden");
+  });
+}
+
+/* ==========================================
+   START ENGINE
+========================================== */
+
+async function initializeYaka99() {
+  if (isInitializing) return;
+  isInitializing = true;
+
+  try {
+    if (!window.supabase?.createClient) {
+      throw new Error("No se pudo cargar la biblioteca de Supabase.");
+    }
+
+    db = window.supabase.createClient(
+      SUPABASE_URL,
+      SUPABASE_KEY,
+      {
+        auth: {
+          persistSession: true,
+          autoRefreshToken: true,
+          detectSessionInUrl: true
+        }
+      }
+    );
+
+    connectEvents();
+
+    const { data, error } = await db.auth.getSession();
+
+    if (error) throw error;
+
+    await updateInterface(data.session?.user || null);
+
+    db.auth.onAuthStateChange((event, session) => {
+      Promise.resolve()
+        .then(() => updateInterface(session?.user || null))
+        .catch(error => {
+          console.error("Session update:", error);
+          toast(error.message || "Error actualizando la sesión.", true);
+        });
+    });
+
+    console.log("YAKA99 CONNECT: motor iniciado.");
+
+  } catch (error) {
+    console.error("YAKA99 initialization:", error);
+    toast("Error al iniciar YAKA99: " + error.message, true);
+  } finally {
+    isInitializing = false;
+  }
+}
+
+initializeYaka99();
+
+</script>
+</body>
+</html>
