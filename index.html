@@ -5,157 +5,104 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="theme-color" content="#070b16">
 <title>YAKA99 CONNECT ●</title>
-
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-
 <style>
 :root {
-  --bg:#070b16;
-  --panel:#101a2c;
-  --panel2:#14233a;
-  --cyan:#00eaff;
-  --blue:#287bff;
-  --text:#edf5ff;
-  --muted:#91a4bd;
-  --border:#243650;
-  --danger:#ff526b;
-  --green:#21e6a1;
+  --bg:#070b16;--panel:#101a2c;--panel2:#14233a;
+  --cyan:#00eaff;--blue:#287bff;--text:#edf5ff;
+  --muted:#91a4bd;--border:#243650;
+  --danger:#ff526b;--green:#21e6a1;
 }
 *{box-sizing:border-box}
 body{
-  margin:0;
-  background:radial-gradient(circle at top,#142743 0,#070b16 48%);
-  color:var(--text);
-  font-family:Arial,Helvetica,sans-serif;
-  min-height:100vh;
+  margin:0;background:radial-gradient(circle at top,#142743 0,#070b16 48%);
+  color:var(--text);font-family:Arial,Helvetica,sans-serif;min-height:100vh
 }
-button,input,textarea{font:inherit}
+button,input,textarea,select{font:inherit}
 button{cursor:pointer}
 .hidden{display:none!important}
 header{
-  position:sticky;top:0;z-index:20;
-  display:flex;align-items:center;justify-content:space-between;
-  padding:15px 5%;
-  background:#080e1deF;
-  border-bottom:1px solid var(--border);
-  backdrop-filter:blur(14px);
+  position:sticky;top:0;z-index:20;display:flex;align-items:center;
+  justify-content:space-between;padding:15px 5%;
+  background:#080e1def;border-bottom:1px solid var(--border);
+  backdrop-filter:blur(14px)
 }
-.logo{
-  color:var(--cyan);font-weight:900;
-  font-size:21px;letter-spacing:1px;
-  text-shadow:0 0 15px #00eaff66;
-}
+.logo{color:var(--cyan);font-weight:900;font-size:21px;letter-spacing:1px}
 .logo span{color:white}
 .status{font-size:12px;color:var(--green)}
 main{width:min(1100px,94%);margin:28px auto}
 .panel{
   background:linear-gradient(145deg,#111d31,#0b1322);
-  border:1px solid var(--border);
-  border-radius:17px;
-  padding:22px;
-  margin-bottom:18px;
-  box-shadow:0 12px 35px #0005;
+  border:1px solid var(--border);border-radius:17px;
+  padding:22px;margin-bottom:18px;box-shadow:0 12px 35px #0005
 }
 h1,h2,h3{margin-top:0}
 h1{font-size:27px}
 h2{font-size:20px;color:var(--cyan)}
 p{line-height:1.5}
 .muted{color:var(--muted)}
-input,textarea{
-  width:100%;padding:13px;
-  margin:7px 0 13px;
-  border-radius:10px;
-  border:1px solid var(--border);
-  background:#080f1d;color:white;
-  outline:none;
+input,textarea,select{
+  width:100%;padding:13px;margin:7px 0 13px;border-radius:10px;
+  border:1px solid var(--border);background:#080f1d;color:white;outline:none
 }
-input:focus,textarea:focus{
-  border-color:var(--cyan);
-  box-shadow:0 0 0 2px #00eaff22;
+input:focus,textarea:focus,select:focus{
+  border-color:var(--cyan);box-shadow:0 0 0 2px #00eaff22
 }
 textarea{resize:vertical;min-height:95px}
 .btn{
-  border:0;border-radius:10px;
-  padding:12px 17px;
+  border:0;border-radius:10px;padding:12px 17px;
   background:linear-gradient(110deg,#0879ff,#00cce8);
-  color:white;font-weight:bold;
-  margin:4px 3px 4px 0;
+  color:white;font-weight:bold;margin:4px 3px 4px 0
 }
 .btn:hover{filter:brightness(1.15)}
-.btn.secondary{
-  background:#1b2b43;border:1px solid var(--border);
-}
+.btn.secondary{background:#1b2b43;border:1px solid var(--border)}
 .btn.danger{background:#9d263d}
 .btn.success{background:#087c60}
-.grid{
-  display:grid;
-  grid-template-columns:repeat(2,minmax(0,1fr));
-  gap:16px;
-}
-.nav{
-  display:flex;gap:8px;flex-wrap:wrap;
-  margin-bottom:18px;
-}
+.btn:disabled{opacity:.5;cursor:not-allowed}
+.grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:16px}
+.nav{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:18px}
 .nav button{
-  background:#14233a;color:white;
-  border:1px solid var(--border);
-  padding:10px 14px;border-radius:9px;
+  background:#14233a;color:white;border:1px solid var(--border);
+  padding:10px 14px;border-radius:9px
 }
-.nav button.active{
-  color:var(--cyan);border-color:var(--cyan);
-}
-.userline{
-  display:flex;align-items:center;gap:12px;
-}
+.nav button.active{color:var(--cyan);border-color:var(--cyan)}
+.userline{display:flex;align-items:center;gap:12px}
 .avatar{
-  width:48px;height:48px;border-radius:50%;
-  display:grid;place-items:center;
+  width:48px;height:48px;border-radius:50%;display:grid;place-items:center;
   background:linear-gradient(135deg,#0879ff,#00d9e8);
-  font-size:20px;font-weight:bold;
+  font-size:20px;font-weight:bold
 }
 .role{
-  display:inline-block;padding:5px 9px;
-  border-radius:20px;background:#12334a;
-  color:var(--cyan);font-size:11px;font-weight:bold;
+  display:inline-block;padding:5px 9px;border-radius:20px;
+  background:#12334a;color:var(--cyan);font-size:11px;font-weight:bold
 }
 .post{
-  background:#0a1424;
-  border:1px solid var(--border);
-  border-radius:13px;padding:16px;margin:12px 0;
+  background:#0a1424;border:1px solid var(--border);
+  border-radius:13px;padding:16px;margin:12px 0
 }
 .post-meta{font-size:12px;color:var(--muted)}
 .message{
-  padding:12px;border-radius:9px;
-  margin:10px 0;background:#14233a;
-  white-space:pre-wrap;
+  padding:12px;border-radius:9px;margin:10px 0;
+  background:#14233a;white-space:pre-wrap
 }
 .message.error{border:1px solid var(--danger);color:#ff9aaa}
 .message.ok{border:1px solid var(--green);color:var(--green)}
-footer{
-  text-align:center;color:var(--muted);
-  padding:25px;font-size:12px;
-}
+footer{text-align:center;color:var(--muted);padding:25px;font-size:12px}
 @media(max-width:650px){
-  header{padding:13px 4%}
-  main{width:94%;margin:17px auto}
-  .panel{padding:16px}
-  .grid{grid-template-columns:1fr}
-  h1{font-size:23px}
-  .nav button{flex:1}
+  header{padding:13px 4%}main{width:94%;margin:17px auto}
+  .panel{padding:16px}.grid{grid-template-columns:1fr}
+  h1{font-size:23px}.nav button{flex:1}
 }
 </style>
 </head><body>
-
 <header>
   <div class="logo">YAKA99 <span>CONNECT ●</span></div>
   <div class="status" id="connectionStatus">● CONECTANDO</div>
 </header>
 
 <main>
-
 <div id="globalMessage" class="message hidden" role="status"></div>
 
-<!-- ACCESO -->
 <section id="authPanel" class="panel">
   <h1>Bienvenido a YAKA99</h1>
   <p class="muted">Conectá con el mundo. Tu comunidad comienza aquí.</p>
@@ -166,11 +113,9 @@ footer{
       <form id="loginForm">
         <label for="loginEmail">Correo electrónico</label>
         <input id="loginEmail" type="email" autocomplete="email" required>
-
         <label for="loginPassword">Contraseña</label>
         <input id="loginPassword" type="password"
           autocomplete="current-password" required>
-
         <button class="btn" type="submit">ENTRAR</button>
       </form>
       <button class="btn secondary" id="forgotPasswordBtn" type="button">
@@ -182,26 +127,32 @@ footer{
       <h2>Crear cuenta</h2>
       <form id="registerForm">
         <label for="registerName">Nombre público</label>
-        <input id="registerName" type="text"
-          maxlength="40" autocomplete="name" required>
-
+        <input id="registerName" type="text" maxlength="40"
+          autocomplete="name" required>
         <label for="registerEmail">Correo electrónico</label>
         <input id="registerEmail" type="email"
           autocomplete="email" required>
-
         <label for="registerPassword">Contraseña</label>
-        <input id="registerPassword" type="password"
-          minlength="8" autocomplete="new-password" required>
-
+        <input id="registerPassword" type="password" minlength="8"
+          autocomplete="new-password" required>
         <button class="btn success" type="submit">CREAR CUENTA</button>
       </form>
     </div>
   </div>
-</section>
 
-<!-- APLICACIÓN -->
-<section id="appPanel" class="hidden">
-
+  <div id="recoveryPanel" class="hidden">
+    <h2>Nueva contraseña</h2>
+    <form id="recoveryForm">
+      <label for="newPassword">Nueva contraseña</label>
+      <input id="newPassword" type="password" minlength="8" required
+        autocomplete="new-password">
+      <label for="confirmPassword">Confirmar contraseña</label>
+      <input id="confirmPassword" type="password" minlength="8" required
+        autocomplete="new-password">
+      <button class="btn success" type="submit">ACTUALIZAR CONTRASEÑA</button>
+    </form>
+  </div>
+</section><section id="appPanel" class="hidden">
   <div class="panel">
     <div class="userline">
       <div class="avatar" id="userAvatar">Y</div>
@@ -219,64 +170,51 @@ footer{
   <nav class="nav" aria-label="Navegación principal">
     <button type="button" class="active" data-page="feedPage">Inicio</button>
     <button type="button" data-page="profilePage">Mi perfil</button>
-    <button type="button" data-page="adminPage" id="adminNavBtn" class="hidden">
-      Administración
-    </button>
+    <button type="button" data-page="adminPage" id="adminNavBtn"
+      class="hidden">Administración</button>
   </nav>
 
-  <!-- INICIO -->
   <section id="feedPage" class="panel page">
     <h2>Comunidad YAKA99</h2>
-
     <form id="postForm">
       <label for="postContent">¿Qué querés compartir?</label>
       <textarea id="postContent" maxlength="3000"
         placeholder="Escribí tu publicación..." required></textarea>
       <button class="btn" type="submit">PUBLICAR</button>
     </form>
-
     <div id="feedMessage" class="message hidden"></div>
     <div id="postsContainer">
       <p class="muted">Cargando publicaciones...</p>
     </div>
   </section>
 
-  <!-- PERFIL -->
   <section id="profilePage" class="panel page hidden">
     <h2>Mi perfil</h2>
-
     <form id="profileForm">
       <label for="profileName">Nombre público</label>
       <input id="profileName" type="text" maxlength="40" required>
-
       <label for="profileBio">Descripción</label>
       <textarea id="profileBio" maxlength="500"
         placeholder="Contá algo sobre vos..."></textarea>
-
       <button class="btn" type="submit">GUARDAR PERFIL</button>
     </form>
-
     <div id="profileMessage" class="message hidden"></div>
   </section>
 
-  <!-- ADMINISTRACIÓN -->
   <section id="adminPage" class="panel page hidden">
     <h2>Centro de administración</h2>
     <p class="muted">Herramientas protegidas por permisos del servidor.</p>
 
     <div id="founderTools" class="hidden">
       <h3>Control Founder</h3>
-
       <form id="adminForm">
         <label for="adminEmail">Correo del usuario</label>
         <input id="adminEmail" type="email" required>
-
         <label for="adminAction">Acción</label>
         <select id="adminAction">
           <option value="promote">Nombrar administrador</option>
           <option value="revoke">Revocar administrador</option>
         </select>
-
         <button class="btn" type="submit">EJECUTAR ACCIÓN</button>
       </form>
       <div id="adminMessage" class="message hidden"></div>
@@ -286,19 +224,18 @@ footer{
       Acceso administrativo no autorizado.
     </div>
   </section>
-
 </section>
-
 </main>
 
-<footer>
-  YAKA99 CONNECT ● | Plataforma comunitaria
-</footer><script>
+<footer>YAKA99 CONNECT ● | Plataforma comunitaria</footer><script>
 "use strict";
 
-/* CONFIGURACIÓN SUPABASE */
-const SUPABASE_URL = "https://ujuzkldnhwjbmcvauhjj.supabase.co";
-const SUPABASE_ANON_KEY = "PEGAR_AQUI_LA_CLAVE_ANON_PUBLIC";
+/* CONFIGURACIÓN DEL PROYECTO YAKA99 */
+const SUPABASE_URL =
+  "https://znacqrungclknapgqnsk.supabase.co";
+
+const SUPABASE_ANON_KEY =
+  "PEGAR_AQUI_LA_CLAVE_PUBLICA_DEL_PROYECTO";
 
 const db = window.supabase.createClient(
   SUPABASE_URL,
@@ -310,6 +247,7 @@ const $ = (id) => document.getElementById(id);
 let currentUser = null;
 let currentRole = "user";
 let currentProfile = null;
+let isRecoveryMode = false;
 
 function showMessage(id, message, type = "ok") {
   const el = $(id);
@@ -324,8 +262,8 @@ function hideMessage(id) {
   if (el) el.classList.add("hidden");
 }
 
-function setConnection(text) {
-  $("connectionStatus").textContent = text;
+function setConnection(message) {
+  $("connectionStatus").textContent = message;
 }
 
 function normalizeRole(role) {
@@ -335,6 +273,7 @@ function normalizeRole(role) {
   return "USER";
 }
 
+/* ACTUALIZAR INTERFAZ */
 function updateUI(user) {
   currentUser = user;
 
@@ -344,6 +283,9 @@ function updateUI(user) {
   if (!user) {
     currentRole = "user";
     currentProfile = null;
+    $("adminNavBtn").classList.add("hidden");
+    $("founderTools").classList.add("hidden");
+    $("adminRestricted").classList.add("hidden");
     return;
   }
 
@@ -364,7 +306,7 @@ function updateUI(user) {
   $("adminRestricted").classList.toggle("hidden", isFounder || !isAdmin);
 }
 
-/* OBTENER ROL SEGURO DESDE SUPABASE */
+/* CARGAR ROL DESDE SUPABASE */
 async function loadUserRole() {
   if (!currentUser) return;
 
@@ -384,22 +326,23 @@ async function loadUserRole() {
   updateUI(currentUser);
 }
 
-/* CARGAR PERFIL */
+/* CARGAR PERFIL: LA COLUMNA CORRECTA ES id */
 async function loadProfile() {
   if (!currentUser) return;
 
   const { data, error } = await db
     .from("yaka99_profiles")
-    .select("display_name,bio")
-    .eq("user_id", currentUser.id)
+    .select("id,display_name,bio")
+    .eq("id", currentUser.id)
     .maybeSingle();
 
   if (error) {
     console.error("Error cargando perfil:", error);
+    showMessage("profileMessage", error.message, "error");
     return;
   }
 
-  currentProfile = data || {};
+  currentProfile = data || null;
 
   $("profileName").value =
     data?.display_name ||
@@ -409,153 +352,13 @@ async function loadProfile() {
   $("profileBio").value = data?.bio || "";
 
   $("welcomeName").textContent =
-    currentProfile.display_name || "Usuario";
+    data?.display_name || "Usuario";
 
   $("userAvatar").textContent =
-    (currentProfile.display_name || "Y").charAt(0).toUpperCase();
+    (data?.display_name || "Y").charAt(0).toUpperCase();
 }
 
-/* INICIAR SESIÓN */
-$("loginForm").addEventListener("submit", async (event) => {
-  event.preventDefault();
-
-  const email = $("loginEmail").value.trim();
-  const password = $("loginPassword").value;
-
-  const { data, error } = await db.auth.signInWithPassword({
-    email,
-    password
-  });
-
-  if (error) {
-    showMessage("globalMessage", error.message, "error");
-    return;
-  }
-
-  hideMessage("globalMessage");
-  await initializeUser(data.user);
-});
-
-/* REGISTRAR CUENTA */
-$("registerForm").addEventListener("submit", async (event) => {
-  event.preventDefault();
-
-  const name = $("registerName").value.trim();
-  const email = $("registerEmail").value.trim();
-  const password = $("registerPassword").value;
-
-  if (!name || name.length < 2) {
-    showMessage("globalMessage", "Ingresá un nombre válido.", "error");
-    return;
-  }
-
-  const { data, error } = await db.auth.signUp({
-    email,
-    password,
-    options: {
-      data: {
-        display_name: name
-      }
-    }
-  });
-
-  if (error) {
-    showMessage("globalMessage", error.message, "error");
-    return;
-  }
-
-  if (data.session) {
-    await initializeUser(data.user);
-    showMessage("globalMessage", "Cuenta creada correctamente.");
-  } else {
-    showMessage(
-      "globalMessage",
-      "Cuenta creada. Revisá tu correo para confirmar el registro."
-    );
-  }
-});
-
-/* RECUPERAR CONTRASEÑA */
-$("forgotPasswordBtn").addEventListener("click", async () => {
-  const email = $("loginEmail").value.trim();
-
-  if (!email) {
-    showMessage(
-      "globalMessage",
-      "Escribí tu correo en el campo de inicio de sesión.",
-      "error"
-    );
-    return;
-  }
-
-  const { error } = await db.auth.resetPasswordForEmail(email, {
-    redirectTo: window.location.origin
-  });
-
-  if (error) {
-    showMessage("globalMessage", error.message, "error");
-    return;
-  }
-
-  showMessage("globalMessage", "Revisá tu correo para restablecer la contraseña.");
-});
-
-/* CERRAR SESIÓN */
-$("logoutBtn").addEventListener("click", async () => {
-  const { error } = await db.auth.signOut();
-
-  if (error) {
-    showMessage("globalMessage", error.message, "error");
-    return;
-  }
-
-  currentUser = null;
-  currentRole = "user";
-  updateUI(null);
-  setConnection("● DESCONECTADO");
-});
-
-/* INICIALIZAR USUARIO */
-async function initializeUser(user) {
-  if (!user) {
-    updateUI(null);
-    return;
-  }
-
-  currentUser = user;
-  currentRole = "user";
-  updateUI(user);
-
-  await loadUserRole();
-  await loadProfile();
-  await loadPosts();
-
-  setConnection("● CONECTADO");
-}
-
-/* NAVEGACIÓN */
-document.querySelectorAll("[data-page]").forEach((button) => {
-  button.addEventListener("click", () => {
-    const page = button.dataset.page;
-
-    if (page === "adminPage" &&
-        !["admin", "founder"].includes(currentRole)) {
-      return;
-    }
-
-    document.querySelectorAll(".page").forEach((section) => {
-      section.classList.add("hidden");
-    });
-
-    $(page).classList.remove("hidden");
-
-    document.querySelectorAll("[data-page]").forEach((item) => {
-      item.classList.toggle("active", item === button);
-    });
-  });
-});
-
-/* GUARDAR PERFIL */
+/* GUARDAR PERFIL CON id */
 $("profileForm").addEventListener("submit", async (event) => {
   event.preventDefault();
 
@@ -565,35 +368,41 @@ $("profileForm").addEventListener("submit", async (event) => {
   const bio = $("profileBio").value.trim();
 
   if (displayName.length < 2) {
-    showMessage("profileMessage", "El nombre es demasiado corto.", "error");
+    showMessage("profileMessage",
+      "El nombre debe tener al menos 2 caracteres.", "error");
     return;
   }
 
-  const { error } = await db
+  const now = new Date().toISOString();
+
+  const profileData = {
+    id: currentUser.id,
+    display_name: displayName,
+    bio,
+    updated_at: now
+  };
+
+  if (!currentProfile) {
+    profileData.created_at = now;
+  }
+
+  const { data, error } = await db
     .from("yaka99_profiles")
-    .upsert({
-      user_id: currentUser.id,
-      display_name: displayName,
-      bio,
-      updated_at: new Date().toISOString()
-    }, {
-      onConflict: "user_id"
-    });
+    .upsert(profileData, { onConflict: "id" })
+    .select("id,display_name,bio")
+    .single();
 
   if (error) {
     showMessage("profileMessage", error.message, "error");
     return;
   }
 
-  currentProfile = { display_name: displayName, bio };
+  currentProfile = data;
   $("welcomeName").textContent = displayName;
   $("userAvatar").textContent = displayName.charAt(0).toUpperCase();
 
   showMessage("profileMessage", "Perfil actualizado correctamente.");
-});
-      </script><script>
-/* PUBLICACIONES */
-
+});/* CARGAR PUBLICACIONES */
 async function loadPosts() {
   if (!currentUser) return;
 
@@ -608,7 +417,7 @@ async function loadPosts() {
 
   if (error) {
     container.textContent = "No se pudieron cargar las publicaciones.";
-    console.error(error);
+    console.error("Error de publicaciones:", error);
     return;
   }
 
@@ -637,11 +446,9 @@ async function loadPosts() {
 
     article.append(meta, content);
 
-    if (
-      post.user_id === currentUser.id ||
-      currentRole === "founder" ||
-      currentRole === "admin"
-    ) {
+    /* La política RLS actual permite borrar publicaciones propias.
+       No mostramos un botón que el servidor vaya a rechazar. */
+    if (post.user_id === currentUser.id) {
       const deleteButton = document.createElement("button");
       deleteButton.type = "button";
       deleteButton.className = "btn danger";
@@ -659,7 +466,6 @@ async function loadPosts() {
 }
 
 /* CREAR PUBLICACIÓN */
-
 $("postForm").addEventListener("submit", async (event) => {
   event.preventDefault();
 
@@ -668,7 +474,8 @@ $("postForm").addEventListener("submit", async (event) => {
   const content = $("postContent").value.trim();
 
   if (!content) {
-    showMessage("feedMessage", "Escribí algo antes de publicar.", "error");
+    showMessage("feedMessage",
+      "Escribí algo antes de publicar.", "error");
     return;
   }
 
@@ -689,17 +496,16 @@ $("postForm").addEventListener("submit", async (event) => {
   await loadPosts();
 });
 
-/* ELIMINAR PUBLICACIÓN */
-
+/* ELIMINAR PUBLICACIÓN PROPIA */
 async function deletePost(postId) {
   if (!currentUser) return;
-
   if (!confirm("¿Querés eliminar esta publicación?")) return;
 
   const { error } = await db
     .from("yaka99_posts")
     .delete()
-    .eq("id", postId);
+    .eq("id", postId)
+    .eq("user_id", currentUser.id);
 
   if (error) {
     showMessage("feedMessage", error.message, "error");
@@ -710,8 +516,7 @@ async function deletePost(postId) {
   await loadPosts();
 }
 
-/* ADMINISTRACIÓN: SOLO FOUNDER */
-
+/* ADMINISTRACIÓN SEGURA */
 $("adminForm").addEventListener("submit", async (event) => {
   event.preventDefault();
 
@@ -720,23 +525,190 @@ $("adminForm").addEventListener("submit", async (event) => {
     return;
   }
 
-  const email = $("adminEmail").value.trim().toLowerCase();
-  const action = $("adminAction").value;
-
-  if (!email) {
-    showMessage("adminMessage", "Ingresá un correo válido.", "error");
-    return;
-  }
-
   showMessage(
     "adminMessage",
-    "La administración de roles requiere una función segura del servidor. No se modificó ningún rol.",
+    "La gestión de administradores se habilitará mediante una función segura del servidor. No se modificó ningún rol.",
     "error"
   );
 });
 
-/* PROTECCIÓN DE SESIÓN Y ARRANQUE */
+/* NAVEGACIÓN */
+document.querySelectorAll("[data-page]").forEach((button) => {
+  button.addEventListener("click", () => {
+    const page = button.dataset.page;
 
+    if (page === "adminPage" &&
+        !["admin", "founder"].includes(currentRole)) {
+      return;
+    }
+
+    document.querySelectorAll(".page").forEach((section) => {
+      section.classList.add("hidden");
+    });
+
+    $(page).classList.remove("hidden");
+
+    document.querySelectorAll("[data-page]").forEach((item) => {
+      item.classList.toggle("active", item === button);
+    });
+  });
+});/* INICIAR SESIÓN */
+$("loginForm").addEventListener("submit", async (event) => {
+  event.preventDefault();
+
+  const email = $("loginEmail").value.trim();
+  const password = $("loginPassword").value;
+
+  const { data, error } = await db.auth.signInWithPassword({
+    email,
+    password
+  });
+
+  if (error) {
+    showMessage("globalMessage", error.message, "error");
+    return;
+  }
+
+  hideMessage("globalMessage");
+  await initializeUser(data.user);
+});
+
+/* REGISTRAR CUENTA */
+$("registerForm").addEventListener("submit", async (event) => {
+  event.preventDefault();
+
+  const name = $("registerName").value.trim();
+  const email = $("registerEmail").value.trim();
+  const password = $("registerPassword").value;
+
+  if (name.length < 2) {
+    showMessage("globalMessage",
+      "Ingresá un nombre válido.", "error");
+    return;
+  }
+
+  const { data, error } = await db.auth.signUp({
+    email,
+    password,
+    options: {
+      data: { display_name: name }
+    }
+  });
+
+  if (error) {
+    showMessage("globalMessage", error.message, "error");
+    return;
+  }
+
+  if (data.session && data.user) {
+    await initializeUser(data.user);
+    showMessage("globalMessage", "¡Cuenta creada correctamente!");
+  } else {
+    showMessage(
+      "globalMessage",
+      "Cuenta creada. Revisá tu correo para confirmar el registro."
+    );
+  }
+});
+
+/* SOLICITAR RECUPERACIÓN */
+$("forgotPasswordBtn").addEventListener("click", async () => {
+  const email = $("loginEmail").value.trim();
+
+  if (!email) {
+    showMessage("globalMessage",
+      "Escribí tu correo en el campo de inicio de sesión.",
+      "error");
+    return;
+  }
+
+  const { error } = await db.auth.resetPasswordForEmail(email, {
+    redirectTo: window.location.origin + window.location.pathname
+  });
+
+  if (error) {
+    showMessage("globalMessage", error.message, "error");
+    return;
+  }
+
+  showMessage(
+    "globalMessage",
+    "Te enviamos un enlace. Revisá tu correo."
+  );
+});
+
+/* CAMBIAR CONTRASEÑA DESDE EL ENLACE */
+$("recoveryForm").addEventListener("submit", async (event) => {
+  event.preventDefault();
+
+  const password = $("newPassword").value;
+  const confirmation = $("confirmPassword").value;
+
+  if (password.length < 8) {
+    showMessage("globalMessage",
+      "La contraseña debe tener al menos 8 caracteres.", "error");
+    return;
+  }
+
+  if (password !== confirmation) {
+    showMessage("globalMessage",
+      "Las contraseñas no coinciden.", "error");
+    return;
+  }
+
+  const { error } = await db.auth.updateUser({ password });
+
+  if (error) {
+    showMessage("globalMessage", error.message, "error");
+    return;
+  }
+
+  isRecoveryMode = false;
+  $("recoveryPanel").classList.add("hidden");
+  $("recoveryForm").reset();
+
+  showMessage(
+    "globalMessage",
+    "Contraseña actualizada correctamente."
+  );
+});
+
+/* CERRAR SESIÓN */
+$("logoutBtn").addEventListener("click", async () => {
+  const { error } = await db.auth.signOut();
+
+  if (error) {
+    showMessage("globalMessage", error.message, "error");
+    return;
+  }
+
+  currentUser = null;
+  currentRole = "user";
+  currentProfile = null;
+
+  updateUI(null);
+  setConnection("● DESCONECTADO");
+});
+
+/* INICIALIZAR USUARIO */
+async function initializeUser(user) {
+  if (!user) {
+    updateUI(null);
+    return;
+  }
+
+  currentUser = user;
+  currentRole = "user";
+  updateUI(user);
+
+  await loadUserRole();
+  await loadProfile();
+  await loadPosts();
+
+  setConnection("● CONECTADO");
+}
+
+/* ARRANQUE DE LA APLICACIÓN */
 async function startApplication() {
   try {
     setConnection("● CONECTANDO");
@@ -753,31 +725,39 @@ async function startApplication() {
     }
   } catch (error) {
     console.error("Error iniciando aplicación:", error);
+
     setConnection("● ERROR DE CONEXIÓN");
+
     showMessage(
       "globalMessage",
-      "No se pudo conectar con Supabase. Revisá la configuración.",
+      "No se pudo conectar con Supabase. Revisá la URL y la clave pública.",
       "error"
     );
   }
 }
 
+/* EVENTOS DE AUTENTICACIÓN */
 db.auth.onAuthStateChange((event, session) => {
   if (event === "SIGNED_OUT") {
     currentUser = null;
     currentRole = "user";
+    currentProfile = null;
     updateUI(null);
     setConnection("● DESCONECTADO");
   }
 
   if (event === "PASSWORD_RECOVERY") {
+    isRecoveryMode = true;
+    $("recoveryPanel").classList.remove("hidden");
+
     showMessage(
       "globalMessage",
-      "Ingresá tu nueva contraseña desde el enlace recibido."
+      "Ingresá y confirmá tu nueva contraseña."
     );
   }
 });
 
 startApplication();
-    </script></body>
+</script>
+</body>
 </html>
