@@ -1,1730 +1,782 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="es">
 <head>
-<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"><meta name="theme-color" content="#060914">
-<meta name="description" content="YAKA99 CONNECT — comunidad digital global"><title>YAKA99 CONNECT ● | Global Social</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#070b16">
+<title>YAKA99 CONNECT ●</title>
+
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
 <style>
-:root{--bg:#060914;--panel:#0d1729;--panel2:#101f35;--cyan:#00e5ff;--blue:#4675ff;--purple:#a56bff;--green:#27e0a3;--red:#ff5578;--text:#f1f6ff;--muted:#91a4bf;--line:rgba(0,229,255,.17);--shadow:0 18px 55px #0006}*{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;min-height:100vh;background:radial-gradient(ellipse at 8% 0%,#10234a 0,transparent 38%),radial-gradient(ellipse at 100% 85%,#20103c 0,transparent 35%),var(--bg);color:var(--text);font-family:Inter,system-ui,Arial,sans-serif}button,input,textarea,select{font:inherit}button{cursor:pointer}.hidden{display:none!important}a{color:var(--cyan)}.topbar{position:sticky;top:0;z-index:50;display:flex;align-items:center;justify-content:space-between;gap:14px;padding:13px max(4%,calc((100% - 1280px)/2));background:#060914ed;backdrop-filter:blur(18px);border-bottom:1px solid var(--line)}.brand{font-weight:950;letter-spacing:1.8px;color:var(--cyan);font-size:20px;text-shadow:0 0 20px #00e5ff66}.brand span{color:#fff}.topright{display:flex;align-items:center;gap:12px}.online{font-size:10px;color:var(--green);letter-spacing:1px}.shell{width:min(1280px,94%);margin:auto;padding:22px 0 60px}.hero{text-align:center;padding:34px 12px 24px}.eyebrow{display:inline-block;color:var(--cyan);border:1px solid var(--line);border-radius:99px;padding:7px 13px;font-size:10px;letter-spacing:2px}.hero h1{font-size:clamp(32px,6vw,62px);line-height:1.02;margin:17px 0;background:linear-gradient(90deg,#fff,var(--cyan),var(--purple));color:transparent;background-clip:text}.hero p{max-width:700px;margin:0 auto;color:var(--muted);line-height:1.65}.card{background:linear-gradient(145deg,#111f35ed,#0a1222ed);border:1px solid var(--line);border-radius:18px;padding:19px;box-shadow:var(--shadow);min-width:0}.card h2,.card h3{margin:0 0 12px}.muted{color:var(--muted)}.small{font-size:12px;color:var(--muted);line-height:1.5}.auth{max-width:470px;margin:22px auto}.field{display:block;width:100%;background:#050b17;border:1px solid #2a405e;border-radius:10px;color:#fff;padding:13px 14px;margin:7px 0 13px;outline:none}.field:focus{border-color:var(--cyan);box-shadow:0 0 0 3px #00e5ff17}textarea.field{min-height:95px;resize:vertical}.btn{border:0;border-radius:10px;padding:11px 15px;background:linear-gradient(100deg,var(--cyan),#7b9cff);color:#03111b;font-weight:850;transition:.18s}.btn:hover{transform:translateY(-1px);filter:brightness(1.07)}.btn:disabled{opacity:.55;cursor:wait;transform:none}.btn.secondary{background:#172941;border:1px solid var(--line);color:var(--text)}.btn.danger{background:#421a2a;color:#ffb5c5}.btn.ghost{background:transparent;color:var(--cyan);border:1px solid var(--line)}.btn.full{width:100%}.actions{display:flex;gap:9px;flex-wrap:wrap;margin-top:10px}.notice{padding:12px 14px;border:1px solid var(--line);background:#10263a;border-radius:11px;margin:12px 0;font-size:13px;line-height:1.5}.notice.error{border-color:#a63858;background:#301522;color:#ffdce5}#toast{position:fixed;bottom:18px;left:50%;transform:translateX(-50%);z-index:100;max-width:min(92vw,520px);padding:12px 17px;border-radius:12px;background:#132943;border:1px solid var(--cyan);box-shadow:var(--shadow);font-size:13px;display:none}#toast.show{display:block}.layout{display:grid;grid-template-columns:230px minmax(0,1fr) 260px;gap:18px;align-items:start}.sidebar{position:sticky;top:78px}.navlist{display:grid;gap:7px}.navitem{width:100%;text-align:left;border:1px solid transparent;border-radius:11px;padding:12px;background:transparent;color:var(--muted);font-weight:700}.navitem:hover,.navitem.active{background:#10253c;border-color:var(--line);color:var(--cyan)}.navitem .ico{display:inline-block;width:27px}.maincol{min-width:0}.rightcol{display:grid;gap:14px}.view-title{display:flex;align-items:center;justify-content:space-between;gap:12px;margin:0 0 14px}.view-title h2{margin:0;font-size:23px}.composer{margin-bottom:15px}.composer textarea{min-height:86px}.composer-bottom{display:flex;align-items:center;justify-content:space-between;gap:9px;flex-wrap:wrap}.feed{display:grid;gap:13px}.post{overflow:hidden}.post-head{display:flex;align-items:center;gap:11px}.avatar{width:43px;height:43px;flex:none;border-radius:50%;display:grid;place-items:center;background:linear-gradient(135deg,var(--blue),var(--purple));border:2px solid var(--cyan);font-weight:900;overflow:hidden}.avatar img{width:100%;height:100%;object-fit:cover}.post-meta{min-width:0;flex:1}.post-meta strong{display:block;overflow-wrap:anywhere}.post-meta span{font-size:11px;color:var(--muted)}.post-text{white-space:pre-wrap;overflow-wrap:anywhere;line-height:1.65;margin:14px 0}.post-media{display:block;width:100%;max-height:560px;object-fit:contain;background:#050a13;border-radius:12px;margin:10px 0}.post-actions{display:flex;gap:8px;flex-wrap:wrap;border-top:1px solid var(--line);padding-top:12px}.post-actions .btn{font-size:12px;padding:8px 11px}.comment-list{border-top:1px solid var(--line);margin-top:12px;padding-top:8px}.comment-row{padding:7px 0;font-size:12px;line-height:1.5}.comment-row b{color:#fff}.stories-strip{display:flex;gap:11px;overflow-x:auto;padding:6px 2px 13px}.story-chip{min-width:83px;max-width:83px;text-align:center;cursor:pointer}.story-ring{width:66px;height:66px;margin:0 auto 6px;border-radius:50%;padding:3px;background:linear-gradient(135deg,var(--cyan),var(--purple),#ff4ca1)}.story-inner{width:100%;height:100%;border-radius:50%;display:grid;place-items:center;background:#14243b;border:3px solid #0c1527;overflow:hidden}.story-inner img{width:100%;height:100%;object-fit:cover}.story-chip small{display:block;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;color:var(--muted)}.grid2{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}.metric{font-size:25px;font-weight:900;color:var(--cyan);margin-top:7px}.user-result{display:flex;align-items:center;gap:10px;padding:11px 0;border-bottom:1px solid var(--line)}.user-result:last-child{border:0}.user-result .info{flex:1;min-width:0}.user-result strong{display:block;overflow-wrap:anywhere}.user-result .small{font-size:11px}.profile-cover{height:125px;border-radius:13px;background:linear-gradient(110deg,#123e66,#33205c,#0d5660);margin-bottom:-38px}.profile-head{display:flex;align-items:end;gap:13px;margin:0 0 15px;padding:0 10px}.profile-head .avatar{width:82px;height:82px}.profile-head h2{margin:0 0 4px}.pill{display:inline-block;border:1px solid var(--line);border-radius:99px;padding:4px 9px;color:var(--cyan);font-size:10px}.tabs{display:flex;gap:7px;flex-wrap:wrap;margin:13px 0}.tabs button{padding:8px 11px}.conversation{display:grid;grid-template-columns:210px minmax(0,1fr);gap:12px;min-height:420px}.contact-list{border-right:1px solid var(--line);padding-right:10px;max-height:560px;overflow:auto}.contact{padding:10px;border-radius:9px;cursor:pointer;font-size:12px}.contact.active,.contact:hover{background:#132944}.chatbox{display:flex;flex-direction:column;min-width:0}.messages{flex:1;min-height:280px;max-height:470px;overflow:auto;display:flex;flex-direction:column;gap:9px;padding:8px}.bubble{max-width:82%;padding:10px 12px;border-radius:13px;background:#172941;align-self:flex-start;overflow-wrap:anywhere;font-size:13px;line-height:1.5}.bubble.mine{align-self:flex-end;background:#123c50;border:1px solid #00e5ff44}.bubble small{display:block;color:#9db0c7;font-size:10px;margin-top:4px}.chat-send{display:flex;gap:8px;align-items:end}.chat-send textarea{min-height:45px;max-height:100px;margin:0}.notification{display:flex;gap:10px;align-items:start;padding:12px 0;border-bottom:1px solid var(--line)}.notification.unread{background:#0d2033}.notification .dot{width:9px;height:9px;background:var(--cyan);border-radius:50%;margin-top:5px;flex:none}.table-wrap{overflow:auto}table{border-collapse:collapse;width:100%;font-size:12px}td,th{text-align:left;padding:9px;border-bottom:1px solid var(--line);overflow-wrap:anywhere}th{color:var(--cyan)}.footer{text-align:center;color:#647991;padding:30px 12px;border-top:1px solid var(--line);font-size:11px;margin-top:30px}.empty{text-align:center;padding:25px;color:var(--muted);font-size:13px}.badge{color:var(--green);font-size:10px;letter-spacing:1px}.right-card{padding:15px}.right-card h3{font-size:14px}.modal{position:fixed;inset:0;background:#000b;z-index:90;display:grid;place-items:center;padding:16px}.modal-box{width:min(620px,100%);max-height:90vh;overflow:auto;background:#0c1729;border:1px solid var(--line);border-radius:17px;padding:16px}.modal-image{width:100%;max-height:75vh;object-fit:contain}.unread-count{background:var(--red);color:white;border-radius:99px;padding:2px 6px;font-size:10px;margin-left:5px}
-@media(max-width:1000px){.layout{grid-template-columns:190px minmax(0,1fr)}.rightcol{display:none}}@media(max-width:700px){.shell{width:94%;padding-top:10px}.hero{padding:23px 6px 16px}.hero h1{font-size:35px}.layout{display:block}.sidebar{position:static;margin-bottom:12px}.navlist{display:flex;overflow:auto;padding-bottom:5px}.navitem{width:auto;white-space:nowrap;padding:10px 12px;font-size:12px}.navitem .ico{width:auto;margin-right:5px}.conversation{grid-template-columns:115px minmax(0,1fr)}.contact-list{padding-right:5px}.card{padding:15px}.topbar{padding:12px 4%}.brand{font-size:16px}.online{display:none}.grid2{gap:8px}.metric{font-size:21px}}
+:root {
+  --bg:#070b16;
+  --panel:#101a2c;
+  --panel2:#14233a;
+  --cyan:#00eaff;
+  --blue:#287bff;
+  --text:#edf5ff;
+  --muted:#91a4bd;
+  --border:#243650;
+  --danger:#ff526b;
+  --green:#21e6a1;
+}
+*{box-sizing:border-box}
+body{
+  margin:0;
+  background:radial-gradient(circle at top,#142743 0,#070b16 48%);
+  color:var(--text);
+  font-family:Arial,Helvetica,sans-serif;
+  min-height:100vh;
+}
+button,input,textarea{font:inherit}
+button{cursor:pointer}
+.hidden{display:none!important}
+header{
+  position:sticky;top:0;z-index:20;
+  display:flex;align-items:center;justify-content:space-between;
+  padding:15px 5%;
+  background:#080e1deF;
+  border-bottom:1px solid var(--border);
+  backdrop-filter:blur(14px);
+}
+.logo{
+  color:var(--cyan);font-weight:900;
+  font-size:21px;letter-spacing:1px;
+  text-shadow:0 0 15px #00eaff66;
+}
+.logo span{color:white}
+.status{font-size:12px;color:var(--green)}
+main{width:min(1100px,94%);margin:28px auto}
+.panel{
+  background:linear-gradient(145deg,#111d31,#0b1322);
+  border:1px solid var(--border);
+  border-radius:17px;
+  padding:22px;
+  margin-bottom:18px;
+  box-shadow:0 12px 35px #0005;
+}
+h1,h2,h3{margin-top:0}
+h1{font-size:27px}
+h2{font-size:20px;color:var(--cyan)}
+p{line-height:1.5}
+.muted{color:var(--muted)}
+input,textarea{
+  width:100%;padding:13px;
+  margin:7px 0 13px;
+  border-radius:10px;
+  border:1px solid var(--border);
+  background:#080f1d;color:white;
+  outline:none;
+}
+input:focus,textarea:focus{
+  border-color:var(--cyan);
+  box-shadow:0 0 0 2px #00eaff22;
+}
+textarea{resize:vertical;min-height:95px}
+.btn{
+  border:0;border-radius:10px;
+  padding:12px 17px;
+  background:linear-gradient(110deg,#0879ff,#00cce8);
+  color:white;font-weight:bold;
+  margin:4px 3px 4px 0;
+}
+.btn:hover{filter:brightness(1.15)}
+.btn.secondary{
+  background:#1b2b43;border:1px solid var(--border);
+}
+.btn.danger{background:#9d263d}
+.btn.success{background:#087c60}
+.grid{
+  display:grid;
+  grid-template-columns:repeat(2,minmax(0,1fr));
+  gap:16px;
+}
+.nav{
+  display:flex;gap:8px;flex-wrap:wrap;
+  margin-bottom:18px;
+}
+.nav button{
+  background:#14233a;color:white;
+  border:1px solid var(--border);
+  padding:10px 14px;border-radius:9px;
+}
+.nav button.active{
+  color:var(--cyan);border-color:var(--cyan);
+}
+.userline{
+  display:flex;align-items:center;gap:12px;
+}
+.avatar{
+  width:48px;height:48px;border-radius:50%;
+  display:grid;place-items:center;
+  background:linear-gradient(135deg,#0879ff,#00d9e8);
+  font-size:20px;font-weight:bold;
+}
+.role{
+  display:inline-block;padding:5px 9px;
+  border-radius:20px;background:#12334a;
+  color:var(--cyan);font-size:11px;font-weight:bold;
+}
+.post{
+  background:#0a1424;
+  border:1px solid var(--border);
+  border-radius:13px;padding:16px;margin:12px 0;
+}
+.post-meta{font-size:12px;color:var(--muted)}
+.message{
+  padding:12px;border-radius:9px;
+  margin:10px 0;background:#14233a;
+  white-space:pre-wrap;
+}
+.message.error{border:1px solid var(--danger);color:#ff9aaa}
+.message.ok{border:1px solid var(--green);color:var(--green)}
+footer{
+  text-align:center;color:var(--muted);
+  padding:25px;font-size:12px;
+}
+@media(max-width:650px){
+  header{padding:13px 4%}
+  main{width:94%;margin:17px auto}
+  .panel{padding:16px}
+  .grid{grid-template-columns:1fr}
+  h1{font-size:23px}
+  .nav button{flex:1}
+}
 </style>
-</head>
-<body>
-<header class="topbar"><div class="brand">YAKA99 <span>CONNECT ●</span></div><div class="topright"><span class="online">● GLOBAL NETWORK</span><button id="headerLogin" class="btn secondary hidden">ACCEDER</button><button id="headerLogout" class="btn secondary hidden">SALIR</button></div></header>
-<div class="shell">
-<section class="hero"><span class="eyebrow">GLOBAL SOCIAL ECOSYSTEM · 1.0</span><h1>THE WORLD.<br>CONNECTED.</h1><p>Una comunidad digital para compartir, descubrir, conversar y construir conexiones reales. Todo dentro de YAKA99 CONNECT.</p></section><div id="authPanel" class="card auth"><h2>Entrá a tu comunidad</h2><p class="small">Iniciá sesión o creá tu cuenta YAKA99.</p><label class="small" for="email">Correo electrónico</label><input class="field" id="email" type="email" autocomplete="email" placeholder="tu@email.com"><label class="small" for="password">Contraseña</label><input class="field" id="password" type="password" autocomplete="current-password" placeholder="Mínimo 8 caracteres"><button class="btn full" id="loginBtn">INICIAR SESIÓN</button><div class="actions"><button class="btn secondary" id="registerBtn">CREAR CUENTA</button><button class="btn ghost" id="resetBtn">RECUPERAR CONTRASEÑA</button></div><p class="small" style="margin-top:12px">Si es una cuenta nueva, confirmá tu correo cuando Supabase te lo solicite.</p></div>
-<div id="recoveryPanel" class="card auth hidden"><h2>Nueva contraseña</h2><input id="newPassword" class="field" type="password" placeholder="Nueva contraseña"><input id="confirmPassword" class="field" type="password" placeholder="Repetir contraseña"><button id="savePasswordBtn" class="btn full">GUARDAR CONTRASEÑA</button></div>
-<div id="appPanel" class="hidden">
-<div class="layout">
-<aside class="sidebar"><div class="card"><div class="profile" style="display:flex;align-items:center;gap:10px;margin-bottom:15px"><div class="avatar" id="miniAvatar">Y</div><div><strong id="miniName">Usuario</strong><div class="small">Miembro YAKA99</div></div></div><section id="view-profile" class="view hidden">
-  <div class="view-title">
+</head><body>
+
+<header>
+  <div class="logo">YAKA99 <span>CONNECT ●</span></div>
+  <div class="status" id="connectionStatus">● CONECTANDO</div>
+</header>
+
+<main>
+
+<div id="globalMessage" class="message hidden" role="status"></div>
+
+<!-- ACCESO -->
+<section id="authPanel" class="panel">
+  <h1>Bienvenido a YAKA99</h1>
+  <p class="muted">Conectá con el mundo. Tu comunidad comienza aquí.</p>
+
+  <div class="grid">
     <div>
-      <h2>Mi perfil</h2>
-      <p>Tu identidad dentro de YAKA99 CONNECT.</p>
-    </div>
-  </div>
+      <h2>Iniciar sesión</h2>
+      <form id="loginForm">
+        <label for="loginEmail">Correo electrónico</label>
+        <input id="loginEmail" type="email" autocomplete="email" required>
 
-  <div class="panel">
-    <div class="profile-header">
-      <img id="profileAvatarPreview" class="avatar avatar-xl" src="" alt="Foto de perfil">
-      <div>
-        <h3 id="profileDisplayName">Mi perfil</h3>
-        <p id="profileUsername">@usuario</p>
-        <div class="profile-stats">
-          <span><strong id="profilePostsCount">0</strong> publicaciones</span>
-          <span><strong id="profileFollowersCount">0</strong> seguidores</span>
-          <span><strong id="profileFollowingCount">0</strong> siguiendo</span>
-        </div>
-      </div>
+        <label for="loginPassword">Contraseña</label>
+        <input id="loginPassword" type="password"
+          autocomplete="current-password" required>
+
+        <button class="btn" type="submit">ENTRAR</button>
+      </form>
+      <button class="btn secondary" id="forgotPasswordBtn" type="button">
+        Recuperar contraseña
+      </button>
     </div>
 
-    <div class="form-grid">
-      <label class="field">Nombre público
-        <input id="profileNameInput" maxlength="60" placeholder="Tu nombre">
-      </label>
-      <label class="field">Nombre de usuario
-        <input id="profileUsernameInput" maxlength="24" placeholder="usuario">
-      </label>
-      <label class="field">Ubicación
-        <input id="profileLocationInput" maxlength="80" placeholder="Ciudad, país">
-      </label>
-      <label class="field">Foto de perfil
-        <input id="profileAvatarInput" type="file" accept="image/*">
-      </label>
-      <label class="field full">Presentación
-        <textarea id="profileBioInput" maxlength="300" rows="4" placeholder="Contá algo sobre vos..."></textarea>
-      </label>
-    </div>
-    <button id="saveProfileBtn" class="btn btn-primary" type="button">Guardar perfil</button>
-  </div>
-
-  <div class="panel">
-    <h3>Mis publicaciones</h3>
-    <div id="myPostsList" class="feed"></div>
-  </div>
-</section>
-
-<section id="view-founder" class="view hidden">
-  <div class="view-title">
     <div>
-      <h2>Founder Center</h2>
-      <p>Centro de control y gobierno de YAKA99 CONNECT.</p>
-    </div>
-    <span class="role-badge">FOUNDER</span>
-  </div>
+      <h2>Crear cuenta</h2>
+      <form id="registerForm">
+        <label for="registerName">Nombre público</label>
+        <input id="registerName" type="text"
+          maxlength="40" autocomplete="name" required>
 
-  <div class="stats-grid">
-    <div class="stat-card"><span>Usuarios</span><strong id="founderUsersCount">0</strong></div>
-    <div class="stat-card"><span>Publicaciones</span><strong id="founderPostsCount">0</strong></div>
-    <div class="stat-card"><span>Reportes pendientes</span><strong id="founderReportsCount">0</strong></div>
-    <div class="stat-card"><span>Administradores</span><strong id="founderAdminsCount">0</strong></div>
-  </div>
+        <label for="registerEmail">Correo electrónico</label>
+        <input id="registerEmail" type="email"
+          autocomplete="email" required>
 
-  <div class="panel">
-    <div class="section-heading">
-      <div>
-        <h3>Gobierno de usuarios</h3>
-        <p>Administración de roles y permisos.</p>
-      </div>
-      <button id="reloadFounderBtn" class="btn btn-secondary" type="button">Actualizar</button>
-    </div>
+        <label for="registerPassword">Contraseña</label>
+        <input id="registerPassword" type="password"
+          minlength="8" autocomplete="new-password" required>
 
-    <div class="field">
-      <input id="founderUserSearch" type="search" placeholder="Buscar usuario por nombre o correo">
-    </div>
-
-    <div class="table-wrap">
-      <table class="data-table">
-        <thead><tr><th>Usuario</th><th>Rol</th><th>Acción</th></tr></thead>
-        <tbody id="founderUsersTable">
-          <tr><td colspan="3">Cargando usuarios...</td></tr>
-        </tbody>
-      </table>
-    </div>
-  </div>
-
-  <div class="panel">
-    <h3>Centro de reportes</h3>
-    <p>Revisión de denuncias recibidas por la plataforma.</p>
-    <div id="founderReportsList"></div>
-  </div>
-
-  <div class="panel">
-    <h3>Seguridad del fundador</h3>
-    <p>La autoridad Founder debe protegerse desde Supabase. Ningún administrador puede modificar, revocar ni reemplazar este rol.</p>
-    <div id="founderSecurityStatus" class="status-message">
-      La protección debe verificarse mediante las políticas y funciones del servidor.
+        <button class="btn success" type="submit">CREAR CUENTA</button>
+      </form>
     </div>
   </div>
 </section>
 
-<section id="view-admin" class="view hidden">
-  <div class="view-title">
-    <div>
-      <h2>Admin Center</h2>
-      <p>Herramientas de administración subordinadas al Founder.</p>
+<!-- APLICACIÓN -->
+<section id="appPanel" class="hidden">
+
+  <div class="panel">
+    <div class="userline">
+      <div class="avatar" id="userAvatar">Y</div>
+      <div>
+        <h2 id="welcomeName">Usuario</h2>
+        <span class="role" id="userRole">USER</span>
+      </div>
     </div>
-    <span class="role-badge">ADMIN</span>
+    <p class="muted" id="userEmail"></p>
+    <button class="btn secondary" id="logoutBtn" type="button">
+      Cerrar sesión
+    </button>
   </div>
 
-  <div class="panel">
-    <h3>Panel administrativo</h3>
-    <p>Las herramientas de moderación estarán limitadas por los permisos que autorice Supabase.</p>
-    <div id="adminStatus" class="status-message">Verificando permisos...</div>
-  </div>
+  <nav class="nav" aria-label="Navegación principal">
+    <button type="button" class="active" data-page="feedPage">Inicio</button>
+    <button type="button" data-page="profilePage">Mi perfil</button>
+    <button type="button" data-page="adminPage" id="adminNavBtn" class="hidden">
+      Administración
+    </button>
+  </nav>
 
-  <div class="panel">
-    <h3>Reportes para revisión</h3>
-    <div id="adminReportsList"></div>
-  </div>
+  <!-- INICIO -->
+  <section id="feedPage" class="panel page">
+    <h2>Comunidad YAKA99</h2>
+
+    <form id="postForm">
+      <label for="postContent">¿Qué querés compartir?</label>
+      <textarea id="postContent" maxlength="3000"
+        placeholder="Escribí tu publicación..." required></textarea>
+      <button class="btn" type="submit">PUBLICAR</button>
+    </form>
+
+    <div id="feedMessage" class="message hidden"></div>
+    <div id="postsContainer">
+      <p class="muted">Cargando publicaciones...</p>
+    </div>
+  </section>
+
+  <!-- PERFIL -->
+  <section id="profilePage" class="panel page hidden">
+    <h2>Mi perfil</h2>
+
+    <form id="profileForm">
+      <label for="profileName">Nombre público</label>
+      <input id="profileName" type="text" maxlength="40" required>
+
+      <label for="profileBio">Descripción</label>
+      <textarea id="profileBio" maxlength="500"
+        placeholder="Contá algo sobre vos..."></textarea>
+
+      <button class="btn" type="submit">GUARDAR PERFIL</button>
+    </form>
+
+    <div id="profileMessage" class="message hidden"></div>
+  </section>
+
+  <!-- ADMINISTRACIÓN -->
+  <section id="adminPage" class="panel page hidden">
+    <h2>Centro de administración</h2>
+    <p class="muted">Herramientas protegidas por permisos del servidor.</p>
+
+    <div id="founderTools" class="hidden">
+      <h3>Control Founder</h3>
+
+      <form id="adminForm">
+        <label for="adminEmail">Correo del usuario</label>
+        <input id="adminEmail" type="email" required>
+
+        <label for="adminAction">Acción</label>
+        <select id="adminAction">
+          <option value="promote">Nombrar administrador</option>
+          <option value="revoke">Revocar administrador</option>
+        </select>
+
+        <button class="btn" type="submit">EJECUTAR ACCIÓN</button>
+      </form>
+      <div id="adminMessage" class="message hidden"></div>
+    </div>
+
+    <div id="adminRestricted" class="message hidden">
+      Acceso administrativo no autorizado.
+    </div>
+  </section>
+
 </section>
 
 </main>
-</div>
-</div>
 
-<footer class="site-footer">
-  <div class="brand-mark">YAKA99 CONNECT <span>●</span></div>
-  <p>Conectando personas. Construyendo el futuro.</p>
-  <small>© <span id="currentYear"></span> YAKA99 CONNECT. Todos los derechos reservados.</small>
-</footer>
-</div>
-
-<div id="storyModal" class="modal hidden" role="dialog" aria-modal="true" aria-labelledby="storyModalTitle">
-  <div class="modal-card">
-    <div class="modal-header">
-      <h3 id="storyModalTitle">Historia</h3>
-      <button id="closeStoryModalBtn" class="icon-btn" type="button" aria-label="Cerrar">✕</button>
-    </div>
-    <div id="storyModalContent"></div>
-  </div>
-</div>
-
-<div id="userModal" class="modal hidden" role="dialog" aria-modal="true" aria-labelledby="userModalTitle">
-  <div class="modal-card">
-    <div class="modal-header">
-      <h3 id="userModalTitle">Perfil de usuario</h3>
-      <button id="closeUserModalBtn" class="icon-btn" type="button" aria-label="Cerrar">✕</button>
-    </div>
-    <div id="userModalContent"></div>
-  </div>
-</div>
-
-<div id="toastContainer" class="toast-container" aria-live="polite"></div>
-
-<script>
+<footer>
+  YAKA99 CONNECT ● | Plataforma comunitaria
+</footer><script>
 "use strict";
 
-const SUPABASE_URL = "https://znacqrungclknapgqnsk.supabase.co";
-const SUPABASE_ANON_KEY = "sb_publishable_zrPEuGPG2eEIVjYBoKxMpw_Q72orPZa";
+/* CONFIGURACIÓN SUPABASE */
+const SUPABASE_URL = "https://ujuzkldnhwjbmcvauhjj.supabase.co";
+const SUPABASE_ANON_KEY = "PEGAR_AQUI_LA_CLAVE_ANON_PUBLIC";
 
-const supabaseClient = window.supabase.createClient(
+const db = window.supabase.createClient(
   SUPABASE_URL,
-  SUPABASE_ANON_KEY,
-  {
-    auth: {
-      persistSession: true,
-      autoRefreshToken: true,
-      detectSessionInUrl: true
-    }
-  }
+  SUPABASE_ANON_KEY
 );
-
-const state = {
-  user: null,
-  session: null,
-  profile: null,
-  role: "user",
-  currentView: "home",
-  activeConversation: null,
-  activeProfileId: null,
-  founderUsers: [],
-  founderReports: [],
-  posts: [],
-  contacts: [],
-  realtimeChannels: [],
-  initialized: false,
-  entering: false,
-  busy: new Set()
-};
 
 const $ = (id) => document.getElementById(id);
 
-const showElement = (id) => {
-  const el = $(id);
-  if (el) el.classList.remove("hidden");
-};
+let currentUser = null;
+let currentRole = "user";
+let currentProfile = null;
 
-const hideElement = (id) => {
+function showMessage(id, message, type = "ok") {
+  const el = $(id);
+  if (!el) return;
+  el.textContent = message;
+  el.className = "message " + type;
+  el.classList.remove("hidden");
+}
+
+function hideMessage(id) {
   const el = $(id);
   if (el) el.classList.add("hidden");
-};
-
-const setText = (id, value) => {
-  const el = $(id);
-  if (el) el.textContent = value ?? "";
-};
-
-const escapeHTML = (value) => String(value ?? "").replace(/[&<>"']/g, char => ({
-  "&": "&amp;",
-  "<": "&lt;",
-  ">": "&gt;",
-  '"': "&quot;",
-  "'": "&#039;"
-}[char]));
-
-const formatDate = (value) => {
-  if (!value) return "";
-  const date = new Date(value);
-  if (Number.isNaN(date.getTime())) return "";
-  return date.toLocaleString();
-};
-
-const getInitials = (value) => {
-  const words = String(value || "YAKA99").trim().split(/\s+/);
-  return words.slice(0, 2).map(word => word[0]?.toUpperCase() || "").join("");
-};
-
-function toast(message, type = "info") {
-  const container = $("toastContainer");
-  if (!container) return;
-
-  const item = document.createElement("div");
-  item.className = `toast toast-${type}`;
-  item.textContent = message;
-  container.appendChild(item);
-
-  window.setTimeout(() => item.remove(), 4000);
 }
 
-function setBusy(id, busy) {
-  const element = $(id);
-  if (!element) return;
-
-  element.disabled = Boolean(busy);
-  element.dataset.busy = busy ? "true" : "false";
+function setConnection(text) {
+  $("connectionStatus").textContent = text;
 }
 
-async function runBusy(id, action) {
-  if (state.busy.has(id)) return;
-
-  state.busy.add(id);
-  setBusy(id, true);
-
-  try {
-    return await action();
-  } catch (error) {
-    console.error(error);
-    toast(error.message || "Ocurrió un error.", "error");
-  } finally {
-    state.busy.delete(id);
-    setBusy(id, false);
-  }
+function normalizeRole(role) {
+  const value = String(role || "").toLowerCase();
+  if (value === "founder") return "FOUNDER";
+  if (value === "admin") return "ADMIN";
+  return "USER";
 }
 
-function showView(name) {
-  document.querySelectorAll(".view").forEach(view => {
-    view.classList.add("hidden");
-  });
+function updateUI(user) {
+  currentUser = user;
 
-  const target = $(`view-${name}`);
-  if (!target) return;
+  $("authPanel").classList.toggle("hidden", !!user);
+  $("appPanel").classList.toggle("hidden", !user);
 
-  target.classList.remove("hidden");
-  state.currentView = name;
-
-  document.querySelectorAll("[data-view]").forEach(button => {
-    button.classList.toggle("active", button.dataset.view === name);
-  });
-}
-
-function closeModal(id) {
-  const modal = $(id);
-  if (modal) modal.classList.add("hidden");
-}
-
-function openModal(id) {
-  const modal = $(id);
-  if (modal) modal.classList.remove("hidden");
-}
-
-function requireUser() {
-  if (!state.user) {
-    toast("Iniciá sesión para continuar.", "warning");
-    return false;
-  }
-  return true;
-}
-
-/* La Parte 4 continúa con autenticación,
-   perfiles, publicaciones e historias. */
-</script>
-<nav class="navlist">
-<button class="navitem active" data-view="home"><span class="ico">⌂</span>Inicio</button>
-<button class="navitem" data-view="feed"><span class="ico">▤</span>Publicaciones</button>
-<button class="navitem" data-view="explore"><span class="ico">⌕</span>Explorar</button>
-<button class="navitem" data-view="messages"><span class="ico">✉</span>Mensajes</button>
-<button class="navitem" data-view="notifications"><span class="ico">♢</span>Notificaciones <span id="notificationCount"></span></button>
-<button class="navitem" data-view="saved"><span class="ico">◇</span>Guardados</button>
-<button class="navitem" data-view="profile"><span class="ico">◎</span>Mi perfil</button>
-<button class="navitem hidden" id="founderNav" data-view="founder"><span class="ico">♛</span>Founder Center</button>
-<button class="navitem hidden" id="adminNav" data-view="admin"><span class="ico">⬡</span>Admin Center</button>
-</nav><button class="btn secondary full" id="logoutBtn" style="margin-top:15px">CERRAR SESIÓN</button></div></aside>
-<main class="maincol">
-<section id="view-home" class="view">
-<div class="view-title"><h2>Tu comunidad</h2><span class="badge">● CONECTADO</span></div>
-<div class="card"><h3>Historias</h3><div id="storiesStrip" class="stories-strip"><div class="empty">Cargando historias...</div></div>
-<div class="actions"><input id="storyText" class="field" style="flex:1;min-width:140px;margin:0" placeholder="Contá algo breve..."><label class="btn secondary">FOTO <input id="storyImage" type="file" accept="image/*" hidden></label><span id="storyImageName" class="small">Visible durante 24 horas</span><button id="publishStoryBtn" class="btn">PUBLICAR</button></div></div>
-<div class="card composer" style="margin-top:14px"><h3>¿Qué estás pensando?</h3><textarea id="postText" class="field" placeholder="Compartí algo con el mundo..."></textarea><div class="composer-bottom"><label class="btn secondary">ADJUNTAR FOTO <input id="postImage" type="file" accept="image/*" hidden></label><span id="postImageName" class="small">Hasta 10 MB</span><button id="publishPostBtn" class="btn">PUBLICAR</button></div></div>
-<div id="homeFeed" class="feed"></div>
-</section>
-<section id="view-feed" class="view hidden"><div class="view-title"><h2>Publicaciones</h2><button id="reloadFeedBtn" class="btn secondary">ACTUALIZAR</button></div><div id="feedList" class="feed"></div></section>
-<section id="view-explore" class="view hidden"><div class="view-title"><h2>Explorar personas</h2></div><div class="card"><input id="searchPeople" class="field" placeholder="Buscar por nombre o usuario..."><div id="searchResults"><div class="empty">Escribí para encontrar miembros.</div></div></div><div class="card" style="margin-top:14px"><h3>Personas que podrías conocer</h3><div id="suggestedUsers"></div></div></section>
-<section id="view-messages" class="view hidden"><div class="view-title"><h2>Mensajes privados</h2></div><div class="card conversation"><div class="contact-list"><input id="contactSearch" class="field" placeholder="Buscar..." style="padding:9px"><div id="contactList"></div></div><div class="chatbox"><h3 id="chatTitle">Elegí una conversación</h3><div id="messagesList" class="messages"><div class="empty">Tus conversaciones aparecerán acá.</div></div><div class="chat-send"><textarea id="messageText" class="field" placeholder="Escribí un mensaje..." disabled></textarea><button id="sendMessageBtn" class="btn" disabled>ENVIAR</button></div></div></div></section>
-<section id="view-notifications" class="view hidden"><div class="view-title"><h2>Notificaciones</h2><button id="markAllReadBtn" class="btn secondary">MARCAR LEÍDAS</button></div><div class="card" id="notificationsList"></div></section>
-<section id="view-saved" class="view hidden"><div class="view-title"><h2>Publicaciones guardadas</h2></div><div id="savedFeed" class="feed"></div></section><script>
-/* ==========================================
-   YAKA99 CONNECT - AUTENTICACIÓN Y CONTENIDO
-   ========================================== */
-
-/* ---------- AUTENTICACIÓN ---------- */
-
-async function signUp() {
-  return runBusy("signUpBtn", async () => {
-    const email = $("registerEmail")?.value.trim();
-    const password = $("registerPassword")?.value;
-    const username = $("registerUsername")?.value.trim().toLowerCase();
-
-    if (!email || !password || !username) {
-      throw new Error("Completá todos los campos.");
-    }
-
-    if (!/^[a-z0-9_]{3,24}$/.test(username)) {
-      throw new Error("El usuario debe tener entre 3 y 24 caracteres.");
-    }
-
-    if (password.length < 8) {
-      throw new Error("La contraseña debe tener al menos 8 caracteres.");
-    }
-
-    const { data, error } = await supabaseClient.auth.signUp({
-      email,
-      password,
-      options: {
-        data: { username }
-      }
-    });
-
-    if (error) throw error;
-
-    if (data.session) {
-      await enterApp(data.session);
-    } else {
-      toast("Registro realizado. Revisá tu correo para confirmar la cuenta.", "success");
-    }
-  });
-}
-
-async function signIn() {
-  return runBusy("loginBtn", async () => {
-    const email = $("loginEmail")?.value.trim();
-    const password = $("loginPassword")?.value;
-
-    if (!email || !password) {
-      throw new Error("Ingresá tu correo y contraseña.");
-    }
-
-    const { data, error } = await supabaseClient.auth.signInWithPassword({
-      email,
-      password
-    });
-
-    if (error) throw error;
-    await enterApp(data.session);
-  });
-}
-
-async function signOut() {
-  const { error } = await supabaseClient.auth.signOut();
-  if (error) throw error;
-
-  state.user = null;
-  state.session = null;
-  state.profile = null;
-  state.role = "user";
-
-  await clearRealtime();
-
-  hideElement("appPanel");
-  showElement("authPanel");
-  hideElement("recoveryPanel");
-
-  toast("Sesión cerrada.");
-}
-
-async function sendPasswordRecovery() {
-  return runBusy("recoveryBtn", async () => {
-    const email = $("recoveryEmail")?.value.trim();
-
-    if (!email) throw new Error("Ingresá tu correo.");
-
-    const redirectTo = new URL("./", location.href).href;
-
-    const { error } = await supabaseClient.auth.resetPasswordForEmail(
-      email,
-      { redirectTo }
-    );
-
-    if (error) throw error;
-
-    toast("Si el correo está registrado, recibirás instrucciones.", "success");
-  });
-}
-
-async function updateRecoveredPassword() {
-  return runBusy("updatePasswordBtn", async () => {
-    const password = $("newPassword")?.value;
-
-    if (!password || password.length < 8) {
-      throw new Error("La contraseña debe tener al menos 8 caracteres.");
-    }
-
-    const { error } = await supabaseClient.auth.updateUser({ password });
-    if (error) throw error;
-
-    toast("Contraseña actualizada.", "success");
-    await supabaseClient.auth.signOut();
-    location.hash = "";
-    showElement("authPanel");
-    hideElement("recoveryPanel");
-  });
-}
-
-/* ---------- ENTRADA A LA PLATAFORMA ---------- */
-
-async function enterApp(session) {
-  if (!session?.user || state.entering) return;
-
-  state.entering = true;
-
-  try {
-    state.session = session;
-    state.user = session.user;
-
-    hideElement("authPanel");
-    hideElement("recoveryPanel");
-    showElement("appPanel");
-
-    await loadMyProfile();
-    await resolveRole();
-
-    updateAccountUI();
-    applyRoleUI();
-
-    await Promise.allSettled([
-      loadHome(),
-      loadFeed(),
-      loadStories(),
-      loadNotifications(),
-      loadContacts()
-    ]);
-
-    await setupRealtime();
-
-    if (!state.initialized) {
-      state.initialized = true;
-      showView("home");
-    }
-
-  } catch (error) {
-    console.error("Error al ingresar:", error);
-    toast("No se pudo cargar completamente tu cuenta.", "error");
-  } finally {
-    state.entering = false;
-  }
-}
-
-function updateAccountUI() {
-  const name = state.profile?.display_name ||
-    state.profile?.username ||
-    state.user?.email ||
-    "Usuario";
-
-  setText("accountName", name);
-  setText("accountUsername", state.profile?.username ? "@" + state.profile.username : "");
-
-  const avatar = $("accountAvatar");
-  if (avatar) {
-    avatar.src = state.profile?.avatar_url || "";
-  }
-}
-
-/* ---------- PERMISOS ---------- */
-
-async function resolveRole() {
-  state.role = "user";
-
-  if (!state.user) return;
-
-  const { data: isFounder, error: founderError } =
-    await supabaseClient.rpc("is_yaka99_founder");
-
-  if (!founderError && isFounder === true) {
-    state.role = "founder";
+  if (!user) {
+    currentRole = "user";
+    currentProfile = null;
     return;
   }
 
-  const { data, error } = await supabaseClient
+  $("userEmail").textContent = user.email || "";
+  $("userAvatar").textContent =
+    (user.user_metadata?.display_name || "Y").charAt(0).toUpperCase();
+
+  $("welcomeName").textContent =
+    user.user_metadata?.display_name || "Usuario";
+
+  $("userRole").textContent = normalizeRole(currentRole);
+
+  const isAdmin = ["admin", "founder"].includes(currentRole);
+  const isFounder = currentRole === "founder";
+
+  $("adminNavBtn").classList.toggle("hidden", !isAdmin);
+  $("founderTools").classList.toggle("hidden", !isFounder);
+  $("adminRestricted").classList.toggle("hidden", isFounder || !isAdmin);
+}
+
+/* OBTENER ROL SEGURO DESDE SUPABASE */
+async function loadUserRole() {
+  if (!currentUser) return;
+
+  const { data, error } = await db
     .from("yaka99_user_roles")
     .select("role")
-    .eq("user_id", state.user.id)
+    .eq("user_id", currentUser.id)
     .maybeSingle();
 
-  if (!error && data?.role === "admin") {
-    state.role = "admin";
+  if (error) {
+    console.error("Error obteniendo rol:", error);
+    currentRole = "user";
+  } else {
+    currentRole = String(data?.role || "user").toLowerCase();
   }
+
+  updateUI(currentUser);
 }
 
-function applyRoleUI() {
-  const founder = state.role === "founder";
-  const admin = state.role === "admin";
+/* CARGAR PERFIL */
+async function loadProfile() {
+  if (!currentUser) return;
 
-  document.querySelectorAll('[data-role="founder"]').forEach(el => {
-    el.classList.toggle("hidden", !founder);
-  });
-
-  document.querySelectorAll('[data-role="admin"]').forEach(el => {
-    el.classList.toggle("hidden", !founder && !admin);
-  });
-
-  setText("accountRole", founder ? "YAKA99 Founder" : admin ? "Administrador" : "Miembro");
-}
-
-/* ---------- PERFILES ---------- */
-
-async function loadMyProfile() {
-  if (!state.user) return;
-
-  const { data, error } = await supabaseClient
+  const { data, error } = await db
     .from("yaka99_profiles")
-    .select("*")
-    .eq("id", state.user.id)
+    .select("display_name,bio")
+    .eq("user_id", currentUser.id)
     .maybeSingle();
 
-  if (error) throw error;
+  if (error) {
+    console.error("Error cargando perfil:", error);
+    return;
+  }
 
-  state.profile = data || {
-    id: state.user.id,
-    username: state.user.user_metadata?.username || "",
-    display_name: "",
-    bio: "",
-    location: "",
-    avatar_url: ""
-  };
+  currentProfile = data || {};
 
-  fillProfileForm();
-  updateAccountUI();
+  $("profileName").value =
+    data?.display_name ||
+    currentUser.user_metadata?.display_name ||
+    "";
+
+  $("profileBio").value = data?.bio || "";
+
+  $("welcomeName").textContent =
+    currentProfile.display_name || "Usuario";
+
+  $("userAvatar").textContent =
+    (currentProfile.display_name || "Y").charAt(0).toUpperCase();
 }
 
-function fillProfileForm() {
-  const profile = state.profile;
-  if (!profile) return;
+/* INICIAR SESIÓN */
+$("loginForm").addEventListener("submit", async (event) => {
+  event.preventDefault();
 
-  setText("profileDisplayName", profile.display_name || profile.username || "Mi perfil");
-  setText("profileUsername", profile.username ? "@" + profile.username : "@usuario");
+  const email = $("loginEmail").value.trim();
+  const password = $("loginPassword").value;
 
-  if ($("profileNameInput")) $("profileNameInput").value = profile.display_name || "";
-  if ($("profileUsernameInput")) $("profileUsernameInput").value = profile.username || "";
-  if ($("profileLocationInput")) $("profileLocationInput").value = profile.location || "";
-  if ($("profileBioInput")) $("profileBioInput").value = profile.bio || "";
+  const { data, error } = await db.auth.signInWithPassword({
+    email,
+    password
+  });
 
-  if ($("profileAvatarPreview")) {
-    $("profileAvatarPreview").src = profile.avatar_url || "";
+  if (error) {
+    showMessage("globalMessage", error.message, "error");
+    return;
   }
+
+  hideMessage("globalMessage");
+  await initializeUser(data.user);
+});
+
+/* REGISTRAR CUENTA */
+$("registerForm").addEventListener("submit", async (event) => {
+  event.preventDefault();
+
+  const name = $("registerName").value.trim();
+  const email = $("registerEmail").value.trim();
+  const password = $("registerPassword").value;
+
+  if (!name || name.length < 2) {
+    showMessage("globalMessage", "Ingresá un nombre válido.", "error");
+    return;
+  }
+
+  const { data, error } = await db.auth.signUp({
+    email,
+    password,
+    options: {
+      data: {
+        display_name: name
+      }
+    }
+  });
+
+  if (error) {
+    showMessage("globalMessage", error.message, "error");
+    return;
+  }
+
+  if (data.session) {
+    await initializeUser(data.user);
+    showMessage("globalMessage", "Cuenta creada correctamente.");
+  } else {
+    showMessage(
+      "globalMessage",
+      "Cuenta creada. Revisá tu correo para confirmar el registro."
+    );
+  }
+});
+
+/* RECUPERAR CONTRASEÑA */
+$("forgotPasswordBtn").addEventListener("click", async () => {
+  const email = $("loginEmail").value.trim();
+
+  if (!email) {
+    showMessage(
+      "globalMessage",
+      "Escribí tu correo en el campo de inicio de sesión.",
+      "error"
+    );
+    return;
+  }
+
+  const { error } = await db.auth.resetPasswordForEmail(email, {
+    redirectTo: window.location.origin
+  });
+
+  if (error) {
+    showMessage("globalMessage", error.message, "error");
+    return;
+  }
+
+  showMessage("globalMessage", "Revisá tu correo para restablecer la contraseña.");
+});
+
+/* CERRAR SESIÓN */
+$("logoutBtn").addEventListener("click", async () => {
+  const { error } = await db.auth.signOut();
+
+  if (error) {
+    showMessage("globalMessage", error.message, "error");
+    return;
+  }
+
+  currentUser = null;
+  currentRole = "user";
+  updateUI(null);
+  setConnection("● DESCONECTADO");
+});
+
+/* INICIALIZAR USUARIO */
+async function initializeUser(user) {
+  if (!user) {
+    updateUI(null);
+    return;
+  }
+
+  currentUser = user;
+  currentRole = "user";
+  updateUI(user);
+
+  await loadUserRole();
+  await loadProfile();
+  await loadPosts();
+
+  setConnection("● CONECTADO");
 }
 
-async function uploadImage(file, folder) {
-  if (!file || !state.user) return null;
+/* NAVEGACIÓN */
+document.querySelectorAll("[data-page]").forEach((button) => {
+  button.addEventListener("click", () => {
+    const page = button.dataset.page;
 
-  if (!file.type.startsWith("image/")) {
-    throw new Error("El archivo debe ser una imagen.");
-  }
+    if (page === "adminPage" &&
+        !["admin", "founder"].includes(currentRole)) {
+      return;
+    }
 
-  if (file.size > 5 * 1024 * 1024) {
-    throw new Error("La imagen no puede superar 5 MB.");
-  }
-
-  const extension = file.name.split(".").pop().toLowerCase();
-  const safeExtension = /^[a-z0-9]{1,5}$/.test(extension) ? extension : "jpg";
-  const path = `${state.user.id}/${folder}/${crypto.randomUUID()}.${safeExtension}`;
-
-  const { error } = await supabaseClient.storage
-    .from("yaka99-media")
-    .upload(path, file, {
-      contentType: file.type,
-      upsert: false
+    document.querySelectorAll(".page").forEach((section) => {
+      section.classList.add("hidden");
     });
 
-  if (error) throw error;
+    $(page).classList.remove("hidden");
 
-  const { data } = supabaseClient.storage
-    .from("yaka99-media")
-    .getPublicUrl(path);
-
-  return data.publicUrl;
-}
-
-async function saveProfile() {
-  return runBusy("saveProfileBtn", async () => {
-    if (!requireUser()) return;
-
-    const username = $("profileUsernameInput")?.value.trim().toLowerCase();
-    const displayName = $("profileNameInput")?.value.trim();
-    const location = $("profileLocationInput")?.value.trim();
-    const bio = $("profileBioInput")?.value.trim();
-
-    if (!/^[a-z0-9_]{3,24}$/.test(username || "")) {
-      throw new Error("Nombre de usuario inválido.");
-    }
-
-    let avatarUrl = state.profile?.avatar_url || "";
-    const file = $("profileAvatarInput")?.files?.[0];
-
-    if (file) {
-      avatarUrl = await uploadImage(file, "avatars");
-    }
-
-    const profileData = {
-      id: state.user.id,
-      username,
-      display_name: displayName,
-      location,
-      bio,
-      avatar_url: avatarUrl,
-      updated_at: new Date().toISOString()
-    };
-
-    const { data, error } = await supabaseClient
-      .from("yaka99_profiles")
-      .upsert(profileData, { onConflict: "id" })
-      .select()
-      .single();
-
-    if (error) throw error;
-
-    state.profile = data;
-    fillProfileForm();
-    updateAccountUI();
-
-    toast("Perfil actualizado.", "success");
+    document.querySelectorAll("[data-page]").forEach((item) => {
+      item.classList.toggle("active", item === button);
+    });
   });
-}
+});
 
-/* ---------- PUBLICACIONES ---------- */
+/* GUARDAR PERFIL */
+$("profileForm").addEventListener("submit", async (event) => {
+  event.preventDefault();
 
-function renderPost(post) {
-  const author = post.yaka99_profiles || {};
-  const name = author.display_name || author.username || "Usuario";
-  const avatar = author.avatar_url || "";
-  const image = post.image_url || "";
+  if (!currentUser) return;
 
-  return `
-    <article class="post-card" data-post-id="${escapeHTML(post.id)}">
-      <div class="post-author">
-        <img class="avatar" src="${escapeHTML(avatar)}" alt="">
-        <div>
-          <strong>${escapeHTML(name)}</strong>
-          <small>${escapeHTML(formatDate(post.created_at))}</small>
-        </div>
-      </div>
-      <p class="post-content">${escapeHTML(post.content || "")}</p>
-      ${image ? `<img class="post-image" src="${escapeHTML(image)}" alt="Imagen de publicación">` : ""}
-      <div class="post-actions">
-        <button type="button" data-action="like" data-id="${escapeHTML(post.id)}">♥ Me gusta</button>
-        <button type="button" data-action="comment" data-id="${escapeHTML(post.id)}">Comentar</button>
-        <button type="button" data-action="save" data-id="${escapeHTML(post.id)}">Guardar</button>
-        ${post.user_id === state.user?.id
-          ? `<button type="button" data-action="delete" data-id="${escapeHTML(post.id)}">Eliminar</button>`
-          : ""}
-      </div>
-      <div class="comment-area" id="comments-${escapeHTML(post.id)}"></div>
-    </article>
-  `;
-}
+  const displayName = $("profileName").value.trim();
+  const bio = $("profileBio").value.trim();
 
-async function loadFeed() {
-  if (!state.user) return;
-
-  const { data, error } = await supabaseClient
-    .from("yaka99_posts")
-    .select("*, yaka99_profiles(display_name,username,avatar_url)")
-    .order("created_at", { ascending: false })
-    .limit(40);
-
-  if (error) throw error;
-
-  state.posts = data || [];
-
-  const html = state.posts.map(renderPost).join("") ||
-    '<p class="empty-state">Todavía no hay publicaciones.</p>';
-
-  ["feedList", "homeFeed"].forEach(id => {
-    const element = $(id);
-    if (element) element.innerHTML = html;
-  });
-}
-
-async function loadHome() {
-  await loadFeed();
-}
-
-async function publishPost() {
-  return runBusy("publishPostBtn", async () => {
-    if (!requireUser()) return;
-
-    const content = $("postText")?.value.trim() || "";
-    const file = $("postImage")?.files?.[0];
-
-    if (!content && !file) {
-      throw new Error("Escribí algo o seleccioná una imagen.");
-    }
-
-    let imageUrl = null;
-    if (file) imageUrl = await uploadImage(file, "posts");
-
-    const { error } = await supabaseClient
-      .from("yaka99_posts")
-      .insert({
-        user_id: state.user.id,
-        content,
-        image_url: imageUrl
-      });
-
-    if (error) throw error;
-
-    if ($("postText")) $("postText").value = "";
-    if ($("postImage")) $("postImage").value = "";
-    setText("postImageName", "");
-
-    await loadFeed();
-    toast("Publicación compartida.", "success");
-  });
-}
-
-async function toggleLike(postId) {
-  if (!requireUser()) return;
-
-  const { data: existing, error: findError } = await supabaseClient
-    .from("yaka99_post_likes")
-    .select("id")
-    .eq("post_id", postId)
-    .eq("user_id", state.user.id)
-    .maybeSingle();
-
-  if (findError) throw findError;
-
-  if (existing) {
-    const { error } = await supabaseClient
-      .from("yaka99_post_likes")
-      .delete()
-      .eq("id", existing.id);
-
-    if (error) throw error;
-  } else {
-    const { error } = await supabaseClient
-      .from("yaka99_post_likes")
-      .insert({ post_id: postId, user_id: state.user.id });
-
-    if (error) throw error;
+  if (displayName.length < 2) {
+    showMessage("profileMessage", "El nombre es demasiado corto.", "error");
+    return;
   }
 
-  toast(existing ? "Me gusta eliminado." : "Te gusta esta publicación.");
+  const { error } = await db
+    .from("yaka99_profiles")
+    .upsert({
+      user_id: currentUser.id,
+      display_name: displayName,
+      bio,
+      updated_at: new Date().toISOString()
+    }, {
+      onConflict: "user_id"
+    });
+
+  if (error) {
+    showMessage("profileMessage", error.message, "error");
+    return;
+  }
+
+  currentProfile = { display_name: displayName, bio };
+  $("welcomeName").textContent = displayName;
+  $("userAvatar").textContent = displayName.charAt(0).toUpperCase();
+
+  showMessage("profileMessage", "Perfil actualizado correctamente.");
+});
+      </script><script>
+/* PUBLICACIONES */
+
+async function loadPosts() {
+  if (!currentUser) return;
+
+  const container = $("postsContainer");
+  container.textContent = "Cargando publicaciones...";
+
+  const { data, error } = await db
+    .from("yaka99_posts")
+    .select("id,user_id,content,created_at")
+    .order("created_at", { ascending: false })
+    .limit(50);
+
+  if (error) {
+    container.textContent = "No se pudieron cargar las publicaciones.";
+    console.error(error);
+    return;
+  }
+
+  container.replaceChildren();
+
+  if (!data || data.length === 0) {
+    const empty = document.createElement("p");
+    empty.className = "muted";
+    empty.textContent = "Todavía no hay publicaciones.";
+    container.appendChild(empty);
+    return;
+  }
+
+  data.forEach((post) => {
+    const article = document.createElement("article");
+    article.className = "post";
+
+    const content = document.createElement("p");
+    content.textContent = post.content;
+
+    const meta = document.createElement("div");
+    meta.className = "post-meta";
+    meta.textContent =
+      "Publicado: " +
+      new Date(post.created_at).toLocaleString("es-PY");
+
+    article.append(meta, content);
+
+    if (
+      post.user_id === currentUser.id ||
+      currentRole === "founder" ||
+      currentRole === "admin"
+    ) {
+      const deleteButton = document.createElement("button");
+      deleteButton.type = "button";
+      deleteButton.className = "btn danger";
+      deleteButton.textContent = "Eliminar";
+
+      deleteButton.addEventListener("click", () => {
+        deletePost(post.id);
+      });
+
+      article.appendChild(deleteButton);
+    }
+
+    container.appendChild(article);
+  });
 }
+
+/* CREAR PUBLICACIÓN */
+
+$("postForm").addEventListener("submit", async (event) => {
+  event.preventDefault();
+
+  if (!currentUser) return;
+
+  const content = $("postContent").value.trim();
+
+  if (!content) {
+    showMessage("feedMessage", "Escribí algo antes de publicar.", "error");
+    return;
+  }
+
+  const { error } = await db
+    .from("yaka99_posts")
+    .insert({
+      user_id: currentUser.id,
+      content
+    });
+
+  if (error) {
+    showMessage("feedMessage", error.message, "error");
+    return;
+  }
+
+  $("postContent").value = "";
+  showMessage("feedMessage", "Publicación creada correctamente.");
+  await loadPosts();
+});
+
+/* ELIMINAR PUBLICACIÓN */
 
 async function deletePost(postId) {
-  if (!requireUser()) return;
-  if (!confirm("¿Eliminar esta publicación?")) return;
+  if (!currentUser) return;
 
-  const { error } = await supabaseClient
+  if (!confirm("¿Querés eliminar esta publicación?")) return;
+
+  const { error } = await db
     .from("yaka99_posts")
     .delete()
-    .eq("id", postId)
-    .eq("user_id", state.user.id);
+    .eq("id", postId);
 
-  if (error) throw error;
-
-  await loadFeed();
-  toast("Publicación eliminada.", "success");
-}
-
-async function toggleBookmark(postId) {
-  if (!requireUser()) return;
-
-  const { data: existing, error: findError } = await supabaseClient
-    .from("yaka99_bookmarks")
-    .select("id")
-    .eq("post_id", postId)
-    .eq("user_id", state.user.id)
-    .maybeSingle();
-
-  if (findError) throw findError;
-
-  if (existing) {
-    const { error } = await supabaseClient
-      .from("yaka99_bookmarks")
-      .delete()
-      .eq("id", existing.id);
-
-    if (error) throw error;
-  } else {
-    const { error } = await supabaseClient
-      .from("yaka99_bookmarks")
-      .insert({ post_id: postId, user_id: state.user.id });
-
-    if (error) throw error;
-  }
-
-  toast(existing ? "Quitado de guardados." : "Publicación guardada.");
-}
-
-async function addComment(postId) {
-  if (!requireUser()) return;
-
-  const content = prompt("Escribí tu comentario:");
-  if (!content?.trim()) return;
-
-  const { error } = await supabaseClient
-    .from("yaka99_post_comments")
-    .insert({
-      post_id: postId,
-      user_id: state.user.id,
-      content: content.trim()
-    });
-
-  if (error) throw error;
-
-  toast("Comentario publicado.", "success");
-}
-
-/* ---------- HISTORIAS ---------- */
-
-async function loadStories() {
-  if (!state.user) return;
-
-  const { data, error } = await supabaseClient
-    .from("yaka99_stories")
-    .select("*, yaka99_profiles(display_name,username,avatar_url)")
-    .gt("expires_at", new Date().toISOString())
-    .order("created_at", { ascending: false })
-    .limit(60);
-
-  if (error) throw error;
-
-  const container = $("storiesStrip");
-  if (!container) return;
-
-  container.innerHTML = (data || []).map(story => {
-    const profile = story.yaka99_profiles || {};
-    const name = profile.display_name || profile.username || "Usuario";
-
-    return `
-      <button class="story-item" type="button" data-story-id="${escapeHTML(story.id)}">
-        <img src="${escapeHTML(profile.avatar_url || "")}" alt="">
-        <span>${escapeHTML(name)}</span>
-      </button>
-    `;
-  }).join("") || '<p class="empty-state">Todavía no hay historias.</p>';
-}
-
-async function publishStory() {
-  return runBusy("publishStoryBtn", async () => {
-    if (!requireUser()) return;
-
-    const file = $("storyImage")?.files?.[0];
-    const text = $("storyText")?.value.trim() || "";
-
-    if (!file && !text) {
-      throw new Error("Agregá texto o una imagen.");
-    }
-
-    let imageUrl = null;
-    if (file) imageUrl = await uploadImage(file, "stories");
-
-    const expiresAt = new Date(Date.now() + 24 * 60 * 60 * 1000).toISOString();
-
-    const { error } = await supabaseClient
-      .from("yaka99_stories")
-      .insert({
-        user_id: state.user.id,
-        content: text,
-        image_url: imageUrl,
-        expires_at: expiresAt
-      });
-
-    if (error) throw error;
-
-    if ($("storyText")) $("storyText").value = "";
-    if ($("storyImage")) $("storyImage").value = "";
-    setText("storyImageName", "");
-
-    await loadStories();
-    toast("Historia publicada.", "success");
-  });
-}
-
-async function openStory(storyId) {
-  const { data, error } = await supabaseClient
-    .from("yaka99_stories")
-    .select("*, yaka99_profiles(display_name,username,avatar_url)")
-    .eq("id", storyId)
-    .single();
-
-  if (error) throw error;
-
-  const profile = data.yaka99_profiles || {};
-  const content = $("storyModalContent");
-
-  if (content) {
-    content.innerHTML = `
-      <h3>${escapeHTML(profile.display_name || profile.username || "Usuario")}</h3>
-      <p>${escapeHTML(data.content || "")}</p>
-      ${data.image_url ? `<img class="story-image" src="${escapeHTML(data.image_url)}" alt="Historia">` : ""}
-      <small>${escapeHTML(formatDate(data.created_at))}</small>
-    `;
-  }
-
-  openModal("storyModal");
-
-  if (data.user_id !== state.user.id) {
-    await supabaseClient.from("yaka99_story_views").upsert({
-      story_id: storyId,
-      user_id: state.user.id
-    });
-  }
-}
-
-/* ---------- EXPLORAR PERSONAS ---------- */
-
-async function searchPeople() {
-  if (!state.user) return;
-
-  const term = $("searchPeople")?.value.trim();
-  if (!term) return;
-
-  const safeTerm = term.replace(/[,%()]/g, "");
-
-  const { data, error } = await supabaseClient
-    .from("yaka99_profiles")
-    .select("id,username,display_name,avatar_url,bio")
-    .neq("id", state.user.id)
-    .ilike("username", `%${safeTerm}%`)
-    .limit(30);
-
-  if (error) throw error;
-
-  const container = $("searchResults");
-  if (!container) return;
-
-  container.innerHTML = (data || []).map(person => `
-    <div class="user-result">
-      <img class="avatar" src="${escapeHTML(person.avatar_url || "")}" alt="">
-      <div>
-        <strong>${escapeHTML(person.display_name || person.username)}</strong>
-        <small>@${escapeHTML(person.username || "")}</small>
-      </div>
-      <button type="button" data-action="profile" data-id="${escapeHTML(person.id)}">Ver perfil</button>
-    </div>
-  `).join("") || '<p>No se encontraron usuarios.</p>';
-}
-
-async function openUserProfile(userId) {
-  const { data, error } = await supabaseClient
-    .from("yaka99_profiles")
-    .select("*")
-    .eq("id", userId)
-    .single();
-
-  if (error) throw error;
-
-  state.activeProfileId = userId;
-
-  const container = $("userModalContent");
-  if (container) {
-    container.innerHTML = `
-      <div class="profile-header">
-        <img class="avatar avatar-xl" src="${escapeHTML(data.avatar_url || "")}" alt="">
-        <div>
-          <h3>${escapeHTML(data.display_name || data.username || "Usuario")}</h3>
-          <p>@${escapeHTML(data.username || "")}</p>
-        </div>
-      </div>
-      <p>${escapeHTML(data.bio || "")}</p>
-      <p>${escapeHTML(data.location || "")}</p>
-      <button type="button" data-action="follow" data-id="${escapeHTML(userId)}">Seguir / Dejar de seguir</button>
-      <button type="button" data-action="block" data-id="${escapeHTML(userId)}">Bloquear usuario</button>
-      <button type="button" data-action="report-user" data-id="${escapeHTML(userId)}">Reportar usuario</button>
-    `;
-  }
-
-  openModal("userModal");
-}
-
-/* La Parte 5 continúa con mensajes, notificaciones,
-   Founder Center, moderación, eventos e inicialización. */
-</script><script>
-/* ==========================================
-   YAKA99 CONNECT - MENSAJES Y NOTIFICACIONES
-   ========================================== */
-
-/* ---------- MENSAJES ---------- */
-
-function conversationKey(a, b) {
-  return [a, b].sort().join("_");
-}
-
-async function loadContacts() {
-  if (!state.user) return;
-
-  const { data, error } = await supabaseClient
-    .from("yaka99_messages")
-    .select("sender_id,recipient_id,body,created_at")
-    .or(`sender_id.eq.${state.user.id},recipient_id.eq.${state.user.id}`)
-    .order("created_at", { ascending: false })
-    .limit(100);
-
-  if (error) throw error;
-
-  const ids = new Set();
-
-  (data || []).forEach(message => {
-    const other = message.sender_id === state.user.id
-      ? message.recipient_id
-      : message.sender_id;
-
-    if (other && other !== state.user.id) ids.add(other);
-  });
-
-  if (!ids.size) {
-    state.contacts = [];
-    renderContacts([]);
+  if (error) {
+    showMessage("feedMessage", error.message, "error");
     return;
   }
 
-  const { data: profiles, error: profileError } = await supabaseClient
-    .from("yaka99_profiles")
-    .select("id,username,display_name,avatar_url")
-    .in("id", [...ids]);
-
-  if (profileError) throw profileError;
-
-  state.contacts = profiles || [];
-  renderContacts(state.contacts);
+  showMessage("feedMessage", "Publicación eliminada.");
+  await loadPosts();
 }
 
-function renderContacts(contacts) {
-  const container = $("contactList");
-  if (!container) return;
+/* ADMINISTRACIÓN: SOLO FOUNDER */
 
-  container.innerHTML = contacts.map(person => `
-    <button class="contact-item" type="button"
-      data-action="conversation" data-id="${escapeHTML(person.id)}">
-      <img class="avatar" src="${escapeHTML(person.avatar_url || "")}" alt="">
-      <span>${escapeHTML(person.display_name || person.username || "Usuario")}</span>
-    </button>
-  `).join("") || '<p class="empty-state">Todavía no tenés conversaciones.</p>';
-}
+$("adminForm").addEventListener("submit", async (event) => {
+  event.preventDefault();
 
-async function openConversation(userId) {
-  if (!requireUser() || userId === state.user.id) return;
-
-  state.activeConversation = userId;
-
-  const person = state.contacts.find(item => item.id === userId);
-
-  setText(
-    "chatTitle",
-    person?.display_name || person?.username || "Conversación"
-  );
-
-  showView("messages");
-  await loadMessages();
-}
-
-async function loadMessages() {
-  if (!state.user || !state.activeConversation) return;
-
-  const otherId = state.activeConversation;
-
-  const { data, error } = await supabaseClient
-    .from("yaka99_messages")
-    .select("*")
-    .or(
-      `and(sender_id.eq.${state.user.id},recipient_id.eq.${otherId}),and(sender_id.eq.${otherId},recipient_id.eq.${state.user.id})`
-    )
-    .order("created_at", { ascending: true })
-    .limit(100);
-
-  if (error) throw error;
-
-  const container = $("messagesList");
-  if (!container) return;
-
-  container.innerHTML = (data || []).map(message => `
-    <div class="message ${message.sender_id === state.user.id ? "message-own" : "message-other"}">
-      <p>${escapeHTML(message.body || "")}</p>
-      <small>${escapeHTML(formatDate(message.created_at))}</small>
-    </div>
-  `).join("") || '<p class="empty-state">Iniciá la conversación.</p>';
-
-  container.scrollTop = container.scrollHeight;
-
-  await supabaseClient
-    .from("yaka99_messages")
-    .update({ read_at: new Date().toISOString() })
-    .eq("sender_id", otherId)
-    .eq("recipient_id", state.user.id)
-    .is("read_at", null);
-}
-
-async function sendMessage() {
-  return runBusy("sendMessageBtn", async () => {
-    if (!requireUser()) return;
-
-    const recipient = state.activeConversation;
-    const body = $("messageText")?.value.trim();
-
-    if (!recipient) throw new Error("Elegí una conversación.");
-    if (!body) return;
-
-    const { error } = await supabaseClient
-      .from("yaka99_messages")
-      .insert({
-        conversation_key: conversationKey(state.user.id, recipient),
-        sender_id: state.user.id,
-        recipient_id: recipient,
-        body
-      });
-
-    if (error) throw error;
-
-    $("messageText").value = "";
-    await loadMessages();
-  });
-}
-
-/* ---------- NOTIFICACIONES ---------- */
-
-async function loadNotifications() {
-  if (!state.user) return;
-
-  const { data, error } = await supabaseClient
-    .from("yaka99_notifications")
-    .select("*")
-    .eq("user_id", state.user.id)
-    .order("created_at", { ascending: false })
-    .limit(60);
-
-  if (error) throw error;
-
-  const container = $("notificationsList");
-  if (container) {
-    container.innerHTML = (data || []).map(notification => `
-      <div class="notification-item ${notification.read_at ? "" : "unread"}">
-        <p>${escapeHTML(notification.content || notification.message || "Nueva notificación")}</p>
-        <small>${escapeHTML(formatDate(notification.created_at))}</small>
-      </div>
-    `).join("") || '<p class="empty-state">No tenés notificaciones.</p>';
-  }
-
-  const unread = (data || []).filter(item => !item.read_at).length;
-  setText("notificationCount", unread ? String(unread) : "");
-}
-
-async function markAllNotificationsRead() {
-  if (!requireUser()) return;
-
-  const { error } = await supabaseClient
-    .from("yaka99_notifications")
-    .update({ read_at: new Date().toISOString() })
-    .eq("user_id", state.user.id)
-    .is("read_at", null);
-
-  if (error) throw error;
-
-  await loadNotifications();
-  toast("Notificaciones marcadas como leídas.");
-}
-
-/* ---------- PUBLICACIONES GUARDADAS ---------- */
-
-async function loadSaved() {
-  if (!state.user) return;
-
-  const { data, error } = await supabaseClient
-    .from("yaka99_bookmarks")
-    .select("post_id")
-    .eq("user_id", state.user.id)
-    .order("created_at", { ascending: false });
-
-  if (error) throw error;
-
-  const ids = (data || []).map(item => item.post_id);
-  const container = $("savedFeed");
-  if (!container) return;
-
-  if (!ids.length) {
-    container.innerHTML = '<p class="empty-state">Todavía no guardaste publicaciones.</p>';
+  if (!currentUser || currentRole !== "founder") {
+    showMessage("adminMessage", "Acceso denegado.", "error");
     return;
   }
 
-  const { data: posts, error: postsError } = await supabaseClient
-    .from("yaka99_posts")
-    .select("*, yaka99_profiles(display_name,username,avatar_url)")
-    .in("id", ids);
+  const email = $("adminEmail").value.trim().toLowerCase();
+  const action = $("adminAction").value;
 
-  if (postsError) throw postsError;
+  if (!email) {
+    showMessage("adminMessage", "Ingresá un correo válido.", "error");
+    return;
+  }
 
-  const order = new Map(ids.map((id, index) => [id, index]));
-  const sorted = (posts || []).sort(
-    (a, b) => (order.get(a.id) ?? 999) - (order.get(b.id) ?? 999)
+  showMessage(
+    "adminMessage",
+    "La administración de roles requiere una función segura del servidor. No se modificó ningún rol.",
+    "error"
   );
+});
 
-  container.innerHTML = sorted.map(renderPost).join("") ||
-    '<p class="empty-state">No hay publicaciones disponibles.</p>';
-}
+/* PROTECCIÓN DE SESIÓN Y ARRANQUE */
 
-/* ---------- PERFIL Y SEGUIDORES ---------- */
+async function startApplication() {
+  try {
+    setConnection("● CONECTANDO");
 
-async function loadMyPosts() {
-  if (!state.user) return;
-
-  const { data, error } = await supabaseClient
-    .from("yaka99_posts")
-    .select("*, yaka99_profiles(display_name,username,avatar_url)")
-    .eq("user_id", state.user.id)
-    .order("created_at", { ascending: false })
-    .limit(40);
-
-  if (error) throw error;
-
-  const container = $("myPostsList");
-  if (container) {
-    container.innerHTML = (data || []).map(renderPost).join("") ||
-      '<p class="empty-state">Todavía no publicaste nada.</p>';
-  }
-
-  setText("profilePostsCount", String(data?.length || 0));
-}
-
-async function loadProfileStats() {
-  if (!state.user) return;
-
-  const [followers, following] = await Promise.all([
-    supabaseClient.from("yaka99_follows")
-      .select("id", { count: "exact", head: true })
-      .eq("following_id", state.user.id),
-
-    supabaseClient.from("yaka99_follows")
-      .select("id", { count: "exact", head: true })
-      .eq("follower_id", state.user.id)
-  ]);
-
-  if (followers.error) throw followers.error;
-  if (following.error) throw following.error;
-
-  setText("profileFollowersCount", String(followers.count || 0));
-  setText("profileFollowingCount", String(following.count || 0));
-}
-
-async function toggleFollow(userId) {
-  if (!requireUser() || userId === state.user.id) return;
-
-  const { data: existing, error: findError } = await supabaseClient
-    .from("yaka99_follows")
-    .select("id")
-    .eq("follower_id", state.user.id)
-    .eq("following_id", userId)
-    .maybeSingle();
-
-  if (findError) throw findError;
-
-  if (existing) {
-    const { error } = await supabaseClient
-      .from("yaka99_follows")
-      .delete()
-      .eq("id", existing.id);
-
-    if (error) throw error;
-    toast("Dejaste de seguir a este usuario.");
-  } else {
-    const { error } = await supabaseClient
-      .from("yaka99_follows")
-      .insert({
-        follower_id: state.user.id,
-        following_id: userId
-      });
-
-    if (error) throw error;
-    toast("Ahora seguís a este usuario.");
-  }
-
-  await loadProfileStats();
-}
-
-async function blockUser(userId) {
-  if (!requireUser() || userId === state.user.id) return;
-  if (!confirm("¿Bloquear a este usuario?")) return;
-
-  const { error } = await supabaseClient
-    .from("yaka99_blocks")
-    .upsert({
-      blocker_id: state.user.id,
-      blocked_id: userId
-    }, {
-      onConflict: "blocker_id,blocked_id"
-    });
-
-  if (error) throw error;
-
-  closeModal("userModal");
-  toast("Usuario bloqueado.");
-}
-
-async function reportTarget(targetType, targetId) {
-  if (!requireUser()) return;
-
-  const reason = prompt("¿Cuál es el motivo del reporte?");
-  if (!reason?.trim()) return;
-
-  const { error } = await supabaseClient
-    .from("yaka99_reports")
-    .insert({
-      reporter_id: state.user.id,
-      target_type: targetType,
-      target_id: targetId,
-      reason: reason.trim(),
-      status: "pending"
-    });
-
-  if (error) throw error;
-
-  toast("Reporte enviado. Gracias por informar.", "success");
-}
-
-/* ---------- FOUNDER CENTER ---------- */
-
-async function loadFounder() {
-  if (state.role !== "founder") {
-    throw new Error("Acceso exclusivo del Founder.");
-  }
-
-  const { data: overview, error: overviewError } =
-    await supabaseClient.rpc("yaka99_founder_overview");
-
-  if (overviewError) throw overviewError;
-
-  const stats = Array.isArray(overview) ? overview[0] : overview || {};
-
-  setText("founderUsersCount", stats.users_count ?? stats.total_users ?? 0);
-  setText("founderPostsCount", stats.posts_count ?? stats.total_posts ?? 0);
-  setText("founderReportsCount", stats.pending_reports ?? 0);
-  setText("founderAdminsCount", stats.admins_count ?? 0);
-
-  const { data: roles, error: rolesError } = await supabaseClient
-    .from("yaka99_user_roles")
-    .select("user_id,role")
-    .order("role");
-
-  if (rolesError) throw rolesError;
-
-  const { data: profiles, error: profilesError } = await supabaseClient
-    .from("yaka99_profiles")
-    .select("id,username,display_name");
-
-  if (profilesError) throw profilesError;
-
-  state.founderUsers = (profiles || []).map(profile => ({
-    ...profile,
-    role: roles?.find(role => role.user_id === profile.id)?.role || "user"
-  }));
-
-  renderFounderUsers();
-  await loadFounderReports();
-
-  setText("founderSecurityStatus", "Sesión Founder verificada. La protección definitiva depende de las reglas SQL del servidor.");
-}
-
-function renderFounderUsers() {
-  const container = $("founderUsersTable");
-  if (!container) return;
-
-  const term = $("founderUserSearch")?.value.trim().toLowerCase() || "";
-
-  const users = state.founderUsers.filter(user =>
-    `${user.username || ""} ${user.display_name || ""}`.toLowerCase().includes(term)
-  );
-
-  container.innerHTML = users.map(user => {
-    const isProtected = user.role === "founder";
-
-    return `
-      <tr>
-        <td>
-          <strong>${escapeHTML(user.display_name || user.username || "Usuario")}</strong>
-          <small>@${escapeHTML(user.username || "")}</small>
-        </td>
-        <td>${escapeHTML(user.role)}</td>
-        <td>
-          ${isProtected
-            ? '<span>Protegido</span>'
-            : `<select data-role-select="${escapeHTML(user.id)}">
-                <option value="user" ${user.role === "user" ? "selected" : ""}>Usuario</option>
-                <option value="admin" ${user.role === "admin" ? "selected" : ""}>Administrador</option>
-              </select>
-              <button type="button" data-action="change-role" data-id="${escapeHTML(user.id)}">Guardar</button>`
-          }
-        </td>
-      </tr>
-    `;
-  }).join("") || '<tr><td colspan="3">No hay usuarios.</td></tr>';
-}
-
-async function assignRole(userId, newRole) {
-  if (state.role !== "founder") {
-    throw new Error("Solo el Founder puede cambiar roles.");
-  }
-
-  if (!["user", "admin"].includes(newRole)) {
-    throw new Error("Rol no permitido.");
-  }
-
-  const target = state.founderUsers.find(user => user.id === userId);
-
-  if (!target || target.role === "founder") {
-    throw new Error("No se puede modificar la cuenta Founder.");
-  }
-
-  if (!confirm(`¿Asignar el rol ${newRole} a este usuario?`)) return;
-
-  const { error } = await supabaseClient.rpc("yaka99_set_user_role", {
-    target_user_id: userId,
-    new_role: newRole
-  });
-
-  if (error) throw error;
-
-  toast("Rol actualizado.", "success");
-  await loadFounder();
-}
-
-async function loadFounderReports() {
-  if (state.role !== "founder") return;
-
-  const { data, error } = await supabaseClient
-    .from("yaka99_reports")
-    .select("*")
-    .order("created_at", { ascending: false })
-    .limit(40);
-
-  if (error) throw error;
-
-  state.founderReports = data || [];
-  renderReports("founderReportsList", state.founderReports, true);
-  renderReports("adminReportsList", state.founderReports, false);
-}
-
-function renderReports(containerId, reports, canManage) {
-  const container = $(containerId);
-  if (!container) return;
-
-  container.innerHTML = reports.map(report => `
-    <div class="report-item">
-      <strong>${escapeHTML(report.target_type || "Reporte")}</strong>
-      <p>${escapeHTML(report.reason || "")}</p>
-      <small>Estado: ${escapeHTML(report.status || "pending")}</small>
-      ${canManage && report.status === "pending"
-        ? `<button type="button" data-action="resolve-report" data-id="${escapeHTML(report.id)}">Resolver</button>`
-        : ""}
-    </div>
-  `).join("") || '<p class="empty-state">No hay reportes.</p>';
-}
-
-async function setReportStatus(reportId, status) {
-  if (state.role !== "founder") {
-    throw new Error("Solo el Founder puede gestionar reportes.");
-  }
-
-  const { error } = await supabaseClient.rpc("yaka99_set_report_status", {
-    target_report_id: reportId,
-    new_status: status
-  });
-
-  if (error) throw error;
-
-  toast("Reporte actualizado.");
-  await loadFounderReports();
-}
-
-/* ---------- ADMIN CENTER ---------- */
-
-async function loadAdmin() {
-  if (!["admin", "founder"].includes(state.role)) {
-    throw new Error("No tenés permisos administrativos.");
-  }
-
-  setText("adminStatus", "Permisos de administrador verificados.");
-
-  if (state.role === "founder") {
-    await loadFounderReports();
-  } else {
-    const { data, error } = await supabaseClient
-      .from("yaka99_reports")
-      .select("*")
-      .order("created_at", { ascending: false })
-      .limit(40);
+    const { data, error } = await db.auth.getSession();
 
     if (error) throw error;
 
-    renderReports("adminReportsList", data || [], false);
-  }
-}
-
-/* ---------- REALTIME ---------- */
-
-async function clearRealtime() {
-  const channels = [...state.realtimeChannels];
-  state.realtimeChannels = [];
-
-  await Promise.allSettled(
-    channels.map(channel => supabaseClient.removeChannel(channel))
-  );
-}
-
-async function setupRealtime() {
-  if (!state.user) return;
-
-  await clearRealtime();
-
-  const userId = state.user.id;
-
-  const notificationsChannel = supabaseClient
-    .channel("yaka99-notifications-" + userId)
-    .on("postgres_changes", {
-      event: "*",
-      schema: "public",
-      table: "yaka99_notifications",
-      filter: `user_id=eq.${userId}`
-    }, () => {
-      loadNotifications().catch(console.error);
-    })
-    .subscribe();
-
-  const messagesChannel = supabaseClient
-    .channel("yaka99-messages-" + userId)
-    .on("postgres_changes", {
-      event: "INSERT",
-      schema: "public",
-      table: "yaka99_messages",
-      filter: `recipient_id=eq.${userId}`
-    }, () => {
-      loadContacts().catch(console.error);
-
-      if (state.activeConversation) {
-        loadMessages().catch(console.error);
-      }
-    })
-    .subscribe();
-
-  const postsChannel = supabaseClient
-    .channel("yaka99-posts-" + userId)
-    .on("postgres_changes", {
-      event: "INSERT",
-      schema: "public",
-      table: "yaka99_posts"
-    }, () => {
-      if (["home", "feed"].includes(state.currentView)) {
-        loadFeed().catch(console.error);
-      }
-    })
-    .subscribe();
-
-  state.realtimeChannels = [
-    notificationsChannel,
-    messagesChannel,
-    postsChannel
-  ];
-}
-
-/* ---------- EVENTOS DE LA INTERFAZ ---------- */
-
-function bindClick(id, callback) {
-  const element = $(id);
-  if (element) {
-    element.addEventListener("click", () => {
-      Promise.resolve(callback()).catch(error => {
-        console.error(error);
-        toast(error.message || "No se pudo completar la operación.", "error");
-      });
-    });
-  }
-}
-
-function bindEvents() {
-  bindClick("registerBtn", signUp);
-  bindClick("signUpBtn", signUp);
-  bindClick("loginBtn", signIn);
-  bindClick("logoutBtn", signOut);
-  bindClick("signOutBtn", signOut);
-  bindClick("recoveryBtn", sendPasswordRecovery);
-  bindClick("updatePasswordBtn", updateRecoveredPassword);
-  bindClick("saveProfileBtn", saveProfile);
-  bindClick("publishPostBtn", publishPost);
-  bindClick("publishStoryBtn", publishStory);
-  bindClick("sendMessageBtn", sendMessage);
-  bindClick("markAllReadBtn", markAllNotificationsRead);
-  bindClick("reloadFounderBtn", loadFounder);
-
-  bindClick("closeStoryModalBtn", () => closeModal("storyModal"));
-  bindClick("closeUserModalBtn", () => closeModal("userModal"));
-
-  document.querySelectorAll("[data-view]").forEach(button => {
-    button.addEventListener("click", async () => {
-      const view = button.dataset.view;
-      showView(view);
-
-      try {
-        if (view === "saved") await loadSaved();
-        if (view === "profile") {
-          await Promise.all([loadMyPosts(), loadProfileStats()]);
-        }
-        if (view === "founder") await loadFounder();
-        if (view === "admin") await loadAdmin();
-        if (view === "messages") await loadContacts();
-      } catch (error) {
-        console.error(error);
-        toast(error.message || "No se pudo cargar esta sección.", "error");
-      }
-    });
-  });
-
-  document.addEventListener("click", async event => {
-    const button = event.target.closest("[data-action]");
-    if (!button) return;
-
-    const action = button.dataset.action;
-    const id = button.dataset.id;
-
-    try {
-      if (action === "like") await toggleLike(id);
-      if (action === "comment") await addComment(id);
-      if (action === "save") await toggleBookmark(id);
-      if (action === "delete") await deletePost(id);
-      if (action === "profile") await openUserProfile(id);
-      if (action === "follow") await toggleFollow(id);
-      if (action === "block") await blockUser(id);
-      if (action === "report-user") await reportTarget("user", id);
-      if (action === "conversation") await openConversation(id);
-      if (action === "story") await openStory(id);
-
-      if (action === "change-role") {
-        const select = document.querySelector(`[data-role-select="${CSS.escape(id)}"]`);
-        if (select) await assignRole(id, select.value);
-      }
-
-      if (action === "resolve-report") {
-        await setReportStatus(id, "resolved");
-      }
-
-    } catch (error) {
-      console.error(error);
-      toast(error.message || "No se pudo completar la acción.", "error");
+    if (data.session?.user) {
+      await initializeUser(data.session.user);
+    } else {
+      updateUI(null);
+      setConnection("● SIN SESIÓN");
     }
-  });
+  } catch (error) {
+    console.error("Error iniciando aplicación:", error);
+    setConnection("● ERROR DE CONEXIÓN");
+    showMessage(
+      "globalMessage",
+      "No se pudo conectar con Supabase. Revisá la configuración.",
+      "error"
+    );
+  }
+}
 
-  const search = $("searchPeople");
-  if (search) {
-    search.addEventListener("keydown", event => {
-      if (event.key === "Enter") {
-        searchPeople().catch(error => toast(error.message, "error"));
-      }
-    });
+db.auth.onAuthStateChange((event, session) => {
+  if (event === "SIGNED_OUT") {
+    currentUser = null;
+    currentRole = "user";
+    updateUI(null);
+    setConnection("● DESCONECTADO");
   }
 
-  const founderSearch = $("founderUserSearch");
-  if (founderSearch) {
-    founderSearch.addEventListener("input", renderFounderUsers);
+  if (event === "PASSWORD_RECOVERY") {
+    showMessage(
+      "globalMessage",
+      "Ingresá tu nueva contraseña desde el enlace recibido."
+    );
   }
+});
 
-  const contactSearch = $("contactSearch");
-  if (contactSearch) {
-    contactSearch.addEventListener("input", () => {
-      const term = contactSearch.value.trim().toLowerCase();
-      renderContacts(state.contacts.filter(person =>
-        `${person.username || ""} ${person.display_name || ""}`.toLowerCase().includes(term)
-      ));
-    });
-  }
-
-  const postImage = $("postImage");
-  if (postImage) {
-    postImage.addEven
+startApplication();
+    </script>
